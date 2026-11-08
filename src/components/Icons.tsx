@@ -1,0 +1,217 @@
+import type { ReactNode } from "react";
+
+interface IconProps {
+  className?: string;
+}
+
+function Base({ className, children, filled = false }: IconProps & { children: ReactNode; filled?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill={filled ? "currentColor" : "none"}
+      stroke={filled ? "none" : "currentColor"}
+      strokeWidth={1.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+
+export const Scales = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M12 3v18M8 21h8M4 7h16" />
+    <path d="M7 7l-3 6a3 3 0 0 0 6 0L7 7Z" />
+    <path d="M17 7l-3 6a3 3 0 0 0 6 0l-3-6Z" />
+  </Base>
+);
+
+export const Briefcase = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12.5h18M12 11v3" />
+  </Base>
+);
+
+export const Family = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="9" cy="7.5" r="3.2" />
+    <path d="M3.2 20a5.8 5.8 0 0 1 11.6 0" />
+    <circle cx="17" cy="9.5" r="2.5" />
+    <path d="M15.8 14.7a4.9 4.9 0 0 1 5 4.8" />
+  </Base>
+);
+
+export const Work = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="5" y="3" width="14" height="18" rx="2" />
+    <circle cx="12" cy="10" r="2.4" />
+    <path d="M8.4 17.2a3.6 3.6 0 0 1 7.2 0M10 3v1.5h4V3" />
+  </Base>
+);
+
+export const Gavel = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m14 13-8.5 8.5a2.12 2.12 0 1 1-3-3L11 10" />
+    <path d="m16 16 6-6M8 8l6-6M9 7l8 8M21 11l-8-8" />
+  </Base>
+);
+
+export const Handshake = (p: IconProps) => (
+  <Base {...p}>
+    <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+    <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+    <path d="m21 3 1 11h-2M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3M3 4h8" />
+  </Base>
+);
+
+export const Compass = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M15.5 8.5l-2 5-5 2 2-5 5-2Z" />
+  </Base>
+);
+
+export const Shield = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M12 3l7 3v5c0 4.6-3 8.1-7 10-4-1.9-7-5.4-7-10V6l7-3Z" />
+    <circle cx="12" cy="10" r="1.6" />
+    <path d="M12 11.6V14" />
+  </Base>
+);
+
+export const Phone = (p: IconProps) => (
+  <Base {...p}><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.7 2.05Z" /></Base>
+);
+
+export const Calendar = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="3" y="5" width="18" height="16" rx="2" />
+    <path d="M16 3v4M8 3v4M3 11h18m-13 5 2 2 5-5" />
+  </Base>
+);
+
+export const Mail = (p: IconProps) => (
+  <Base {...p}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7.5 9 6 9-6" /></Base>
+);
+
+export const MapPin = (p: IconProps) => (
+  <Base {...p}><path d="M20 10.4c0 5.8-8 11.6-8 11.6S4 16.2 4 10.4a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10.4" r="3" /></Base>
+);
+
+export const Clock = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </Base>
+);
+
+export const Send = (p: IconProps) => (
+  <Base {...p}><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" /></Base>
+);
+
+export const Check = (p: IconProps) => (
+  <Base {...p}><path d="m5 12.5 5 5L20 7" /></Base>
+);
+
+export const Plus = (p: IconProps) => (
+  <Base {...p}><path d="M12 5v14M5 12h14" /></Base>
+);
+
+export const Close = (p: IconProps) => (
+  <Base {...p}><path d="M6 6l12 12M18 6 6 18" /></Base>
+);
+
+export const Menu = (p: IconProps) => (
+  <Base {...p}><path d="M4 7h16M4 12h16M4 17h10" /></Base>
+);
+
+export const ArrowRight = (p: IconProps) => (
+  <Base {...p}><path d="M4 12h16M14 6l6 6-6 6" /></Base>
+);
+
+export const ArrowUpRight = (p: IconProps) => (
+  <Base {...p}><path d="M7 17 17 7M8 7h9v9" /></Base>
+);
+
+export const ChevronDown = (p: IconProps) => (
+  <Base {...p}><path d="m6 9 6 6 6-6" /></Base>
+);
+
+export const ChevronRight = (p: IconProps) => (
+  <Base {...p}><path d="m9 6 6 6-6 6" /></Base>
+);
+
+export const Quote = (p: IconProps) => (
+  <Base {...p} filled>
+    <path d="M10.2 6.5C6.7 7.7 4.5 10.4 4.5 14.2v3.3h5.6v-6.1H7.4c.3-1.7 1.4-2.9 3.4-3.6l-.6-1.3Z" />
+    <path d="M19.4 6.5c-3.5 1.2-5.7 3.9-5.7 7.7v3.3h5.6v-6.1h-2.7c.3-1.7 1.4-2.9 3.4-3.6l-.6-1.3Z" />
+  </Base>
+);
+
+export const FileText = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+    <path d="M14 3v5h5M9 13h6M9 17h6" />
+  </Base>
+);
+
+export const Lock = (p: IconProps) => (
+  <Base {...p}>
+    <rect x="5" y="11" width="14" height="9" rx="2" />
+    <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    <circle cx="12" cy="15.5" r="1.3" />
+  </Base>
+);
+
+export const Copy = (p: IconProps) => (
+  <Base {...p}><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></Base>
+);
+
+export const Globe = (p: IconProps) => (
+  <Base {...p}><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9Z" /></Base>
+);
+
+export const User = (p: IconProps) => (
+  <Base {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4.5 21a7.5 7.5 0 0 1 15 0" />
+  </Base>
+);
+
+export const Search = (p: IconProps) => (
+  <Base {...p}><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></Base>
+);
+
+export const WhatsApp = (p: IconProps) => (
+  <Base {...p} filled>
+    <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2-1.42.25-.7.25-1.29.18-1.42-.08-.12-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.45 9.88-9.9 9.88m8.42-18.3A11.8 11.8 0 0 0 12.04 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.6 5.95L.05 24l6.3-1.65a11.9 11.9 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.48-8.41" />
+  </Base>
+);
+
+export const LinkedIn = (p: IconProps) => (
+  <Base {...p} filled><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0Z" /></Base>
+);
+
+export const Facebook = (p: IconProps) => (
+  <Base {...p} filled><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.09 24 18.1 24 12.07Z" /></Base>
+);
+
+export const ICON_MAP = {
+  globe: Globe,
+  user: User,
+  briefcase: Briefcase,
+  family: Family,
+  work: Work,
+  gavel: Gavel,
+  handshake: Handshake,
+  compass: Compass,
+  shield: Shield,
+  scales: Scales,
+  lock: Lock,
+  file: FileText,
+  clock: Clock,
+} as const;
