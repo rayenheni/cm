@@ -1,6 +1,7 @@
+import { useArticleFeed } from '@/lib/useArticles';
 import { useMemo, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useArticles, useCabinet, useT } from "@/i18n";
+import { useCabinet, useT } from "@/i18n";
 import { useDocumentTitle } from "@/router";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard, CtaBand, PageHeader } from "@/components/Blocks";
@@ -18,7 +19,7 @@ const normalize = (s: string) =>
 export function ArticlesPage() {
   const t = useT();
   const cabinet = useCabinet();
-  const articles = useArticles();
+  const { articles, loading, error, refresh } = useArticleFeed();
   useDocumentTitle(t.articles.docTitle);
   const [category, setCategory] = useState(t.articles.all);
   const [query, setQuery] = useState("");
@@ -55,7 +56,7 @@ export function ArticlesPage() {
       <section className="py-20">
         <div className="container-x">
           <Reveal>
-            <div className="flex flex-col gap-5 rounded-2xl border border-sand-300 bg-cream-100/70 p-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-5 rounded-xl border border-sand-300 bg-white p-4 shadow-tile lg:flex-row lg:items-center lg:justify-between">
               <div className="flex flex-wrap gap-2" role="tablist" aria-label={t.articles.categoriesLabel}>
                 {categories.map((c) => (
                   <button
@@ -65,7 +66,7 @@ export function ArticlesPage() {
                     aria-selected={activeCategory === c}
                     onClick={() => setCategory(c)}
                     className={cn(
-                      "cursor-pointer rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-200",
+                      "cursor-pointer rounded-md px-4 py-2 text-[13px] font-medium transition-all duration-200",
                       activeCategory === c ? "bg-wine-600 text-cream-50 shadow-tile" : "text-ink-600 hover:bg-cream-50 hover:text-wine-700"
                     )}
                   >
@@ -84,20 +85,22 @@ export function ArticlesPage() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t.articles.searchPh}
                   aria-label={t.articles.searchLabel}
-                  className="field rounded-full! bg-cream-50! pl-11 rtl:pr-11 rtl:pl-4"
+                  className="field pl-11 rtl:pr-11 rtl:pl-4"
                 />
               </div>
             </div>
           </Reveal>
 
-          {filtered && (
+          {loading && <p className="mt-8" role="status">Chargement des articles…</p>}
+          {error && <div className="mt-8 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>Réessayer</button></div>}
+          {!loading && !error && filtered && (
             <p className="mt-6 text-sm text-ink-600">
               {t.articles.found(results.length)}
             </p>
           )}
 
-          {results.length === 0 ? (
-            <div className="panel-in mt-10 rounded-2xl border border-dashed border-sand-400 py-16 text-center">
+          {!loading && !error && results.length === 0 ? (
+            <div className="panel-in mt-10 rounded-lg border border-dashed border-sand-400 py-16 text-center">
               <p className="font-serif text-3xl font-semibold text-ink-900">{t.articles.emptyTitle}</p>
               <p className="mt-2 text-ink-600">{t.articles.emptyText}</p>
               <button

@@ -2,161 +2,93 @@ import { useState } from "react";
 import { logout } from "./AdminAuth";
 import { ArticlesManager } from "./ArticlesManager";
 import { ReservationsManager } from "./ReservationsManager";
+import { SettingsManager } from "./SettingsManager";
+import { Calendar, Close, FileText, Lock, LogOut, Menu } from "@/components/Icons";
+import { Monogram } from "@/components/Logo";
+import { cn } from "@/utils/cn";
+import { confirmNavigation, navigate, useRoute } from "@/router";
 
-type Tab = "articles" | "reservations";
-
-interface NavItem {
-  id: Tab;
-  label: string;
-  emoji: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { id: "articles", label: "Articles", emoji: "📝" },
-  { id: "reservations", label: "Réservations", emoji: "📅" },
+type Tab = "articles" | "reservations" | "settings";
+const NAV_ITEMS = [
+  { id: "articles" as const, label: "Articles", description: "Publications FR / AR", Icon: FileText },
+  { id: "reservations" as const, label: "Réservations", description: "Demandes de consultation", Icon: Calendar },
+  { id: "settings" as const, label: "Sécurité", description: "Compte et configuration", Icon: Lock },
 ];
 
 export function AdminShell() {
-  const [activeTab, setActiveTab] = useState<Tab>("articles");
+  const route = useRoute();
+  const activeTab: Tab = route.path === '/admin/reservations' ? 'reservations' : route.path === '/admin/settings' ? 'settings' : 'articles';
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
+  const current = NAV_ITEMS.find((item) => item.id === activeTab)!;
 
-  const handleLogout = () => {
-    logout();
-    window.location.reload();
+  const handleLogout = async () => {
+    if (!confirmNavigation()) return;
+    try { await logout(); window.dispatchEvent(new Event('cmcb-signed-out')); }
+    catch { setLogoutError("Déconnexion impossible. Vérifiez votre connexion et réessayez."); }
   };
 
   return (
-    <div className="flex min-h-screen bg-cream-50">
-      {/* ——— Mobile overlay ——— */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-20 bg-wine-950/60 backdrop-blur-sm lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* ——— Sidebar ——— */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-30 flex w-64 flex-col bg-wine-950 shadow-frame transition-transform duration-300 lg:static lg:translate-x-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        {/* Sidebar header */}
-        <div className="flex items-center gap-3 border-b border-wine-800/50 px-6 py-5">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gold-500/30 bg-wine-900">
-            <span className="font-serif text-lg font-bold text-gold-400">C</span>
-          </div>
+    <div className="flex min-h-screen bg-[#f6f3ec] text-ink-900">
+      {sidebarOpen && <button type="button" aria-label="Fermer le menu" className="fixed inset-0 z-20 bg-wine-950/50 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+      <aside className={cn("fixed inset-y-0 left-0 z-30 flex w-72 flex-col border-r border-wine-900 bg-wine-950 text-cream-100 transition-transform duration-200 lg:static lg:translate-x-0", sidebarOpen ? "translate-x-0" : "-translate-x-full")}>
+        <div className="flex items-center gap-3 border-b border-cream-50/10 px-6 py-6">
+          <Monogram className="h-11 w-11 shrink-0 rounded" />
           <div className="min-w-0">
-            <p className="text-[13px] font-semibold tracking-wide text-cream-50 truncate">Espace Admin</p>
-            <p className="text-[11px] text-gold-500/70 tracking-wider truncate">CMCB</p>
+            <p className="font-serif text-xl font-semibold tracking-wide text-cream-50">CMCB</p>
+            <p className="text-xs text-cream-200/65">Administration du cabinet</p>
           </div>
-          {/* Mobile close button */}
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(false)}
-            className="ml-auto cursor-pointer text-wine-500 hover:text-cream-100 lg:hidden"
-            aria-label="Fermer le menu"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <button type="button" onClick={() => setSidebarOpen(false)} className="ml-auto rounded-md p-2 text-cream-200/70 hover:bg-cream-50/10 hover:text-cream-50 lg:hidden" aria-label="Fermer le menu">
+            <Close className="h-5 w-5" />
           </button>
         </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4" aria-label="Navigation admin">
-          <ul className="space-y-1">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveTab(item.id);
-                    setSidebarOpen(false);
-                  }}
-                  className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                    activeTab === item.id
-                      ? "bg-wine-700/60 text-cream-50"
-                      : "text-wine-400 hover:bg-wine-900/60 hover:text-cream-100"
-                  }`}
-                  aria-current={activeTab === item.id ? "page" : undefined}
-                >
-                  <span className="text-base">{item.emoji}</span>
-                  {item.label}
+        <nav className="flex-1 overflow-y-auto px-4 py-6" aria-label="Navigation admin">
+          <p className="px-3 text-[11px] font-medium tracking-[0.14em] text-cream-200/45 uppercase">Gestion</p>
+          <ul className="mt-3 space-y-1">
+            {NAV_ITEMS.map(({ id, label, description, Icon }) => (
+              <li key={id}>
+                <button type="button" onClick={() => { navigate(id === 'articles' ? '/admin' : `/admin/${id}`); setSidebarOpen(false); }} aria-current={activeTab === id ? "page" : undefined} className={cn("flex w-full items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors", activeTab === id ? "border-gold-500/30 bg-cream-50/10 text-cream-50" : "border-transparent text-cream-200/70 hover:bg-cream-50/5 hover:text-cream-50")}>
+                  <Icon className={cn("h-5 w-5 shrink-0", activeTab === id ? "text-gold-400" : "text-cream-200/50")} />
+                  <span className="min-w-0">
+                    <span className="block text-sm font-medium">{label}</span>
+                    <span className="block truncate text-xs text-cream-200/50">{description}</span>
+                  </span>
                 </button>
               </li>
             ))}
           </ul>
         </nav>
-
-        {/* Sidebar footer — logout */}
-        <div className="border-t border-wine-800/50 p-4">
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="flex w-full cursor-pointer items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-medium text-wine-500 transition-colors hover:bg-wine-900/60 hover:text-red-400"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-            Déconnexion
+        <div className="border-t border-cream-50/10 p-4">
+          <a href="#/" className="mb-2 block rounded-lg px-3 py-2.5 text-sm text-cream-200/70 hover:bg-cream-50/5 hover:text-cream-50">Voir le site public</a>
+          <button type="button" onClick={() => void handleLogout()} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-cream-200/80 hover:bg-cream-50/5 hover:text-cream-50">
+            <LogOut className="h-4 w-4" /> Déconnexion
           </button>
         </div>
       </aside>
 
-      {/* ——— Main content ——— */}
-      <div className="flex flex-1 flex-col min-w-0">
-        {/* Top header */}
-        <header className="sticky top-0 z-10 flex items-center gap-4 border-b border-sand-300 bg-cream-50/95 px-5 py-4 backdrop-blur-sm sm:px-8">
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(true)}
-            className="cursor-pointer rounded-lg p-2 text-ink-600 hover:bg-cream-200 lg:hidden"
-            aria-label="Ouvrir le menu"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-
-          <h1 className="font-serif text-xl font-semibold text-wine-800 sm:text-2xl">
-            Espace Admin <span className="text-gold-500">CMCB</span>
-          </h1>
-
-          {/* Desktop tab pills */}
-          <div className="ml-auto hidden items-center gap-2 lg:flex">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setActiveTab(item.id)}
-                className={`cursor-pointer rounded-full px-4 py-1.5 text-[13px] font-medium transition-all duration-200 ${
-                  activeTab === item.id
-                    ? "bg-wine-600 text-cream-50"
-                    : "text-ink-600 hover:bg-cream-200"
-                }`}
-              >
-                {item.emoji} {item.label}
-              </button>
-            ))}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="sticky top-0 z-10 border-b border-sand-300 bg-white/95 px-5 py-4 backdrop-blur-sm sm:px-8">
+          <div className="flex items-center gap-4">
+            <button type="button" onClick={() => setSidebarOpen(true)} className="rounded-md border border-sand-300 p-2 text-ink-600 hover:bg-cream-100 lg:hidden" aria-label="Ouvrir le menu">
+              <Menu className="h-5 w-5" />
+            </button>
+            <div className="min-w-0">
+              <p className="text-[11px] font-medium tracking-[0.12em] text-ink-400 uppercase">Espace administrateur</p>
+              <h1 className="truncate font-serif text-2xl font-semibold text-wine-800">{current.label}</h1>
+            </div>
+            <div className="ml-auto hidden items-center gap-3 sm:flex">
+              <span className="rounded-md border border-sand-300 bg-cream-50 px-3 py-1.5 text-xs text-ink-600">Session sécurisée</span>
+              <button type="button" onClick={() => void handleLogout()} className="rounded-lg border border-sand-300 px-4 py-2 text-sm font-medium text-ink-600 hover:border-wine-600/40 hover:text-wine-700">Déconnexion</button>
+            </div>
           </div>
-
-          {/* Desktop logout */}
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="ml-4 hidden cursor-pointer rounded-full border border-sand-300 px-4 py-1.5 text-[13px] font-medium text-ink-600 transition-all hover:border-wine-600/40 hover:text-wine-700 lg:block"
-          >
-            Déconnexion
-          </button>
         </header>
-
-        {/* Page content */}
+        {logoutError && <p role="alert" className="border-b border-danger/20 bg-red-50 px-6 py-3 text-sm text-danger">{logoutError}</p>}
         <main className="flex-1 overflow-auto p-5 sm:p-8">
-          {activeTab === "articles" && <ArticlesManager />}
-          {activeTab === "reservations" && <ReservationsManager />}
+          <div className="mx-auto max-w-7xl">
+            {activeTab === "articles" && <ArticlesManager />}
+            {activeTab === "reservations" && <ReservationsManager />}
+            {activeTab === "settings" && <SettingsManager />}
+          </div>
         </main>
       </div>
     </div>

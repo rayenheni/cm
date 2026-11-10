@@ -1,139 +1,79 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { api, clearSession, errorMessage, isEmbeddedPreview, setCsrfToken, setSessionToken } from '@/lib/api';
+import type { AuthState } from '@/lib/api-types';
+import { Lock } from '@/components/Icons';
+import { Monogram } from '@/components/Logo';
 
-const SESSION_KEY = "cmcb-admin-session";
-const HASHED_PWD = btoa("cmcb2026admin");
-
-function isAuthenticated(): boolean {
-  try {
-    return sessionStorage.getItem(SESSION_KEY) === HASHED_PWD;
-  } catch {
-    return false;
-  }
+export async function logout(): Promise<void> {
+  await api('/auth/logout', { method: 'POST', body: {} });
+  clearSession();
 }
 
-function login(password: string): boolean {
-  if (btoa(password) === HASHED_PWD) {
-    try {
-      sessionStorage.setItem(SESSION_KEY, HASHED_PWD);
-    } catch {
-      /* ignore */
-    }
-    return true;
-  }
-  return false;
-}
-
-export function logout() {
-  try {
-    sessionStorage.removeItem(SESSION_KEY);
-  } catch {
-    /* ignore */
-  }
-}
-
-interface AdminAuthProps {
-  children: React.ReactNode;
-}
-
-export function AdminAuth({ children }: AdminAuthProps) {
-  const [authed, setAuthed] = useState(isAuthenticated);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+export function AdminAuth({ children }: { children: ReactNode }) {
+  const [checking, setChecking] = useState(true);
+  const [authed, setAuthed] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  if (authed) {
-    return <>{children}</>;
-  }
+  useEffect(() => {
+    const controller = new AbortController();
+    api<AuthState>('/auth/session', { signal: controller.signal }).then(state => {
+      setCsrfToken(state.csrfToken); setAuthed(state.authenticated);
+    }).catch(err => { if (!controller.signal.aborted) setError(errorMessage(err)); })
+      .finally(() => { if (!controller.signal.aborted) setChecking(false); });
+    const expired = () => { setAuthed(false); clearSession(); setError('Votre session a expiré. Reconnectez-vous.'); };
+    const signedOut = () => { setAuthed(false); setError(''); };
+    window.addEventListener('cmcb-session-expired', expired);
+    window.addEventListener('cmcb-signed-out', signedOut);
+    return () => { controller.abort(); window.removeEventListener('cmcb-session-expired', expired); window.removeEventListener('cmcb-signed-out', signedOut); };
+  }, []);
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // Small delay to feel responsive
-    setTimeout(() => {
-      if (login(password)) {
-        setAuthed(true);
-      } else {
-        setError("Mot de passe incorrect. Veuillez réessayer.");
-        setPassword("");
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (loading) return;
+    setLoading(true); setError('');
+    try {
+      const embedded = isEmbeddedPreview();
+      const state = await api<AuthState>('/auth/login', { method: 'POST', body: { email, password, ...(embedded ? { transport: 'bearer' as const } : {}) }, headers: embedded ? { 'X-Auth-Transport': 'bearer' } : {} });
+      setCsrfToken(state.csrfToken);
+      setSessionToken(state.sessionToken ?? null);
+      // Verify the chosen transport before mounting protected admin queries.
+      const verified = await api<AuthState>('/auth/session');
+      if (!verified.authenticated || !verified.csrfToken) {
+        clearSession();
+        setError(embedded ? (state.sessionToken ? 'Le proxy de la preview ne transmet pas la session. Rechargez le panneau Preview Arena et réessayez ici.' : 'La preview n’a pas activé le mode session intégré. Rechargez le panneau Preview Arena et réessayez ici.') : 'Le navigateur a bloqué la session. Autorisez les cookies pour ce site, puis réessayez.');
+        return;
       }
-      setLoading(false);
-    }, 400);
+      setCsrfToken(verified.csrfToken); setAuthed(true); setPassword('');
+    } catch (err) { setError(errorMessage(err)); }
+    finally { setLoading(false); }
   };
 
+  if (checking) return <div className="flex min-h-screen items-center justify-center bg-[#f6f3ec] text-ink-600" role="status">Vérification de la session…</div>;
+  if (authed) return <>{children}</>;
+  const inputClass = 'field';
   return (
-    <div className="flex min-h-screen items-center justify-center bg-wine-950 px-4">
-      {/* Background texture */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03] texture-grain" aria-hidden="true" />
-
-      <div className="relative w-full max-w-sm">
-        {/* Logo area */}
+    <div className="flex min-h-screen items-center justify-center bg-[#f6f3ec] px-4 py-12">
+      <div className="w-full max-w-sm">
         <div className="mb-10 text-center">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/30 bg-wine-900/80 shadow-tile mb-5">
-            <span className="font-serif text-2xl font-bold text-gold-400">C</span>
-          </div>
-          <h1 className="font-serif text-3xl font-semibold text-cream-50">Espace Admin</h1>
-          <p className="mt-1.5 text-sm text-cream-200/60 tracking-wide">CMCB · Cabinet Bhiri</p>
+          <Monogram className="mx-auto mb-5 h-16 w-16 rounded-md shadow-tile" />
+          <h1 className="font-serif text-3xl font-semibold text-wine-800">Espace Admin</h1><p className="mt-2 flex items-center justify-center gap-2 text-xs text-ink-600"><Lock className="h-3.5 w-3.5" /> Connexion sécurisée</p>
+          <p className="mt-1.5 text-sm tracking-wide text-ink-600">CMCB · Cabinet Bhiri</p>
         </div>
-
-        {/* Login card */}
-        <div className="rounded-2xl border border-wine-800/60 bg-wine-900/70 p-8 shadow-frame backdrop-blur-sm">
-          <form onSubmit={onSubmit} noValidate>
-            <div>
-              <label
-                htmlFor="admin-password"
-                className="block text-[11px] font-medium tracking-[0.18em] uppercase text-gold-500/80 mb-1.5"
-              >
-                Mot de passe
-              </label>
-              <input
-                id="admin-password"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setError("");
-                }}
-                placeholder="••••••••••"
-                autoComplete="current-password"
-                autoFocus
-                className="w-full rounded-xl border border-wine-700/60 bg-wine-950/60 px-4 py-3 text-[15px] text-cream-100 placeholder:text-wine-600 transition-all duration-200 focus:border-gold-500/60 focus:ring-4 focus:ring-gold-500/10 focus:outline-none"
-                aria-invalid={!!error}
-                aria-describedby={error ? "admin-login-error" : undefined}
-              />
-              {error && (
-                <p
-                  id="admin-login-error"
-                  role="alert"
-                  className="mt-2 text-xs text-red-400"
-                >
-                  {error}
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading || !password}
-              className="mt-6 w-full rounded-full bg-gold-500 px-7 py-3.5 text-[13px] font-medium tracking-[0.14em] uppercase text-cream-50 shadow-tile transition-all duration-300 hover:bg-gold-600 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2.5" />
-                    <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                  </svg>
-                  Vérification…
-                </span>
-              ) : (
-                "Accéder à l'espace admin"
-              )}
-            </button>
+        <div className="rounded-xl border border-sand-300 bg-white p-8 shadow-soft">
+          <form onSubmit={onSubmit}>
+            <label htmlFor="admin-email" className="mb-1.5 block text-xs font-medium tracking-widest text-ink-600 uppercase">Adresse e-mail</label>
+            <input id="admin-email" type="email" value={email} onChange={e => { setEmail(e.target.value); setError(''); }} autoComplete="username" required autoFocus className={inputClass} />
+            <label htmlFor="admin-password" className="mt-5 mb-1.5 block text-xs font-medium tracking-widest text-ink-600 uppercase">Mot de passe</label>
+            <input id="admin-password" type="password" value={password} onChange={e => { setPassword(e.target.value); setError(''); }} autoComplete="current-password" required maxLength={128} className={inputClass} aria-describedby={error ? 'admin-login-error' : undefined} />
+            {error && <p id="admin-login-error" role="alert" className="mt-4 text-sm leading-relaxed text-danger">{error}</p>}
+            <button type="submit" disabled={loading || !email || !password} className="mt-6 w-full cursor-pointer btn-wine w-full disabled:cursor-wait">{loading ? 'Vérification…' : 'Se connecter'}</button>
           </form>
         </div>
-
-        <p className="mt-6 text-center text-xs text-wine-600">
-          Cabinet CMCB · Accès réservé
-        </p>
+        <p className="mt-6 text-center text-xs leading-relaxed text-ink-600">Accès réservé. Premier lancement : créez votre compte avec la commande <code>npm run admin:create</code> sur le serveur.</p>
+        <a href="#/" className="mt-4 block text-center text-sm text-wine-700 hover:underline">Retour au site</a>
       </div>
     </div>
   );

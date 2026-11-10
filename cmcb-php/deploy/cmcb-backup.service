@@ -1,0 +1,14 @@
+[Unit]
+Description=CMCB PHP consistent SQLite backup
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/cmcb-php
+ExecStart=/usr/bin/php /var/www/cmcb-php/bin/backup.php
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/cmcb-php/data /var/www/cmcb-php/backups

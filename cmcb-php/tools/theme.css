@@ -1,0 +1,16 @@
+/* Source du thème PHP. Le CSS compilé est versionné dans public/assets/theme.css.
+   Importe le design Tailwind de référence puis les polices auto-hébergées. */
+@import "../../src/index.css";
+@import "../../src/components/PracticeExplorer.css";
+@import "../public/assets/fonts.css";
+@source "../../src";
+@source "../templates";
+@source "../public/assets";
+
+/* Améliorations progressives propres au rendu serveur PHP. */
+html:not(.js) .reveal { opacity: 1; transform: none; }
+html:not(.js) .practice-explorer__desktop { display: none; }
+html:not(.js) .practice-explorer__mobile { display: block; }
+html:not(.js) .practice-explorer__mobile-panel[hidden] { display: grid; }
+html:not(.js) [data-faq-panel] { grid-template-rows: 1fr !important; }
+.urgency-option:has(input:checked) { border-color: var(--color-wine-600); background: var(--color-wine-600); color: var(--color-cream-50); }

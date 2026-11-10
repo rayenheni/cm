@@ -119,7 +119,7 @@ export function ArticleCard({ article, index = 0, featured = false }: { article:
       <Link
         to={`/articles/${article.id}`}
         className={cn(
-          "group flex h-full overflow-hidden rounded-2xl border border-sand-300 bg-cream-50 transition-all duration-500 hover:-translate-y-1.5 hover:border-wine-600/40 hover:shadow-soft",
+          "group flex h-full overflow-hidden rounded-lg border border-sand-300 bg-white transition-colors duration-200 hover:border-wine-600/40 hover:shadow-tile",
           featured ? "flex-col lg:flex-row" : "flex-col"
         )}
       >
@@ -128,10 +128,10 @@ export function ArticleCard({ article, index = 0, featured = false }: { article:
             src={article.image}
             alt={article.imageAlt}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+            className="h-full w-full object-cover transition-opacity duration-300 group-hover:opacity-95"
           />
           <span className="absolute inset-0 bg-gradient-to-t from-wine-950/40 to-transparent" />
-          <span className="absolute top-4 left-4 rounded-full bg-cream-50/95 px-3 py-1 text-[10px] font-medium tracking-[0.14em] text-wine-700 uppercase backdrop-blur-sm rtl:right-4 rtl:left-auto">
+          <span className="absolute top-4 left-4 rounded-md bg-cream-50/95 px-3 py-1 text-[10px] font-medium tracking-[0.08em] text-wine-700 uppercase backdrop-blur-sm rtl:right-4 rtl:left-auto">
             {article.category}
           </span>
         </span>
@@ -244,7 +244,7 @@ export function MethodSection({ withCommitments = true }: { withCommitments?: bo
           <div className="absolute top-[52px] right-[12%] left-[12%] hidden h-px bg-gradient-to-r from-gold-500/0 via-gold-500/40 to-gold-500/0 xl:block" aria-hidden="true" />
           {steps.map((step, i) => (
             <Reveal key={step.num} delay={i * 120}>
-              <article className="group relative h-full rounded-2xl border border-cream-50/10 bg-wine-950/60 p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-400/40 hover:bg-cream-50/[0.06]">
+              <article className="group relative h-full rounded-lg border border-cream-50/10 bg-wine-950/60 p-7 transition-colors duration-200 hover:border-gold-400/40 hover:bg-cream-50/[0.06]">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gold-400/50 bg-wine-950 font-serif text-lg font-semibold text-gold-400 italic transition-colors duration-500 group-hover:bg-gold-500 group-hover:text-wine-950">
                   {step.num}
                 </span>
@@ -288,18 +288,15 @@ export function CtaBand({ title, text }: { title?: ReactNode; text?: ReactNode }
     <section className="py-20">
       <div className="container-x">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[28px] bg-wine-600 px-7 py-14 text-cream-50 shadow-soft sm:px-14 lg:py-16">
+          <div className="relative overflow-hidden rounded-xl bg-wine-700 px-7 py-14 text-cream-50 shadow-soft sm:px-14 lg:py-16">
             <div
               className="pointer-events-none absolute inset-0"
               aria-hidden="true"
               style={{
                 background:
-                  "radial-gradient(30rem 20rem at 100% 0%, rgb(160 128 90 / 0.45), transparent 60%), radial-gradient(28rem 18rem at 0% 100%, rgb(36 7 14 / 0.55), transparent 60%)",
+                  "linear-gradient(120deg, rgb(160 128 90 / 0.18), transparent 55%)",
               }}
             />
-            <span className="pointer-events-none absolute -right-4 -bottom-16 font-serif text-[13rem] leading-none text-cream-50/10 select-none rtl:right-auto rtl:-left-4" aria-hidden="true">
-              §
-            </span>
             <div className="relative grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
               <div>
                 <p className="text-[11px] font-medium tracking-[0.32em] text-gold-400 uppercase">{t.blocks.ctaEyebrow}</p>
@@ -311,7 +308,7 @@ export function CtaBand({ title, text }: { title?: ReactNode; text?: ReactNode }
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link to="/contact" className="btn flex-1 bg-cream-50 text-wine-700 shadow-tile hover:bg-gold-400 hover:text-wine-950 active:scale-[0.98]">
+                <Link to="/contact" className="btn flex-1 bg-cream-50 text-wine-700 shadow-tile hover:bg-cream-100">
                   {t.blocks.appointment} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                 </Link>
                 <div className="flex flex-1 gap-3">

@@ -22,3 +22,13 @@ yarn-error.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Private runtime data and compiled server
+data/
+backups/
+build/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+test-results/
+playwright-report/

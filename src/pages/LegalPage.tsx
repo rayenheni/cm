@@ -17,6 +17,7 @@ export function LegalPage({ variant }: { variant: "mentions" | "privacy" }) {
       .replace("__EDITOR1__", isFr ? `Le site ${cabinet.domain} est édité par le cabinet CMCB avocat et conseils — ${cabinet.lawyer}, ${cabinet.role}, ${cabinet.specialty.toLowerCase()}.` : `موقع ${cabinet.domain} يصدر عن مكتب CMCB للمحاماة والاستشارات — ${cabinet.lawyer}، ${cabinet.role}، ${cabinet.specialty}.`)
       .replace("__EDITOR2__", isFr ? `Adresse : ${cabinet.address}, ${cabinet.city}. Téléphone : ${cabinet.phone}. E-mail : ${cabinet.email}.` : `العنوان : ${cabinet.address}، ${cabinet.city}. الهاتف : ${cabinet.phone}. البريد : ${cabinet.email}.`)
       .replace("__EDITOR3__", isFr ? `Directrice de la publication : ${cabinet.lawyer}.` : `مديرة النشر : ${cabinet.lawyer}.`)
+      .replace(/__CONTACT__/g, cabinet.email)
       .replace("__RIGHTS2__", isFr ? `Pour exercer ces droits, écrivez à ${cabinet.email}. Vous pouvez également saisir l'Instance nationale de protection des données personnelles (INPDP).` : `لممارسة هذه الحقوق، راسل ${cabinet.email}. ويمكنك أيضاً اللجوء إلى الهيئة الوطنية لحماية المعطيات الشخصية.`);
 
   const sections = (isMentions ? t.legal.mentions : t.legal.privacy).map((s) => ({

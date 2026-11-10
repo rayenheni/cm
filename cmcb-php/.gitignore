@@ -1,0 +1,13 @@
+.env
+.env.*.local
+.install-key
+.install.lock
+data/
+backups/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.log
+tools/node_modules/
+tools/test-results/
+.DS_Store

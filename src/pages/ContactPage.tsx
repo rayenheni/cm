@@ -49,7 +49,7 @@ export function ContactPage() {
                   <a
                     href={tile.href}
                     {...(tile.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                    className="group relative flex h-full flex-col gap-3 rounded-2xl border border-sand-300 bg-cream-50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-wine-600/50 hover:shadow-tile"
+                    className="group relative flex h-full flex-col gap-3 rounded-lg border border-sand-300 bg-white p-5 transition-colors duration-200 hover:border-wine-600/50 hover:shadow-tile"
                   >
                     <span className={cn("flex h-11 w-11 items-center justify-center rounded-xl text-cream-50", tile.accent ? "bg-whatsapp" : "bg-wine-600")}>
                       <tile.icon className="h-5 w-5" />
@@ -68,7 +68,7 @@ export function ContactPage() {
 
             <Reveal delay={120}>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <div className="flex items-start gap-4 rounded-2xl border border-sand-300 bg-cream-100/70 p-5">
+                <div className="flex items-start gap-4 rounded-lg border border-sand-300 bg-cream-100/70 p-5">
                   <Clock className="mt-0.5 h-5 w-5 shrink-0 text-gold-600" />
                   <div className="text-sm leading-relaxed text-ink-600">
                     <p className="font-medium text-ink-900">{t.contact.hoursTitle}</p>
@@ -76,7 +76,7 @@ export function ContactPage() {
                     <p>{cabinet.hoursSat}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 rounded-2xl border border-sand-300 bg-cream-100/70 p-5">
+                <div className="flex items-start gap-4 rounded-lg border border-sand-300 bg-cream-100/70 p-5">
                   <Lock className="mt-0.5 h-5 w-5 shrink-0 text-gold-600" />
                   <div className="text-sm leading-relaxed text-ink-600">
                     <p className="font-medium text-ink-900">{t.contact.privacyTitle}</p>
@@ -87,7 +87,7 @@ export function ContactPage() {
             </Reveal>
 
             <Reveal delay={180}>
-              <div className="mt-4 overflow-hidden rounded-2xl border border-sand-300 shadow-tile">
+              <div className="mt-4 overflow-hidden rounded-lg border border-sand-300 shadow-tile">
                 <iframe
                   title={t.contact.mapTitle}
                   src={cabinet.mapsEmbed}
@@ -108,7 +108,7 @@ export function ContactPage() {
           </div>
 
           <Reveal delay={100}>
-            <div id="consultation-form" tabIndex={-1} aria-label={t.form.title} className="scroll-mt-28 rounded-[24px] border border-sand-300 bg-cream-50 p-7 shadow-soft sm:p-10 lg:sticky lg:top-28">
+            <div id="consultation-form" tabIndex={-1} aria-label={t.form.title} className="scroll-mt-28 rounded-xl border border-sand-300 bg-white p-7 shadow-soft sm:p-10 lg:sticky lg:top-28">
               <ContactForm presetDomain={preset} />
             </div>
           </Reveal>

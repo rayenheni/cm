@@ -3,20 +3,17 @@ import {
   CABINET,
   NAV_LINKS,
   EXPERTISES,
-  ARTICLES,
   STEPS,
   COMMITMENTS,
   VALUES,
   AUDIENCES,
   FAQ_CATEGORIES,
   ALL_FAQS,
-  type Article,
 } from "@/data/content";
 import {
   CABINET_AR,
   NAV_LINKS_AR,
   EXPERTISES_AR,
-  ARTICLES_AR,
   STEPS_AR,
   COMMITMENTS_AR,
   VALUES_AR,
@@ -124,8 +121,9 @@ const fr = {
       "Intégrité",
       "Efficacité stratégique",
     ],
+    marqueeLabel: "Domaines d'expertise",
     vertical: "Cabinet · Msaken · Sousse",
-    portraitAlt: "Maître Chaima Bhiri, avocat au Barreau de Tunisie, à son bureau",
+    portraitAlt: "Maître Chaima Bhiri, avocate au Barreau de Tunisie, à son bureau",
   },
   logo: {
     sub: "avocat et conseils",
@@ -200,17 +198,17 @@ const fr = {
     chars: (n: number) => `${n} caractères`,
     consentA: "J'ai pris connaissance de la",
     consentLink: "politique de confidentialité",
-    consentB: ". Ce site ne stocke aucune donnée : mon message est transmis directement via WhatsApp ou ma messagerie.",
-    submit: "Préparer ma demande",
-    sending: "Préparation…",
+    consentB: ". Mes coordonnées et ma demande sont enregistrées sur le serveur du cabinet pour traiter ma consultation. Les boutons WhatsApp et e-mail restent des moyens de contact alternatifs.",
+    submit: "Envoyer ma demande",
+    sending: "Envoi sécurisé…",
     errName: "Veuillez indiquer votre nom complet.",
     errEmail: "Adresse e-mail invalide.",
     errPhone: "Numéro de téléphone invalide.",
     errDomain: "Choisissez le domaine concerné.",
     errMessage: "Décrivez votre situation en quelques phrases (15 caractères minimum).",
     errConsent: "Merci de confirmer avoir pris connaissance de la politique de confidentialité.",
-    readyTitle: "Votre demande est prête.",
-    readyTextA: "Choisissez comment la transmettre au cabinet. Une réponse vous sera adressée sous",
+    readyTitle: "Votre demande a été enregistrée.",
+    readyTextA: "Le cabinet a reçu votre demande. Une réponse vous sera adressée sous",
     readyTextB: "24 heures ouvrées",
     readyName: "Nom : ",
     readyDomain: "Domaine : ",
@@ -290,7 +288,7 @@ const fr = {
       "« Chaque dossier est unique. Il mérite une écoute attentive, une analyse rigoureuse et une stratégie pensée pour les intérêts de celui qui me fait confiance. »",
     appointment: "Prendre rendez-vous",
     linkedin: "Profil LinkedIn",
-    portraitAlt: "Maître Chaima Bhiri, avocat au Barreau de Tunisie, à son bureau",
+    portraitAlt: "Maître Chaima Bhiri, avocate au Barreau de Tunisie, à son bureau",
     location: "Msaken · Sousse",
     mottoEyebrow: "Notre devise",
     mottoTitleA: "Guider, protéger,",
@@ -464,7 +462,7 @@ const fr = {
         title: "Propriété intellectuelle",
         body: [
           "Le nom CMCB, le monogramme, l'identité visuelle et l'ensemble des contenus rédactionnels de ce site sont la propriété exclusive du cabinet. Toute reproduction, représentation ou diffusion, même partielle, sans autorisation écrite préalable est interdite.",
-          "Crédits photographiques : photographies d'illustration libres de droits — Pexels (Pavel Danilyuk, Ekaterina Bolovtsova, Mikhail Nilov, Alexander Mass, Sora Shimazaki, Thirdman). Les photographies du cabinet et de Maître Bhiri, une fois intégrées, sont la propriété exclusive du cabinet.",
+          "Crédits photographiques : photographies d'illustration libres de droits — Pexels (Pavel Danilyuk, Ekaterina Bolovtsova, Mikhail Nilov, Alexander Mass, Sora Shimazaki, Thirdman). Le portrait de Maître Bhiri est intégré à partir de la photographie transmise pour le site.",
         ],
       },
       {
@@ -481,38 +479,22 @@ const fr = {
       },
     ] as { title: string; body: string[] }[],
     privacy: [
-      {
-        title: "Principe : aucune collecte par le site",
-        body: [
-          "Ce site ne dispose d'aucune base de données et n'enregistre aucune des informations que vous saisissez. Il n'utilise pas de cookies publicitaires ni d'outils de suivi.",
-        ],
-      },
-      {
-        title: "Le formulaire de contact",
-        body: [
-          "Le formulaire prépare simplement votre message dans votre navigateur. Vous choisissez ensuite de le transmettre vous-même via WhatsApp ou via votre propre messagerie électronique. Les données ne transitent par aucun serveur du cabinet avant cet envoi.",
-          "Une fois reçu, votre message est traité exclusivement par le cabinet, dans le seul but de répondre à votre demande et, le cas échéant, d'assurer la gestion de votre dossier.",
-        ],
-      },
-      {
-        title: "Secret professionnel",
-        body: [
-          "Tous les échanges avec le cabinet — messages, documents, entretiens — sont couverts par le secret professionnel de l'avocat, général, absolu et illimité dans le temps.",
-        ],
-      },
-      {
-        title: "Vos droits",
-        body: [
-          "Conformément à la loi organique n° 2004-63 du 27 juillet 2004 portant sur la protection des données à caractère personnel, vous disposez d'un droit d'accès, de rectification et d'opposition concernant les données vous concernant détenues par le cabinet.",
-          "__RIGHTS2__",
-        ],
-      },
-      {
-        title: "Services tiers",
-        body: [
-          "L'utilisation de WhatsApp, de votre messagerie électronique, de LinkedIn, de Facebook ou de la carte intégrée (OpenStreetMap) est soumise aux politiques de confidentialité propres à ces services.",
-        ],
-      },
+      { title: "Données enregistrées", body: [
+        "Le cabinet enregistre dans sa base de données les demandes de consultation : nom, e-mail, téléphone facultatif, domaine, urgence, message, langue et date de consentement. Aucun cookie publicitaire ni outil de suivi analytique n'est utilisé.",
+        "La langue choisie est mémorisée dans le stockage local du navigateur. L'espace admin utilise un cookie de session strictement nécessaire, sécurisé et expirant après huit heures.",
+      ] },
+      { title: "Formulaire et notifications", body: [
+        "Les données sont transmises au serveur du cabinet lors de l'envoi du formulaire. Elles servent uniquement à répondre à la demande et, le cas échéant, à préparer le dossier. Une notification peut être envoyée au cabinet par son prestataire e-mail.",
+        "Une demande n'est pas un rendez-vous confirmé. Les boutons WhatsApp et e-mail ouvrent des services tiers que vous choisissez d'utiliser séparément.",
+      ] },
+      { title: "Conservation et sécurité", body: [
+        "Les demandes sont conservées pendant la durée nécessaire au traitement, puis supprimées par le cabinet selon ses obligations professionnelles. L'hébergeur doit définir et appliquer une durée de conservation des sauvegardes et des journaux techniques.",
+        "L'accès aux demandes est réservé aux administrateurs authentifiés. Les mots de passe sont hachés et les échanges doivent être protégés par HTTPS en production.",
+      ] },
+      { title: "Secret professionnel et droits", body: [
+        "Les échanges avec le cabinet sont soumis au secret professionnel de l'avocat. Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à __CONTACT__.",
+        "Vous pouvez également saisir l'Instance nationale de protection des données personnelles (INPDP). Les services tiers (WhatsApp, messagerie, réseaux sociaux, OpenStreetMap, polices Google) appliquent leurs propres politiques.",
+      ] },
     ] as { title: string; body: string[] }[],
   },
   notFound: {
@@ -589,6 +571,7 @@ const ar: UIStrings = {
       "النزاهة",
       "الفعالية الاستراتيجية",
     ],
+    marqueeLabel: "مجالات الممارسة",
     vertical: "المكتب · مساكن · سوسة",
     portraitAlt: "الأستاذة شيماء البحيري، محامية لدى الهيئة الوطنية للمحامين بتونس، في مكتبها",
   },
@@ -662,17 +645,17 @@ const ar: UIStrings = {
     chars: (n: number) => `${n} حرفاً`,
     consentA: "اطلعت على",
     consentLink: "سياسة الخصوصية",
-    consentB: ". لا يخزن هذا الموقع أي معطيات: تُرسَل رسالتك مباشرة عبر واتساب أو بريدك.",
-    submit: "تجهيز طلبي",
-    sending: "جارٍ التجهيز…",
+    consentB: ". تُحفظ بيانات الاتصال وطلبي على خادم المكتب لمعالجة طلب الاستشارة. يبقى واتساب والبريد الإلكتروني وسيلتي تواصل بديلتين.",
+    submit: "إرسال طلبي",
+    sending: "جارٍ الإرسال…",
     errName: "يرجى إدخال الاسم الكامل.",
     errEmail: "البريد الإلكتروني غير صالح.",
     errPhone: "رقم الهاتف غير صالح.",
     errDomain: "اختر المجال المعني.",
     errMessage: "صِف وضعيتك في بضع جمل (15 حرفاً على الأقل).",
     errConsent: "يرجى تأكيد الاطلاع على سياسة الخصوصية.",
-    readyTitle: "طلبك جاهز.",
-    readyTextA: "اختر طريقة إرساله إلى المكتب. سيصلك رد خلال",
+    readyTitle: "تم تسجيل طلبك.",
+    readyTextA: "توصّل المكتب بطلبك. سيصلك رد خلال",
     readyTextB: "24 ساعة عمل",
     readyName: "الاسم : ",
     readyDomain: "المجال : ",
@@ -921,7 +904,7 @@ const ar: UIStrings = {
         title: "الملكية الفكرية",
         body: [
           "اسم CMCB والشعار والهوية البصرية وكامل المحتويات التحريرية لهذا الموقع ملك حصري للمكتب. يمنع أي نسخ أو عرض أو نشر، ولو جزئياً، دون إذن كتابي مسبق.",
-          "حقوق الصور: صور توضيحية حرة الحقوق — Pexels. وصور المكتب والأستاذة البحيري، متى أُدرجت، ملك حصري للمكتب.",
+          "حقوق الصور: صور توضيحية حرة الحقوق — Pexels. صورة الأستاذة البحيري مأخوذة من الصورة التي أُرسلت للموقع.",
         ],
       },
       {
@@ -938,38 +921,22 @@ const ar: UIStrings = {
       },
     ] as { title: string; body: string[] }[],
     privacy: [
-      {
-        title: "المبدأ: لا جمع للمعطيات من الموقع",
-        body: [
-          "لا يتوفر هذا الموقع على أي قاعدة بيانات ولا يسجل أي معلومة تدخلها. ولا يستعمل ملفات تتبع إعلانية ولا أدوات تتبع.",
-        ],
-      },
-      {
-        title: "استمارة الاتصال",
-        body: [
-          "تجهّز الاستمارة رسالتك ببساطة في متصفحك. ثم ترسلها بنفسك عبر واتساب أو بريدك الإلكتروني. ولا تعبر المعطيات أي خادم للمكتب قبل هذا الإرسال.",
-          "بعد التوصل بالرسالة، يعالجها المكتب حصرياً لغرض الرد على طلبك، وعند الاقتضاء لإدارة ملفك.",
-        ],
-      },
-      {
-        title: "السر المهني",
-        body: [
-          "جميع التبادلات مع المكتب — الرسائل والوثائق واللقاءات — مشمولة بالسر المهني للمحامي، العام والمطلق وغير المحدود في الزمن.",
-        ],
-      },
-      {
-        title: "حقوقك",
-        body: [
-          "طبقاً للقانون الأساسي عدد 63 لسنة 2004 المؤرخ في 27 جويلية 2004 المتعلق بحماية المعطيات الشخصية، لك حق النفاذ والتصحيح والاعتراض في ما يتعلق بمعطياتك لدى المكتب.",
-          "__RIGHTS2__",
-        ],
-      },
-      {
-        title: "خدمات الغير",
-        body: [
-          "يخضع استعمال واتساب وبريدك الإلكتروني ولينكدإن وفيسبوك والخريطة المدمجة (OpenStreetMap) لسياسات الخصوصية الخاصة بهذه الخدمات.",
-        ],
-      },
+      { title: "المعطيات المسجّلة", body: [
+        "يسجّل المكتب في قاعدة بياناته طلبات الاستشارة: الاسم والبريد الإلكتروني والهاتف الاختياري والمجال والاستعجال والرسالة واللغة وتاريخ الموافقة. لا تُستعمل ملفات تتبع إعلانية ولا أدوات تحليل الزيارات.",
+        "تُحفظ اللغة المختارة في التخزين المحلي للمتصفح. وتستعمل لوحة الإدارة ملف ارتباط ضرورياً للجلسة، آمناً تنتهي صلاحيته بعد ثماني ساعات.",
+      ] },
+      { title: "الاستمارة والإشعارات", body: [
+        "تُنقل المعطيات إلى خادم المكتب عند إرسال الاستمارة، وتُستعمل حصرياً للرد على الطلب وتحضير الملف عند الاقتضاء. ويمكن إرسال إشعار إلى المكتب عبر مزوّد البريد الإلكتروني الخاص به.",
+        "الطلب ليس موعداً مؤكداً. تفتح أزرار واتساب والبريد خدمات خارجية تختار استعمالها بصورة منفصلة.",
+      ] },
+      { title: "الحفظ والأمان", body: [
+        "تُحفظ الطلبات للمدة Necessary لمعالجتها، ثم يحذفها المكتب وفق التزاماته المهنية. وعلى المستضيف تحديد مدة حفظ النسخ الاحتياطية والسجلات التقنية وتطبيقها.",
+        "يقتصر الوصول إلى الطلبات على المديرين المصادَق عليهم. وتُخزّن كلمات المرور بصمةً مشفرة، ويجب حماية الاتصالات عبر HTTPS في الإنتاج.",
+      ] },
+      { title: "السر المهني وحقوقك", body: [
+        "تخضع التبادلات مع المكتب للسر المهني للمحامي. لطلب الاطلاع على معطياتك أو تصحيحها أو حذفها، راسل __CONTACT__.",
+        "يمكنك أيضاً اللجوء إلى الهيئة الوطنية لحماية المعطيات الشخصية. وتطبق الخدمات الخارجية مثل واتساب والبريد والشبكات الاجتماعية وOpenStreetMap وخطوط Google سياسات الخصوصية الخاصة بها.",
+      ] },
     ] as { title: string; body: string[] }[],
   },
   notFound: {
@@ -1035,42 +1002,6 @@ export function useNavLinks() {
 export function useExpertises() {
   const { lang } = useLang();
   return lang === "ar" ? EXPERTISES_AR : EXPERTISES;
-}
-const ADMIN_ARTICLES_KEY = "cmcb-admin-articles";
-
-function loadAdminArticlesFromStorage(): Article[] {
-  try {
-    const raw = localStorage.getItem(ADMIN_ARTICLES_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as Article[];
-  } catch {
-    return [];
-  }
-}
-
-export function useArticles() {
-  const { lang } = useLang();
-  const [adminArticles, setAdminArticles] = useState<Article[]>(loadAdminArticlesFromStorage);
-
-  useEffect(() => {
-    // Initial sync and re-sync on storage events (cross-tab and same-tab via custom event)
-    const refresh = () => setAdminArticles(loadAdminArticlesFromStorage());
-
-    // Cross-tab updates
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === ADMIN_ARTICLES_KEY) refresh();
-    };
-    // Same-tab updates dispatched by useAdminArticles
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("cmcb-articles-updated", refresh);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("cmcb-articles-updated", refresh);
-    };
-  }, []);
-
-  const baseArticles = lang === "ar" ? ARTICLES_AR : ARTICLES;
-  return [...baseArticles, ...adminArticles];
 }
 export function useSteps() {
   const { lang } = useLang();

@@ -1,0 +1,20 @@
+import { useEffect, useState, type FormEvent } from 'react';
+import { api, clearSession, errorMessage } from '@/lib/api';
+import { Lock, Mail, Shield } from '@/components/Icons';
+export function SettingsManager() {
+  const [smtp, setSmtp] = useState<boolean | null>(null);
+  const [currentPassword, setCurrent] = useState('');
+  const [newPassword, setNew] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { const controller = new AbortController(); api<{ smtpConfigured: boolean }>('/admin/system', { signal: controller.signal }).then(data => setSmtp(data.smtpConfigured)).catch(err => { if (!controller.signal.aborted) setError(errorMessage(err)); }); return () => controller.abort(); }, []);
+  const submit = async (event: FormEvent) => {
+    event.preventDefault(); setError('');
+    if (newPassword !== confirm) { setError('Les nouveaux mots de passe ne correspondent pas.'); return; }
+    setBusy(true);
+    try { await api('/auth/password', { method: 'POST', body: { currentPassword, newPassword } }); clearSession(); window.location.reload(); }
+    catch (err) { setError(errorMessage(err)); } finally { setBusy(false); }
+  };
+  return <div className="max-w-2xl"><h2 className="font-serif text-3xl font-semibold text-wine-800">Sécurité et configuration</h2><p className="mt-2 text-sm text-ink-600">Protégez l’accès au cabinet et vérifiez les paramètres techniques.</p><div className="mt-6 rounded-xl border border-sand-300 bg-white p-6 shadow-tile"><h3 className="flex items-center gap-2 font-serif text-xl"><Mail className="h-5 w-5 text-gold-600" /> Notifications e-mail</h3><p className="mt-2 text-sm text-ink-600" role="status">{smtp === null ? 'Vérification…' : smtp ? 'SMTP configuré. Les notifications sont envoyées automatiquement avec réessai en cas d’échec.' : 'SMTP non configuré. Les demandes sont conservées sur le serveur et visibles ici ; aucune notification e-mail n’est envoyée.'}</p><p className="mt-3 text-xs leading-relaxed text-ink-400">Configurez SMTP_HOST, SMTP_PORT, SMTP_FROM et NOTIFICATION_EMAIL dans l’environnement du serveur, puis redémarrez. Ne saisissez jamais de secret SMTP dans le navigateur.</p></div><form onSubmit={submit} className="mt-6 rounded-xl border border-sand-300 bg-white p-6 shadow-tile"><h3 className="flex items-center gap-2 font-serif text-xl"><Lock className="h-5 w-5 text-gold-600" /> Changer le mot de passe</h3><p className="mt-2 text-sm text-ink-600">12 caractères minimum. Toutes les sessions seront déconnectées.</p><label className="field-label mt-5" htmlFor="current-password">Mot de passe actuel</label><input id="current-password" className="field" type="password" autoComplete="current-password" required value={currentPassword} onChange={e => setCurrent(e.target.value)} /><label className="field-label mt-4" htmlFor="new-password">Nouveau mot de passe</label><input id="new-password" className="field" type="password" autoComplete="new-password" required minLength={12} maxLength={128} value={newPassword} onChange={e => setNew(e.target.value)} /><label className="field-label mt-4" htmlFor="confirm-password">Confirmer le nouveau mot de passe</label><input id="confirm-password" className="field" type="password" autoComplete="new-password" required minLength={12} maxLength={128} value={confirm} onChange={e => setConfirm(e.target.value)} />{error && <p className="mt-4 text-sm text-danger" role="alert">{error}</p>}<button className="btn-wine mt-5 px-5! py-2.5!" disabled={busy}>{busy ? 'Enregistrement…' : 'Modifier le mot de passe'}</button></form><div className="mt-6 rounded-xl border border-sand-300 bg-white p-6 text-sm shadow-tile leading-relaxed text-ink-600"><h3 className="flex items-center gap-2 font-serif text-xl text-ink-900"><Shield className="h-5 w-5 text-gold-600" /> Sauvegardes</h3><p className="mt-2">Sur le serveur : <code>npm run db:backup</code> crée une copie SQLite cohérente dans le dossier privé <code>backups/</code>. Conservez une copie chiffrée hors du serveur. Les détails de restauration figurent dans README.md.</p></div></div>;
+}

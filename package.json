@@ -1,28 +1,58 @@
 {
-  "name": "react-vite-tailwind",
+  "name": "cmcb-cabinet",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "tsx watch server/index.ts",
+    "build": "npm run typecheck && vite build && tsc -p tsconfig.server.json",
+    "preview": "npm run start",
+    "start": "NODE_ENV=production node build/server/index.js",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "admin:create": "tsx server/admin-cli.ts",
+    "seed:export": "tsx scripts/export-seed.ts",
+    "db:backup": "tsx server/backup-cli.ts",
+    "test:browser": "node tests/browser/smoke.mjs",
+    "test:login": "node tests/browser/login.mjs",
+    "test:preview-login": "node tests/browser/preview-login.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
+    "cookie": "^2.0.2",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.3",
+    "helmet": "^8.3.0",
+    "image-size": "2.1.0",
+    "nodemailer": "^10.4.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "tailwind-merge": "3.4.0"
+    "tailwind-merge": "3.4.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@sparticuz/chromium": "^153.0.0",
     "@tailwindcss/vite": "4.1.17",
+    "@types/express": "^5.0.6",
     "@types/node": "22.19.17",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
+    "@types/supertest": "^7.2.1",
     "@vitejs/plugin-react": "5.1.1",
+    "esbuild": "0.28.1",
+    "supertest": "^7.3.2",
     "tailwindcss": "4.1.17",
+    "tsx": "^4.23.15",
     "typescript": "5.9.3",
-    "vite": "7.3.2",
+    "vite": "^7.3.7",
     "vite-plugin-singlefile": "2.3.0"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
   }
 }

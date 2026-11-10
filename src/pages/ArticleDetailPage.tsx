@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useArticles, useCabinet, useExpertises, useT } from "@/i18n";
+import { useCabinet, useExpertises, useT } from "@/i18n";
+import { useArticleFeed } from "@/lib/useArticles";
 import { Link, useDocumentTitle } from "@/router";
 import { Monogram } from "@/components/Logo";
 import { Reveal } from "@/components/Reveal";
@@ -13,7 +14,7 @@ const slug = (i: number) => `section-${i + 1}`;
 export function ArticleDetailPage({ id }: { id: string }) {
   const t = useT();
   const cabinet = useCabinet();
-  const articles = useArticles();
+  const { articles, loading, error, refresh } = useArticleFeed();
   const expertises = useExpertises();
   const index = articles.findIndex((a) => a.id === id);
   const article = articles[index];
@@ -43,6 +44,8 @@ export function ArticleDetailPage({ id }: { id: string }) {
     return () => window.clearTimeout(timer);
   }, [copied]);
 
+  if (loading) return <p className="container-x py-24" role="status">{"Chargement de l'article…"}</p>;
+  if (error) return <div className="container-x py-24" role="alert"><p>{error}</p><button className="btn-outline mt-5" onClick={refresh}>Réessayer</button></div>;
   if (!article) return <NotFoundPage />;
 
   const expertise = expertises.find((e) => e.id === article.expertiseId);
@@ -151,7 +154,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
                 </section>
               ))}
 
-              <div className="mt-12 rounded-2xl border-l-4 border-gold-500 bg-cream-100 p-7 rtl:border-r-4 rtl:border-l-0">
+              <div className="mt-12 rounded-lg border-l-4 border-gold-500 bg-cream-100 p-7 rtl:border-r-4 rtl:border-l-0">
                 <p className="font-serif text-2xl font-semibold text-wine-700 italic">{t.articleDetail.remember}</p>
                 <ul className="mt-4 space-y-3">
                   {article.keyPoints.map((k) => (
@@ -167,7 +170,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
               </p>
 
               {/* Auteur */}
-              <div className="mt-10 flex flex-col gap-5 rounded-2xl border border-sand-300 bg-cream-50 p-6 sm:flex-row sm:items-center">
+              <div className="mt-10 flex flex-col gap-5 rounded-lg border border-sand-300 bg-white p-6 sm:flex-row sm:items-center">
                 <Monogram className="h-16 w-16 shrink-0 rounded-md shadow-tile" />
                 <div className="flex-1">
                   <p className="font-serif text-xl font-semibold text-ink-900">{cabinet.lawyer}</p>
@@ -183,7 +186,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
               {/* Précédent / suivant */}
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 {prev ? (
-                  <Link to={`/articles/${prev.id}`} className="group rounded-2xl border border-sand-300 p-5 transition-all hover:border-wine-600/40 hover:shadow-tile">
+                  <Link to={`/articles/${prev.id}`} className="group rounded-lg border border-sand-300 p-5 transition-colors hover:border-wine-600/40 hover:shadow-tile">
                     <span className="flex items-center gap-2 text-[11px] tracking-[0.18em] text-ink-400 uppercase">
                       <ArrowRight className="h-3.5 w-3.5 rotate-180 rtl:rotate-0" /> {t.articleDetail.prev}
                     </span>
@@ -205,7 +208,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
           {/* Partage */}
           <aside>
             <div className="space-y-5 lg:sticky lg:top-28">
-              <div className="rounded-2xl border border-sand-300 bg-cream-50 p-5">
+              <div className="rounded-lg border border-sand-300 bg-white p-5">
                 <p className="text-[11px] font-medium tracking-[0.24em] text-ink-400 uppercase">{t.articleDetail.share}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {share.map(({ label, Icon, href }) => (
@@ -227,7 +230,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
                 </div>
                 {copied && <p className="panel-in mt-3 text-xs text-success">{t.articleDetail.copied}</p>}
               </div>
-              <div className="rounded-2xl bg-wine-900 p-6 text-cream-50">
+              <div className="rounded-lg bg-wine-900 p-6 text-cream-50">
                 <p className="font-serif text-[22px] leading-tight">{t.articleDetail.similar}</p>
                 <p className="mt-2 text-[13px] leading-relaxed text-cream-200/75">{t.articleDetail.similarText}</p>
                 <Link to={expertise ? `/contact?domaine=${expertise.id}` : "/contact"} className="btn-gold mt-5 w-full px-4!">

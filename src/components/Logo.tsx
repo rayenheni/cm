@@ -1,26 +1,19 @@
 import { useId } from "react";
 import { cn } from "@/utils/cn";
 import { useLang, useT } from "@/i18n";
+import monogram from "@/assets/cmcb-monogram.png";
 
-/** Monogramme CMCB d'après le logo du cabinet : C·M / C·B, serif bordeaux sur sable. */
+/** Monogramme extrait du logo fourni par le cabinet. */
 export function Monogram({ className }: { className?: string }) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   return (
-    <svg viewBox="0 0 120 120" className={className} role="img" aria-label="Monogramme CMCB">
-      <defs>
-        <linearGradient id={`tile-${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ece1c9" />
-          <stop offset="1" stopColor="#d6c29d" />
-        </linearGradient>
-      </defs>
-      <rect width="120" height="120" rx="5" fill={`url(#tile-${uid})`} />
-      <g fill="#7c1f2e" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight={600} fontSize="60">
-        <text x="19" y="62">C</text>
-        <text x="45" y="62" fontSize="56">M</text>
-        <text x="25" y="107">C</text>
-        <text x="55" y="107">B</text>
-      </g>
-    </svg>
+    <img
+      src={monogram}
+      alt="Monogramme CMCB"
+      width={290}
+      height={290}
+      className={className}
+      style={{ background: "linear-gradient(135deg, #ece1c9, #d6c29d)" }}
+    />
   );
 }
 
@@ -33,7 +26,7 @@ export function LogoLockup({ dark = false, compact = false }: { dark?: boolean; 
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            "font-serif font-bold tracking-[0.08em]",
+            "font-serif font-medium tracking-[0.04em]",
             compact ? "text-[24px]" : "text-[28px]",
             dark ? "text-cream-50" : "text-wine-600"
           )}
@@ -42,7 +35,7 @@ export function LogoLockup({ dark = false, compact = false }: { dark?: boolean; 
         </span>
         <span
           className={cn(
-            "mt-1 border-t pt-1 font-normal",
+            "mt-1 border-b pb-1 font-normal",
             lang === "ar" ? "text-[12px] tracking-normal" : "text-[10.5px] tracking-[0.2em]",
             dark ? "border-gold-400/50 text-gold-400" : "border-gold-500/60 text-gold-600"
           )}
@@ -62,7 +55,7 @@ export function CircularSeal({ className }: { className?: string }) {
   const isAr = lang === "ar";
   return (
     <div className={cn("relative", className)}>
-      <svg viewBox="0 0 140 140" className="spin-slow h-full w-full" aria-hidden="true">
+      <svg viewBox="0 0 140 140" className="h-full w-full" aria-hidden="true">
         <defs>
           <path id={pathId} d="M70,70 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0" />
         </defs>
