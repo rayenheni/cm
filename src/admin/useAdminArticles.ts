@@ -1,68 +1,31 @@
-import { useState, useEffect, useCallback } from "react";
-import { ARTICLES, type Article } from "@/data/content";
-
-const LS_KEY = "cmcb-admin-articles";
-
-function loadAdminArticles(): Article[] {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as Article[];
-  } catch {
-    return [];
-  }
-}
-
-function saveAdminArticles(articles: Article[]) {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(articles));
-    // Notify same-tab listeners (useArticles in i18n.tsx)
-    window.dispatchEvent(new Event("cmcb-articles-updated"));
-  } catch {
-    /* ignore */
-  }
-}
+import { useCallback, useEffect, useState } from 'react';
+import type { ArticleInput, StoredArticle } from '@/lib/api-types';
+import { api, errorMessage } from '@/lib/api';
 
 export function useAdminArticles() {
-  const [adminArticles, setAdminArticles] = useState<Article[]>(loadAdminArticles);
-
-  // Keep in sync across tabs
+  const [articles, setArticles] = useState<StoredArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [revision, setRevision] = useState(0);
+  const refresh = useCallback(() => setRevision(v => v + 1), []);
   useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === LS_KEY) {
-        setAdminArticles(loadAdminArticles());
-      }
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    const controller = new AbortController();
+    setLoading(true); setError('');
+    api<{ articles: StoredArticle[] }>('/admin/articles', { signal: controller.signal })
+      .then(data => { if (!controller.signal.aborted) setArticles(data.articles); })
+      .catch(err => { if (!controller.signal.aborted) setError(errorMessage(err)); })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, [revision]);
+  const saveArticle = useCallback(async (article: ArticleInput, editing: boolean) => {
+    await api(`/admin/articles${editing ? `/${encodeURIComponent(article.id)}` : ''}`, { method: editing ? 'PUT' : 'POST', body: article });
+    setRevision(v => v + 1);
+    window.dispatchEvent(new Event('cmcb-articles-updated'));
   }, []);
-
-  // Merged list: built-in first, then admin-created
-  const allArticles = [...ARTICLES, ...adminArticles];
-
-  const addArticle = useCallback((article: Article) => {
-    setAdminArticles((prev) => {
-      const updated = [...prev, article];
-      saveAdminArticles(updated);
-      return updated;
-    });
+  const deleteArticle = useCallback(async (id: string) => {
+    await api(`/admin/articles/${encodeURIComponent(id)}`, { method: 'DELETE', body: {} });
+    setRevision(v => v + 1);
+    window.dispatchEvent(new Event('cmcb-articles-updated'));
   }, []);
-
-  const updateArticle = useCallback((id: string, patch: Partial<Article>) => {
-    setAdminArticles((prev) => {
-      const updated = prev.map((a) => (a.id === id ? { ...a, ...patch } : a));
-      saveAdminArticles(updated);
-      return updated;
-    });
-  }, []);
-
-  const deleteArticle = useCallback((id: string) => {
-    setAdminArticles((prev) => {
-      const updated = prev.filter((a) => a.id !== id);
-      saveAdminArticles(updated);
-      return updated;
-    });
-  }, []);
-
-  return { allArticles, adminArticles, addArticle, updateArticle, deleteArticle };
+  return { articles, loading, error, refresh, saveArticle, deleteArticle };
 }

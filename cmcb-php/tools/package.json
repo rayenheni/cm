@@ -1,0 +1,23 @@
+{
+  "name": "cmcb-php-preview-tools",
+  "private": true,
+  "type": "module",
+  "description": "Optional PHP 8.3 WebAssembly preview adapter for sandboxes without native PHP. Not used in production.",
+  "scripts": {
+    "start": "node preview-server.mjs",
+    "php": "node php-cli.mjs",
+    "test": "node php-cli.mjs tests/run.php",
+    "test:browser": "cd .. && node tests/browser.mjs",
+    "test:preview": "cd .. && node tests/preview.mjs",
+    "test:nojs": "cd .. && node tests/nojs.mjs",
+    "test:mobile": "cd .. && node tests/mobile.mjs",
+    "theme": "tailwindcss -i theme.css -o ../public/assets/theme.css --minify",
+    "test:lint": "node php-cli.mjs lint.php",
+    "test:parity": "cd .. && node tests/parity.mjs"
+  },
+  "devDependencies": {
+    "@php-wasm/node": "3.1.62",
+    "@tailwindcss/cli": "4.1.17",
+    "node": "24.22.2"
+  }
+}

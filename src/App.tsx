@@ -75,11 +75,10 @@ function FloatingActions() {
         target="_blank"
         rel="noreferrer"
         aria-label={t.app.whatsapp}
-        className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-soft transition-transform duration-300 hover:scale-105 active:scale-95"
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-whatsapp text-white shadow-tile transition-colors hover:bg-success"
       >
-        <span className="pulse-ring absolute inset-0 rounded-full" aria-hidden="true" />
         <WhatsApp className="relative h-6.5 w-6.5" />
-        <span className="pointer-events-none absolute right-full mr-3 hidden rounded-full bg-wine-950 px-4 py-2 text-xs font-medium whitespace-nowrap text-cream-50 opacity-0 shadow-tile transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100 sm:block rtl:right-auto rtl:left-full rtl:mr-0 rtl:ml-3 rtl:group-hover:translate-x-1">
+        <span className="pointer-events-none absolute right-full mr-3 hidden rounded-md bg-wine-950 px-4 py-2 text-xs font-medium whitespace-nowrap text-cream-50 opacity-0 shadow-tile transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100 sm:block rtl:right-auto rtl:left-full rtl:mr-0 rtl:ml-3 rtl:group-hover:translate-x-1">
           {t.app.whatsappTip}
         </span>
       </a>

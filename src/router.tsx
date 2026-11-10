@@ -24,10 +24,31 @@ function parse(): Route {
   return { path: "/" + segments.join("/"), segments, query: new URLSearchParams(q) };
 }
 
+let navigationGuard: (() => boolean) | null = null;
+let approvedHash: string | null = null;
+
+/** Registers a guard for in-app navigation (for example an unsaved editor). */
+export function setNavigationGuard(guard: (() => boolean) | null) {
+  navigationGuard = guard;
+}
+
+export function confirmNavigation(): boolean {
+  return navigationGuard ? navigationGuard() : true;
+}
+
 export function useHashRoute(): Route {
   const [route, setRoute] = useState<Route>(parse);
   useEffect(() => {
-    const onChange = () => setRoute(parse());
+    const onChange = (event: HashChangeEvent) => {
+      const approved = approvedHash === window.location.hash;
+      approvedHash = null;
+      if (!approved && navigationGuard && !navigationGuard()) {
+        const previousHash = new URL(event.oldURL).hash;
+        history.replaceState(history.state, '', window.location.pathname + window.location.search + previousHash);
+        return;
+      }
+      setRoute(parse());
+    };
     window.addEventListener("hashchange", onChange);
     return () => window.removeEventListener("hashchange", onChange);
   }, []);
@@ -62,6 +83,10 @@ export function useDocumentTitle(title?: string) {
 }
 
 export function navigate(to: string) {
+  const target = `#${to}`;
+  if (window.location.hash === target) return;
+  if (!confirmNavigation()) return;
+  approvedHash = target;
   window.location.hash = to;
 }
 

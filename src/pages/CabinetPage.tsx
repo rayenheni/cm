@@ -2,8 +2,7 @@ import { IMAGES } from "@/data/content";
 import { Link, useDocumentTitle } from "@/router";
 import { useAudiences, useCabinet, useT, useValues } from "@/i18n";
 import { Reveal } from "@/components/Reveal";
-import { CircularSeal } from "@/components/Logo";
-import heroPortrait from "@/assets/maitre-bhiri.jpg";
+import heroPortrait from "@/assets/chaima-bhiri.webp";
 import { CtaBand, MethodSection, PageHeader, SectionHeading } from "@/components/Blocks";
 import { ArrowRight, Check, Compass, Handshake, ICON_MAP, LinkedIn, MapPin, Quote, Shield } from "@/components/Icons";
 
@@ -33,16 +32,18 @@ export function CabinetPage() {
             <div className="relative mx-auto max-w-[430px] lg:sticky lg:top-28">
               <div className="absolute -top-4 -left-4 h-28 w-28 border-t-2 border-l-2 border-gold-500/70 rtl:right-4 rtl:left-auto rtl:border-r-2 rtl:border-l-0" aria-hidden="true" />
               <div className="absolute -right-4 -bottom-4 h-28 w-28 border-r-2 border-b-2 border-gold-500/70 rtl:right-auto rtl:-left-4 rtl:border-l-2 rtl:border-r-0" aria-hidden="true" />
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[22px] border border-sand-300 shadow-soft">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-sand-300 shadow-soft">
                 <img
                   src={heroPortrait}
                   alt={t.cabinet.portraitAlt}
-                  className="h-full w-full object-cover object-[50%_20%]"
+                  width={2240}
+                  height={1120}
+                  className="h-full w-full object-cover object-[82%_50%]"
                   loading="lazy"
+                  decoding="async"
                 />
-                <div className="pointer-events-none absolute inset-0 rounded-[22px] outline-1 outline-offset-[-12px] outline-cream-50/25" aria-hidden="true" />
+                <div className="pointer-events-none absolute inset-0 rounded-lg outline-1 outline-offset-[-12px] outline-cream-50/25" aria-hidden="true" />
               </div>
-              <CircularSeal className="absolute -right-8 -bottom-8 hidden h-28 w-28 drop-shadow-lg sm:block rtl:right-auto rtl:-left-8" />
               <span className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-cream-50/92 px-4 py-1.5 text-[11px] font-medium tracking-[0.16em] text-wine-700 uppercase backdrop-blur-sm rtl:right-5 rtl:left-auto">
                 <MapPin className="h-3.5 w-3.5" /> {t.cabinet.location}
               </span>
@@ -77,7 +78,7 @@ export function CabinetPage() {
             </Reveal>
 
             <Reveal delay={160}>
-              <figure className="mt-10 rounded-2xl bg-wine-600 p-8 text-cream-50 shadow-tile">
+              <figure className="mt-10 rounded-lg bg-wine-700 p-8 text-cream-50 shadow-tile">
                 <Quote className="h-8 w-8 text-gold-400" />
                 <blockquote className="mt-3 font-serif text-[24px] leading-snug italic">
                   {t.cabinet.quote}
@@ -108,7 +109,7 @@ export function CabinetPage() {
               const Icon = MOTTO_ICONS[i % MOTTO_ICONS.length];
               return (
                 <Reveal key={verb} delay={i * 120} className="h-full">
-                  <article className="group relative h-full overflow-hidden rounded-2xl border border-sand-300 bg-cream-50 p-8 text-center transition-all duration-500 hover:-translate-y-1.5 hover:shadow-soft">
+                  <article className="group relative h-full overflow-hidden rounded-lg border border-sand-300 bg-white p-8 text-center transition-colors duration-200 hover:border-wine-600/40 hover:shadow-tile">
                     <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-gold-500/50 text-wine-600 transition-all duration-500 group-hover:bg-wine-600 group-hover:text-cream-50">
                       <Icon className="h-7 w-7" />
                     </span>
@@ -150,7 +151,7 @@ export function CabinetPage() {
               const Icon = ICON_MAP[a.icon];
               return (
                 <Reveal key={a.title} delay={i * 100} className="h-full">
-                  <div className="h-full rounded-2xl border border-sand-300 bg-cream-50 p-7">
+                  <div className="h-full rounded-lg border border-sand-300 bg-white p-7">
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-wine-600 text-cream-50">
                       <Icon className="h-6 w-6" />
                     </span>

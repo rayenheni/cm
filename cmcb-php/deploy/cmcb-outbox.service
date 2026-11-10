@@ -1,0 +1,21 @@
+[Unit]
+Description=CMCB PHP SMTP outbox worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/cmcb-php
+ExecStart=/usr/bin/php /var/www/cmcb-php/bin/outbox-worker.php
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/cmcb-php/data
+
+[Install]
+WantedBy=multi-user.target

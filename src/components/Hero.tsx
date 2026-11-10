@@ -2,26 +2,12 @@ import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
 import { useCabinet, useT } from "@/i18n";
 import { Link } from "@/router";
-import { CircularSeal } from "./Logo";
 import { ArrowRight } from "./Icons";
-import heroPortrait from "@/assets/maitre-bhiri.jpg";
+import heroPortrait from "@/assets/chaima-bhiri.webp";
 
-const DURATION = 4200;
+const DURATION = 6000;
 
 const TONES = ["text-gold-600", "text-wine-600", "text-gold-600"];
-
-function MarqueeList({ items, hidden = false }: { items: string[]; hidden?: boolean }) {
-  return (
-    <div className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
-      {items.map((item) => (
-        <span key={item} className="flex items-center">
-          <span className="px-7 font-serif text-xl italic whitespace-nowrap text-wine-700/85">{item}</span>
-          <span className="h-1.5 w-1.5 shrink-0 rotate-45 bg-gold-500" aria-hidden="true" />
-        </span>
-      ))}
-    </div>
-  );
-}
 
 /** Une promesse à la fois : révélation douce, ligne par ligne. */
 function Phrase({
@@ -92,14 +78,35 @@ export function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(52rem 36rem at 12% -8%, rgb(124 31 46 / 0.08), transparent 60%), radial-gradient(40rem 30rem at -6% 108%, rgb(160 128 90 / 0.18), transparent 58%), linear-gradient(180deg, #faf6ec 0%, #f5eedf 100%)",
+                "linear-gradient(180deg, #faf6ec 0%, #f5eedf 100%)",
             }}
           />
-          <div className="texture-grain absolute inset-0 opacity-[0.05] mix-blend-multiply" />
           <div className="absolute top-0 bottom-0 left-[8%] hidden w-px bg-wine-600/[0.06] lg:block rtl:right-[8%] rtl:left-auto" />
         </div>
 
         <div className="relative grid lg:min-h-[664px] lg:grid-cols-[54%_46%]">
+          {/* ——— Colonne photo plein cadre ——— */}
+          <div className="relative h-[440px] w-full sm:h-[540px] lg:order-last lg:h-auto">
+            {/* Photo plein cadre */}
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src={heroPortrait}
+                alt={t.hero.portraitAlt}
+                width={2240}
+                height={1120}
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-[84%_50%] sm:object-[100%_50%] lg:object-[78%_50%] 2xl:object-[84%_50%]"
+              />
+              <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-gold-400/60 to-transparent lg:block rtl:right-0 rtl:left-auto" aria-hidden="true" />
+            </div>
+
+            {/* Étiquette verticale à la jointure (non recadrée) */}
+            <span className="absolute top-1/2 left-0 hidden -translate-x-1/2 -translate-y-1/2 rotate-180 text-[10px] font-medium tracking-[0.34em] text-ink-400 uppercase [writing-mode:vertical-rl] lg:block rtl:right-0 rtl:left-auto rtl:translate-x-1/2">
+              {t.hero.vertical}
+            </span>
+
+          </div>
+
           {/* ——— Colonne texte ——— */}
           <div className="relative z-10 min-w-0 px-5 py-14 sm:px-8 lg:py-24 lg:pr-14 lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] rtl:lg:pr-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] rtl:lg:pl-14">
             <div className="max-w-xl min-w-0">
@@ -172,35 +179,20 @@ export function Hero() {
               </dl>
             </div>
           </div>
-
-          {/* ——— Colonne photo plein cadre ——— */}
-          <div className="relative h-[440px] w-full sm:h-[540px] lg:h-auto">
-            {/* Photo plein cadre */}
-            <div className="absolute inset-0 overflow-hidden">
-              <img
-                src={heroPortrait}
-                alt={t.hero.portraitAlt}
-                className="absolute inset-0 h-full w-full object-cover object-[50%_24%]"
-              />
-              <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-gold-400/60 to-transparent lg:block rtl:right-0 rtl:left-auto" aria-hidden="true" />
-            </div>
-
-            {/* Étiquette verticale à la jointure (non recadrée) */}
-            <span className="absolute top-1/2 left-0 hidden -translate-x-1/2 -translate-y-1/2 rotate-180 text-[10px] font-medium tracking-[0.34em] text-ink-400 uppercase [writing-mode:vertical-rl] lg:block rtl:right-0 rtl:left-auto rtl:translate-x-1/2">
-              {t.hero.vertical}
-            </span>
-
-            {/* Sceau rotatif */}
-            <CircularSeal className="absolute top-6 right-5 hidden h-24 w-24 drop-shadow-[0_10px_24px_rgb(53_11_20/0.28)] sm:block lg:top-12 lg:right-8 rtl:right-auto rtl:left-5 rtl:lg:right-auto rtl:lg:left-8" />
-          </div>
         </div>
       </div>
 
-      {/* Bandeau défilant des expertises */}
-      <div className="marquee relative border-y border-sand-300 bg-cream-100/85 py-4">
-        <div className="marquee-track flex w-max">
-          <MarqueeList items={t.hero.marquee} />
-          <MarqueeList items={t.hero.marquee} hidden />
+      <div className="border-y border-sand-300 bg-cream-100/85 py-4">
+        <div className="hero-marquee" role="group" aria-label={t.hero.marqueeLabel}>
+          <div className="hero-marquee__track marquee-track">
+            {[0, 1].map((copy) => (
+              <div key={copy} className="hero-marquee__group" aria-hidden={copy === 1 || undefined}>
+                {t.hero.marquee.slice(0, 5).map((item) => (
+                  <span key={item} className="hero-marquee__item">{item}</span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

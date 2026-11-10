@@ -8,12 +8,13 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// https://vite.dev/config/
+// The Express server mounts Vite in middleware mode: one origin for UI and API.
 export default defineConfig({
   plugins: [react(), tailwindcss(), viteSingleFile()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
+  resolve: { alias: { "@": path.resolve(__dirname, "src") } },
+  server: {
+    host: "0.0.0.0",
+    allowedHosts: true,
+    fs: { deny: ['.env', '.env.*', '**/data/**', '**/backups/**', '**/*.sqlite*', '**/server/**'] },
   },
 });

@@ -1,38 +1,9 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { cn } from "@/utils/cn";
-import { useCabinet, useExpertises, useT, type Strings } from "@/i18n";
+import { useCabinet, useExpertises, useLang, useT, type Strings } from "@/i18n";
 import { Check, ChevronDown, Mail, Send, WhatsApp } from "./Icons";
-
-/* ——— Reservation persistence ——— */
-const RESERVATIONS_KEY = "cmcb-reservations";
-
-interface Reservation {
-  id: string;
-  createdAt: string;
-  name: string;
-  phone: string;
-  email: string;
-  domain: string;
-  urgency: string;
-  message: string;
-  status: "new" | "contacted" | "closed";
-}
-
-function saveReservation(data: Omit<Reservation, "id" | "createdAt" | "status">) {
-  try {
-    const existing: Reservation[] = JSON.parse(localStorage.getItem(RESERVATIONS_KEY) ?? "[]");
-    const reservation: Reservation = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
-      createdAt: new Date().toISOString(),
-      status: "new",
-      ...data,
-    };
-    existing.push(reservation);
-    localStorage.setItem(RESERVATIONS_KEY, JSON.stringify(existing));
-  } catch {
-    /* ignore — localStorage may be unavailable */
-  }
-}
+import { api, errorMessage } from "@/lib/api";
+import type { Urgency } from "@/lib/api-types";
 
 interface FormState {
   name: string;
@@ -60,6 +31,9 @@ function validate(form: FormState, t: Strings): Errors {
 export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
   const t = useT();
   const cabinet = useCabinet();
+  const { lang } = useLang();
+  const submissionKey = useRef(crypto.randomUUID());
+  const [submitError, setSubmitError] = useState("");
   const expertises = useExpertises();
   const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", domain: presetDomain, urgency: t.form.urgencies[0], message: "", consent: false });
   const [errors, setErrors] = useState<Errors>({});
@@ -79,7 +53,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
     setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const errs = validate(form, t);
     setErrors(errs);
@@ -88,17 +62,15 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
       document.getElementById(`c-${first}`)?.focus();
       return;
     }
-    setStatus("sending");
-    // Save to localStorage for admin panel
-    saveReservation({
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
-      domain: form.domain,
-      urgency: form.urgency,
-      message: form.message,
-    });
-    window.setTimeout(() => setStatus("ready"), 800);
+    if (status === "sending") return;
+    setStatus("sending"); setSubmitError("");
+    try {
+      await api<{ id: string; persisted: boolean }>("/reservations", {
+        method: "POST", headers: { "Idempotency-Key": submissionKey.current },
+        body: { ...form, lang, urgency: (["normal", "48h", "urgent"] as Urgency[])[t.form.urgencies.indexOf(form.urgency)] ?? "normal", website: "" },
+      });
+      setStatus("ready");
+    } catch (error) { setSubmitError(errorMessage(error)); setStatus("idle"); }
   };
 
   const text = `${t.form.waGreeting}\n\n${t.form.waName} : ${form.name}\n${t.form.waPhone} : ${form.phone || "—"}\n${t.form.waEmail} : ${form.email}\n${t.form.waDomain} : ${form.domain}\n${t.form.waUrgency} : ${form.urgency}\n\n${form.message}`;
@@ -107,7 +79,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
 
   if (status === "ready") {
     return (
-      <div className="panel-in">
+      <div className="panel-in" role="status">
         <span className="flex h-16 w-16 items-center justify-center rounded-full bg-success/12 text-success">
           <Check className="h-8 w-8" />
         </span>
@@ -115,14 +87,16 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
         <p className="mt-2 text-[15px] leading-relaxed text-ink-600">
           {t.form.readyTextA} <strong className="font-medium text-ink-900">{t.form.readyTextB}</strong>.
         </p>
-        <dl className="mt-6 space-y-1.5 rounded-xl border border-sand-300 bg-cream-100/70 p-5 text-sm leading-relaxed text-ink-600">
+        <dl className="mt-6 space-y-1.5 rounded-lg border border-sand-300 bg-cream-100/70 p-5 text-sm leading-relaxed text-ink-600">
           <div><dt className="inline font-medium text-ink-900">{t.form.readyName}</dt><dd className="inline">{form.name}</dd></div>
           <div><dt className="inline font-medium text-ink-900">{t.form.readyDomain}</dt><dd className="inline">{form.domain}</dd></div>
           <div><dt className="inline font-medium text-ink-900">{t.form.readyUrgency}</dt><dd className="inline">{form.urgency}</dd></div>
           <div className="line-clamp-3"><dt className="inline font-medium text-ink-900">{t.form.readyMessage}</dt><dd className="inline">{form.message}</dd></div>
         </dl>
-        <div className="mt-6 flex flex-col gap-3">
-          <a href={waHref} target="_blank" rel="noreferrer" className="btn w-full bg-whatsapp text-white shadow-tile hover:brightness-110 active:scale-[0.98]">
+        <p className="mt-4 text-xs leading-relaxed text-ink-600">{lang === "ar" ? "هذا طلب استشارة وليس موعداً مؤكداً. سيتواصل معك المكتب لتأكيد الموعد." : "Ceci est une demande de consultation, pas un rendez-vous confirmé. Le cabinet vous contactera pour confirmer le créneau."}</p>
+        <p className="mt-4 text-xs text-ink-600">{lang === "ar" ? "التواصل مباشرة أيضاً:" : "Ou contactez directement le cabinet :"}</p>
+        <div className="mt-3 flex flex-col gap-3">
+          <a href={waHref} target="_blank" rel="noreferrer" className="btn w-full bg-whatsapp text-white hover:bg-success">
             <WhatsApp className="h-4.5 w-4.5" /> {t.form.viaWhatsapp}
           </a>
           <a href={mailHref} className="btn-outline w-full">
@@ -130,7 +104,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
           </a>
           <button
             type="button"
-            onClick={() => setStatus("idle")}
+            onClick={() => { submissionKey.current = crypto.randomUUID(); setStatus("idle"); }}
             className="mt-1 cursor-pointer text-sm font-medium text-ink-600 underline decoration-gold-500/60 underline-offset-4 transition-colors hover:text-wine-700"
           >
             {t.form.edit}
@@ -141,7 +115,8 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate>
+    <form onSubmit={onSubmit} noValidate aria-busy={status === "sending"}>
+      <input type="text" name="website" autoComplete="off" tabIndex={-1} aria-hidden="true" className="hidden" defaultValue="" />
       <p className="font-serif text-[28px] leading-tight font-semibold text-ink-900">{t.form.title}</p>
       <p className="mt-1.5 text-sm text-ink-600">{t.form.subtitle}</p>
 
@@ -190,7 +165,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
               onClick={() => set("urgency", u)}
               aria-pressed={form.urgency === u}
               className={cn(
-                "cursor-pointer rounded-full border px-4 py-2 text-[13px] transition-all duration-200",
+                "cursor-pointer rounded-md border px-4 py-2 text-[13px] transition-all duration-200",
                 form.urgency === u ? "border-wine-600 bg-wine-600 text-cream-50" : "border-sand-300 bg-cream-100/70 text-ink-600 hover:border-wine-600/50"
               )}
             >
@@ -219,6 +194,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
       </label>
       {errors.consent && <p className="mt-1.5 text-xs text-danger">{errors.consent}</p>}
 
+      {submitError && <p role="alert" className="mt-4 rounded-lg border border-danger/30 bg-red-50 p-4 text-sm text-danger">{submitError}</p>}
       <button type="submit" disabled={status === "sending"} className="btn-wine mt-7 w-full disabled:cursor-wait disabled:opacity-80">
         {status === "sending" ? (
           <>

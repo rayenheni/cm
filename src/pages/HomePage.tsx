@@ -1,5 +1,6 @@
+import { useArticleFeed } from '@/lib/useArticles';
 import { Link, useDocumentTitle } from "@/router";
-import { useAllFaqs, useArticles, useCabinet, useCabinetAr, useLang, useT } from "@/i18n";
+import { useAllFaqs, useCabinet, useCabinetAr, useLang, useT } from "@/i18n";
 import { IMAGES } from "@/data/content";
 import { Hero } from "@/components/Hero";
 import { PracticeExplorer } from "@/components/PracticeExplorer";
@@ -14,7 +15,7 @@ export function HomePage() {
   const { lang } = useLang();
   const cabinet = useCabinet();
   const cabinetAr = useCabinetAr();
-  const articles = useArticles();
+  const { articles, loading, error, refresh } = useArticleFeed();
   const allFaqs = useAllFaqs();
   useDocumentTitle();
   const [featured, ...others] = articles;
@@ -124,10 +125,10 @@ export function HomePage() {
               </Link>
             }
           />
+          {loading && <p className="mt-10 text-ink-600" role="status">{lang === "ar" ? "جارٍ تحميل المقالات…" : "Chargement des articles…"}</p>}
+          {error && <div className="mt-10 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>{lang === "ar" ? "إعادة المحاولة" : "Réessayer"}</button></div>}
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-3">
-              <ArticleCard article={featured} featured />
-            </div>
+            {featured && <div className="lg:col-span-3"><ArticleCard article={featured} featured /></div>}
             {others.map((a, i) => (
               <ArticleCard key={a.id} article={a} index={i + 1} />
             ))}

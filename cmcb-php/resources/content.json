@@ -1,0 +1,1045 @@
+{
+  "fr": {
+    "cabinet": {
+      "name": "CMCB",
+      "fullName": "CMCB avocat et conseils",
+      "lawyer": "Maître Chaima Bhiri",
+      "domain": "cmcbavocat.tn",
+      "role": "Avocat au Barreau de Tunisie",
+      "specialty": "Spécialisée en Droit Privé & Conseil Juridique",
+      "tagline": [
+        "Le bon conseil pour vous guider.",
+        "La bonne stratégie pour vous protéger.",
+        "Le bon avocat pour vous défendre."
+      ],
+      "phone": "+216 92 166 466",
+      "phoneHref": "tel:+21692166466",
+      "whatsapp": "21692166466",
+      "whatsappHref": "https://wa.me/21692166466?text=Bonjour%20Ma%C3%AEtre%20Bhiri%2C%20je%20souhaite%20prendre%20rendez-vous%20au%20cabinet%20CMCB.",
+      "email": "maitrechaimabhiri@gmail.com",
+      "emailHref": "mailto:maitrechaimabhiri@gmail.com",
+      "address": "Rue des Fleurs, Msaken 4070",
+      "city": "Sousse — Tunisie",
+      "mapsHref": "https://www.google.com/maps/search/?api=1&query=Rue+des+Fleurs+Msaken+4070+Sousse+Tunisie",
+      "mapsEmbed": "https://www.openstreetmap.org/export/embed.html?bbox=10.5450%2C35.7050%2C10.6250%2C35.7550&layer=mapnik&marker=35.7292%2C10.5806",
+      "hours": "Lun – Ven : 9h00 – 17h30",
+      "hoursSat": "Samedi : 9h00 – 13h00 (sur rendez-vous)",
+      "linkedin": "https://www.linkedin.com/in/chaima-bhiri",
+      "facebook": "https://www.facebook.com/cmcbavocat"
+    },
+    "images": {
+      "heroJustice": "https://images.pexels.com/photos/8112195/pexels-photo-8112195.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=900",
+      "library": "https://images.pexels.com/photos/6077091/pexels-photo-6077091.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200",
+      "officeDetail": "https://images.pexels.com/photos/8112198/pexels-photo-8112198.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+      "lawBook": "https://images.pexels.com/photos/8731037/pexels-photo-8731037.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400"
+    },
+    "expertises": [
+      {
+        "id": "affaires",
+        "num": "01",
+        "title": "Droit des Affaires, des Sociétés & Commercial",
+        "shortTitle": "Droit des affaires",
+        "short": "Création, structuration, contrats et contentieux commerciaux.",
+        "icon": "briefcase",
+        "image": "https://images.pexels.com/photos/261621/pexels-photo-261621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "Entreprendre, investir, contracter : chaque décision d'affaires engage votre responsabilité et votre patrimoine. Le cabinet accompagne entrepreneurs, PME, commerçants et investisseurs à chaque étape de la vie de leur entreprise — du choix de la structure juridique jusqu'à la résolution des litiges commerciaux.",
+        "services": [
+          {
+            "title": "Création & structuration de sociétés",
+            "text": "Accompagnement complet des entrepreneurs et investisseurs dans la rédaction des statuts, le choix de la forme juridique et l'accomplissement des formalités de constitution."
+          },
+          {
+            "title": "Droit commercial & contrats",
+            "text": "Rédaction, négociation et validation juridique des contrats commerciaux, des conventions d'actionnaires et des documents corporatifs."
+          },
+          {
+            "title": "Baux commerciaux & litiges",
+            "text": "Gestion des négociations de baux, renouvellements, résiliations et résolution des contentieux commerciaux."
+          }
+        ],
+        "situations": [
+          "Vous créez votre société et hésitez entre SUARL, SARL ou SA.",
+          "Vous devez négocier ou signer un contrat commercial à fort enjeu.",
+          "Un associé bloque les décisions ou souhaite céder ses parts.",
+          "Votre bailleur refuse le renouvellement de votre bail commercial.",
+          "Un client ou un fournisseur ne respecte pas ses engagements."
+        ],
+        "approach": [
+          {
+            "title": "Audit",
+            "text": "Analyse de votre projet, de vos statuts ou de vos contrats existants pour identifier les risques."
+          },
+          {
+            "title": "Rédaction sur mesure",
+            "text": "Statuts, pactes d'associés, contrats et conditions générales adaptés à votre activité réelle."
+          },
+          {
+            "title": "Négociation",
+            "text": "Sécurisation des clauses sensibles : responsabilité, paiement, résiliation, non-concurrence."
+          },
+          {
+            "title": "Contentieux",
+            "text": "Représentation devant les juridictions commerciales lorsque la voie amiable échoue."
+          }
+        ],
+        "documents": [
+          "Projet d'activité, répartition envisagée du capital",
+          "Statuts et procès-verbaux existants",
+          "Contrats, bons de commande, factures et échanges écrits",
+          "Bail commercial et correspondances avec le bailleur"
+        ],
+        "faqs": [
+          {
+            "q": "Combien de temps faut-il pour constituer une société ?",
+            "a": "Une fois les statuts finalisés et le capital déposé, les formalités d'immatriculation peuvent être accomplies rapidement. Le délai global dépend surtout de la préparation du dossier : c'est pourquoi le cabinet vérifie chaque pièce en amont."
+          },
+          {
+            "q": "Faut-il vraiment un pacte d'associés ?",
+            "a": "Il n'est pas obligatoire, mais il est vivement recommandé dès qu'il y a plusieurs associés : il organise les cessions, les sorties, la gouvernance et le règlement des différends, et prévient l'essentiel des blocages."
+          }
+        ],
+        "tags": [
+          "Statuts",
+          "Contrats",
+          "Baux",
+          "Contentieux"
+        ]
+      },
+      {
+        "id": "famille",
+        "num": "02",
+        "title": "Droit de la Famille & Statut Personnel",
+        "shortTitle": "Famille & statut personnel",
+        "short": "Un accompagnement humain, discret et rigoureux des affaires familiales.",
+        "icon": "family",
+        "image": "https://images.pexels.com/photos/13821255/pexels-photo-13821255.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "Les affaires familiales touchent à ce que vous avez de plus précieux. Elles exigent autant de rigueur juridique que d'écoute et de discrétion. Le cabinet vous accompagne dans les procédures du Code du statut personnel, le règlement des successions et les démarches liées à la nationalité, avec un objectif constant : protéger vos droits et ceux de vos enfants.",
+        "services": [
+          {
+            "title": "Accompagnement juridique",
+            "text": "Gestion des procédures de divorce, de garde d'enfants, de pensions alimentaires et de régimes matrimoniaux avec écoute et discrétion."
+          },
+          {
+            "title": "Successions & patrimoine",
+            "text": "Conseil et assistance dans le règlement des successions et la protection du patrimoine familial."
+          },
+          {
+            "title": "Nationalité tunisienne & droit des étrangers",
+            "text": "Assistance administrative et juridique dans les démarches d'acquisition, de réintégration ou de vérification de la nationalité tunisienne, ainsi que l'accompagnement des résidents étrangers."
+          }
+        ],
+        "situations": [
+          "Vous envisagez un divorce, par consentement mutuel ou contentieux.",
+          "Vous souhaitez fixer ou réviser une garde, un droit de visite ou une pension.",
+          "Vous devez régler une succession ou un partage entre héritiers.",
+          "Vous résidez à l'étranger et devez agir en Tunisie à distance.",
+          "Vous engagez une démarche de nationalité ou de séjour."
+        ],
+        "approach": [
+          {
+            "title": "Écoute",
+            "text": "Un entretien confidentiel pour comprendre votre histoire, vos priorités et celles de vos enfants."
+          },
+          {
+            "title": "Information claire",
+            "text": "Vos droits, les procédures possibles, leurs délais et leurs conséquences, sans jargon."
+          },
+          {
+            "title": "Recherche d'accord",
+            "text": "La voie amiable est privilégiée chaque fois qu'elle préserve vos intérêts."
+          },
+          {
+            "title": "Défense ferme",
+            "text": "Représentation devant le juge de la famille lorsque le dialogue n'est plus possible."
+          }
+        ],
+        "documents": [
+          "Contrat de mariage et extraits d'actes d'état civil",
+          "Justificatifs de revenus et de charges",
+          "Documents relatifs aux enfants (scolarité, santé)",
+          "Acte de décès, titres de propriété, relevés bancaires (succession)"
+        ],
+        "faqs": [
+          {
+            "q": "Puis-je divorcer si je vis à l'étranger ?",
+            "a": "Oui, dans de nombreux cas. Le cabinet accompagne régulièrement des Tunisiens résidant à l'étranger : la procédure peut être suivie à distance, avec une procuration encadrée et des comptes rendus réguliers."
+          },
+          {
+            "q": "La garde des enfants peut-elle être modifiée ?",
+            "a": "Oui. Les mesures relatives aux enfants restent révisables si les circonstances évoluent (déménagement, situation professionnelle, besoins de l'enfant). L'intérêt supérieur de l'enfant guide toujours la décision du juge."
+          }
+        ],
+        "tags": [
+          "Divorce",
+          "Garde",
+          "Successions",
+          "Nationalité"
+        ]
+      },
+      {
+        "id": "travail",
+        "num": "03",
+        "title": "Droit du Travail & Relations Sociales",
+        "shortTitle": "Droit du travail",
+        "short": "Conseil et défense des employeurs comme des salariés, à preuve égale.",
+        "icon": "work",
+        "image": "https://images.pexels.com/photos/5257756/pexels-photo-5257756.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "La relation de travail repose sur un équilibre fragile entre les droits du salarié et les impératifs de l'entreprise. Le cabinet conseille les employeurs dans la gestion sécurisée de leurs ressources humaines et défend les salariés face aux ruptures abusives — avec la même rigueur, quel que soit le côté.",
+        "services": [
+          {
+            "title": "Conseil aux entreprises & salariés",
+            "text": "Rédaction et révision des contrats de travail, gestion des procédures de licenciement et conformité à la réglementation."
+          },
+          {
+            "title": "Contentieux prud'homaux",
+            "text": "Représentation et défense avec fermeté devant le Conseil des Prud'hommes en cas de litige de travail."
+          }
+        ],
+        "situations": [
+          "Vous avez reçu une notification de licenciement que vous jugez injustifiée.",
+          "Votre employeur ne verse pas vos salaires ou vos indemnités.",
+          "Vous êtes employeur et devez engager une procédure disciplinaire.",
+          "Vous souhaitez mettre à jour vos contrats ou votre règlement intérieur.",
+          "Un litige vous oppose à un salarié ou ex-salarié."
+        ],
+        "approach": [
+          {
+            "title": "Diagnostic",
+            "text": "Analyse du contrat, de la procédure suivie et des pièces disponibles."
+          },
+          {
+            "title": "Préservation des preuves",
+            "text": "Constitution méthodique du dossier : bulletins, courriers, attestations, échanges écrits."
+          },
+          {
+            "title": "Conciliation",
+            "text": "Négociation et conciliation devant l'inspection du travail lorsque c'est pertinent."
+          },
+          {
+            "title": "Prud'hommes",
+            "text": "Plaidoirie devant le Conseil des prud'hommes et suivi jusqu'à l'exécution."
+          }
+        ],
+        "documents": [
+          "Contrat de travail et avenants",
+          "Bulletins de paie des derniers mois",
+          "Lettre de licenciement, convocations, avertissements",
+          "Règlement intérieur et échanges écrits avec l'employeur ou le salarié"
+        ],
+        "faqs": [
+          {
+            "q": "Dois-je signer le reçu pour solde de tout compte ?",
+            "a": "Ne signez jamais dans la précipitation. Ce document peut avoir des conséquences sur vos recours : faites-le analyser avant toute signature, ou signez avec des réserves expresses."
+          },
+          {
+            "q": "Le cabinet conseille-t-il aussi les employeurs ?",
+            "a": "Oui. Le cabinet accompagne les entreprises en prévention — contrats, procédures disciplinaires, conformité — afin d'éviter des contentieux coûteux et un climat social dégradé."
+          }
+        ],
+        "tags": [
+          "Contrats de travail",
+          "Licenciement",
+          "Prud'hommes"
+        ]
+      },
+      {
+        "id": "penal",
+        "num": "04",
+        "title": "Droit Pénal & Cybercriminalité",
+        "shortTitle": "Pénal & cybercriminalité",
+        "short": "Une défense engagée, de l'instruction à la plaidoirie, y compris face au numérique.",
+        "icon": "gavel",
+        "image": "https://images.pexels.com/photos/30483129/pexels-photo-30483129.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "Être mis en cause ou victime d'une infraction est une épreuve. Chaque heure compte, chaque déclaration pèse. Le cabinet assure une défense pénale réactive et rigoureuse, de l'enquête jusqu'à l'audience, et vous accompagne face aux nouvelles formes de délinquance numérique : diffamation en ligne, usurpation d'identité, atteintes aux données personnelles.",
+        "services": [
+          {
+            "title": "Défense pénale",
+            "text": "Assistance et représentation devant les juridictions pénales, de la phase d'instruction jusqu'à la plaidoirie."
+          },
+          {
+            "title": "Cybercriminalité & droit du numérique",
+            "text": "Accompagnement et protection juridique face aux infractions numériques : diffamation en ligne, usurpation d'identité et atteintes aux données personnelles."
+          }
+        ],
+        "situations": [
+          "Vous êtes convoqué par la police, la garde nationale ou un juge d'instruction.",
+          "Un proche fait l'objet d'une garde à vue ou d'une poursuite pénale.",
+          "Vous êtes victime d'une infraction et souhaitez déposer plainte.",
+          "Vous êtes diffamé ou harcelé sur les réseaux sociaux.",
+          "Votre identité ou vos données personnelles ont été usurpées."
+        ],
+        "approach": [
+          {
+            "title": "Réactivité",
+            "text": "Une intervention rapide dès la convocation ou la garde à vue."
+          },
+          {
+            "title": "Étude du dossier",
+            "text": "Analyse minutieuse de la procédure et identification des nullités éventuelles."
+          },
+          {
+            "title": "Preuve numérique",
+            "text": "Constitution et conservation des preuves en ligne : captures, constats, réquisitions."
+          },
+          {
+            "title": "Plaidoirie",
+            "text": "Une défense argumentée et déterminée devant la juridiction compétente."
+          }
+        ],
+        "documents": [
+          "Convocation, procès-verbaux ou décisions reçues",
+          "Captures d'écran datées avec URL (infractions en ligne)",
+          "Toute pièce ou témoignage utile à la défense",
+          "Pièce d'identité"
+        ],
+        "faqs": [
+          {
+            "q": "Que faire si je reçois une convocation pénale ?",
+            "a": "Contactez un avocat avant de vous présenter. Il est essentiel de connaître vos droits et de préparer vos déclarations : ce qui est dit lors de l'audition est versé au dossier."
+          },
+          {
+            "q": "Peut-on agir contre un auteur anonyme sur internet ?",
+            "a": "Oui. Les investigations techniques permettent d'identifier les auteurs via des réquisitions auprès des opérateurs et des plateformes. L'anonymat en ligne n'est pas une impunité acquise."
+          }
+        ],
+        "tags": [
+          "Défense pénale",
+          "Diffamation",
+          "Données personnelles"
+        ]
+      },
+      {
+        "id": "mediation",
+        "num": "05",
+        "title": "Médiation & Règlement Amiable",
+        "shortTitle": "Médiation & amiable",
+        "short": "Résoudre vite, confidentiellement et économiquement, avant les tribunaux.",
+        "icon": "handshake",
+        "image": "https://images.pexels.com/photos/33175650/pexels-photo-33175650.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "Tous les litiges ne gagnent pas à être portés devant un tribunal. Une négociation bien menée ou une médiation encadrée permet souvent d'obtenir une solution plus rapide, moins coûteuse et plus durable — tout en préservant les relations commerciales, professionnelles ou familiales.",
+        "services": [
+          {
+            "title": "Modes alternatifs de règlement des conflits",
+            "text": "Négociation et médiation pour résoudre vos litiges de manière rapide, confidentielle et économique, avant de recourir aux tribunaux."
+          },
+          {
+            "title": "Rédaction de protocoles d'accord",
+            "text": "Formalisation sécurisée des accords trouvés : transactions, protocoles transactionnels et conventions de règlement."
+          }
+        ],
+        "situations": [
+          "Un différend commercial menace une relation d'affaires que vous souhaitez préserver.",
+          "Un conflit familial ou successoral gagnerait à être apaisé.",
+          "Vous voulez éviter la durée et le coût d'une procédure judiciaire.",
+          "Vous recherchez une solution confidentielle, loin de la publicité des audiences."
+        ],
+        "approach": [
+          {
+            "title": "Évaluation",
+            "text": "Analyse objective de votre position, de vos risques et de vos marges de négociation."
+          },
+          {
+            "title": "Stratégie",
+            "text": "Définition d'objectifs réalistes et d'une stratégie de négociation."
+          },
+          {
+            "title": "Médiation",
+            "text": "Échanges structurés et confidentiels avec la partie adverse ou son conseil."
+          },
+          {
+            "title": "Accord sécurisé",
+            "text": "Rédaction d'un protocole d'accord juridiquement solide et exécutable."
+          }
+        ],
+        "documents": [
+          "Historique du différend et échanges avec l'autre partie",
+          "Contrats et pièces justificatives",
+          "Vos attentes et vos limites de négociation"
+        ],
+        "faqs": [
+          {
+            "q": "Un accord amiable a-t-il une valeur juridique ?",
+            "a": "Oui, s'il est correctement rédigé. Une transaction bien formalisée a autorité entre les parties et peut, selon les cas, être homologuée pour devenir exécutoire."
+          },
+          {
+            "q": "Et si la médiation échoue ?",
+            "a": "Vous conservez tous vos droits d'agir en justice. Le travail préparatoire réalisé reste utile pour la suite de la procédure."
+          }
+        ],
+        "tags": [
+          "Négociation",
+          "Médiation",
+          "Accords"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "num": "01",
+        "title": "Écoute & consultation",
+        "text": "Un premier rendez-vous pour comprendre les faits, les parties et vos objectifs — au cabinet, par téléphone ou en visioconférence, sans jargon."
+      },
+      {
+        "num": "02",
+        "title": "Analyse & stratégie",
+        "text": "Une étude rigoureuse de votre dossier : pièces, risques, chances de succès et voies possibles — amiable avant tout, contentieuse si nécessaire."
+      },
+      {
+        "num": "03",
+        "title": "Action & négociation",
+        "text": "Rédaction des actes, mises en demeure, négociations et médiation. Chaque démarche est validée avec vous, honoraires convenus à l'avance."
+      },
+      {
+        "num": "04",
+        "title": "Défense & suivi",
+        "text": "Représentation devant les juridictions compétentes, plaidoirie et compte rendu après chaque audience, jusqu'à l'exécution de la décision."
+      }
+    ],
+    "commitments": [
+      {
+        "icon": "lock",
+        "title": "Confidentialité absolue",
+        "text": "Le secret professionnel de l'avocat couvre chacun de vos échanges."
+      },
+      {
+        "icon": "file",
+        "title": "Honoraires transparents",
+        "text": "Un accord écrit avant toute intervention. Aucune surprise."
+      },
+      {
+        "icon": "clock",
+        "title": "Réactivité",
+        "text": "Une réponse à votre demande sous 24 heures ouvrées."
+      },
+      {
+        "icon": "scales",
+        "title": "Rigueur & intégrité",
+        "text": "Une analyse stratégique et une argumentation exigeantes."
+      }
+    ],
+    "values": [
+      {
+        "word": "Rigueur",
+        "text": "Chaque dossier est étudié dans le détail. Aucune pièce n'est négligée, aucun argument n'est laissé au hasard : la précision est la première forme de respect dû au client."
+      },
+      {
+        "word": "Intégrité",
+        "text": "Un conseil honnête, même lorsqu'il n'est pas celui que l'on espérait entendre. Le cabinet vous dit clairement vos chances, vos risques et le coût de chaque option."
+      },
+      {
+        "word": "Efficacité",
+        "text": "Une stratégie orientée résultats : la voie amiable quand elle est la plus rapide, le contentieux quand il est nécessaire — toujours au service de vos intérêts."
+      }
+    ],
+    "audiences": [
+      {
+        "icon": "user",
+        "title": "Particuliers",
+        "text": "Famille, succession, travail, défense pénale, atteintes en ligne : un accompagnement humain et discret."
+      },
+      {
+        "icon": "briefcase",
+        "title": "Entreprises & entrepreneurs",
+        "text": "Création de sociétés, contrats, baux, relations sociales et contentieux commerciaux."
+      },
+      {
+        "icon": "globe",
+        "title": "Tunisiens à l'étranger & étrangers",
+        "text": "Suivi des dossiers à distance, nationalité, droit des étrangers et démarches administratives."
+      }
+    ],
+    "faq": [
+      {
+        "id": "consultation",
+        "label": "Consultation",
+        "items": [
+          {
+            "q": "Comment se déroule la première consultation ?",
+            "a": "Sur rendez-vous, au cabinet à Msaken ou à distance (téléphone, visioconférence). Nous écoutons votre situation, qualifions juridiquement les faits et vous présentons les options possibles ainsi que la stratégie recommandée."
+          },
+          {
+            "q": "Quelles pièces apporter au premier rendez-vous ?",
+            "a": "Toute pièce utile à la compréhension du dossier : contrats, courriers, décisions de justice, mises en demeure, échanges écrits, pièces d'identité ou documents d'état civil. En cas de doute, apportez tout : le tri fait partie de notre travail."
+          },
+          {
+            "q": "Combien de temps faut-il pour obtenir un rendez-vous ?",
+            "a": "Le cabinet répond à chaque demande sous 24 heures ouvrées. En cas d'urgence (convocation, garde à vue, délai qui expire), précisez-le dans votre message ou appelez directement."
+          }
+        ]
+      },
+      {
+        "id": "honoraires",
+        "label": "Honoraires",
+        "items": [
+          {
+            "q": "Comment sont fixés les honoraires ?",
+            "a": "Les honoraires sont convenus par écrit dès le départ, selon la nature et la complexité du dossier : forfait, taux horaire ou honoraire complémentaire de résultat, dans les limites permises par la réglementation de la profession."
+          },
+          {
+            "q": "Recevrai-je une estimation avant de m'engager ?",
+            "a": "Oui. Une estimation claire vous est remise avant toute intervention, ainsi qu'une convention d'honoraires. Aucune prestation n'est engagée sans votre accord."
+          },
+          {
+            "q": "Les frais de procédure sont-ils inclus ?",
+            "a": "Les frais annexes (huissier, enregistrement, expertise, frais de greffe) sont distincts des honoraires. Ils sont identifiés et annoncés à l'avance."
+          }
+        ]
+      },
+      {
+        "id": "procedure",
+        "label": "Suivi du dossier",
+        "items": [
+          {
+            "q": "Puis-je suivre mon dossier depuis l'étranger ?",
+            "a": "Oui. Le cabinet accompagne régulièrement des Tunisiens résidant à l'étranger et des résidents étrangers : échanges sécurisés des pièces, points d'avancement réguliers, comptes rendus après chaque audience et procurations encadrées."
+          },
+          {
+            "q": "Serai-je informé de l'avancement de mon affaire ?",
+            "a": "Systématiquement. Vous recevez un compte rendu après chaque audience et à chaque étape importante. Vous pouvez à tout moment joindre le cabinet pour faire le point."
+          },
+          {
+            "q": "Faut-il toujours aller au tribunal ?",
+            "a": "Non. Le cabinet privilégie la négociation et la médiation chaque fois qu'elles servent vos intérêts. Le contentieux est engagé lorsqu'il est nécessaire ou plus efficace."
+          }
+        ]
+      },
+      {
+        "id": "confidentialite",
+        "label": "Confidentialité",
+        "items": [
+          {
+            "q": "Mes échanges avec le cabinet restent-ils confidentiels ?",
+            "a": "Absolument. Le secret professionnel de l'avocat est général et absolu en vertu de la loi régissant la profession en Tunisie. Il couvre l'ensemble de vos échanges, documents et rendez-vous."
+          },
+          {
+            "q": "Le site conserve-t-il mes données ?",
+            "a": "Oui. Les coordonnées et le message transmis via le formulaire sont enregistrés dans la base de données du cabinet afin de traiter votre demande. Ils ne sont pas publiés sur le site. Consultez la politique de confidentialité pour les finalités, la durée de conservation et vos droits."
+          }
+        ]
+      }
+    ]
+  },
+  "ar": {
+    "cabinet": {
+      "name": "CMCB",
+      "fullName": "مكتب CMCB للمحاماة والاستشارات",
+      "lawyer": "الأستاذة شيماء البحيري",
+      "domain": "cmcbavocat.tn",
+      "role": "محامية لدى الهيئة الوطنية للمحامين بتونس",
+      "specialty": "مختصة في القانون الخاص والاستشارات القانونية",
+      "tagline": [
+        "المشورة السليمة لإرشادك.",
+        "الاستراتيجية الصحيحة لحمايتك.",
+        "المحامية المناسبة للدفاع عنك."
+      ],
+      "phone": "+216 92 166 466",
+      "phoneHref": "tel:+21692166466",
+      "whatsapp": "21692166466",
+      "whatsappHref": "https://wa.me/21692166466?text=Bonjour%20Ma%C3%AEtre%20Bhiri%2C%20je%20souhaite%20prendre%20rendez-vous%20au%20cabinet%20CMCB.",
+      "email": "maitrechaimabhiri@gmail.com",
+      "emailHref": "mailto:maitrechaimabhiri@gmail.com",
+      "address": "نهج الزهور، مساكن 4070",
+      "city": "سوسة — تونس",
+      "mapsHref": "https://www.google.com/maps/search/?api=1&query=Rue+des+Fleurs+Msaken+4070+Sousse+Tunisie",
+      "mapsEmbed": "https://www.openstreetmap.org/export/embed.html?bbox=10.5450%2C35.7050%2C10.6250%2C35.7550&layer=mapnik&marker=35.7292%2C10.5806",
+      "hours": "الإثنين – الجمعة : 9:00 – 17:30",
+      "hoursSat": "السبت : 9:00 – 13:00 (بموعد)",
+      "linkedin": "https://www.linkedin.com/in/chaima-bhiri",
+      "facebook": "https://www.facebook.com/cmcbavocat",
+      "brandSub": "محاماة واستشارات",
+      "lawyerShort": "شيماء البحيري",
+      "whatsappMsg": "مرحباً أستاذة البحيري، أودّ أخذ موعد في مكتب CMCB."
+    },
+    "images": {
+      "heroJustice": "https://images.pexels.com/photos/8112195/pexels-photo-8112195.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=900",
+      "library": "https://images.pexels.com/photos/6077091/pexels-photo-6077091.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=900&w=1200",
+      "officeDetail": "https://images.pexels.com/photos/8112198/pexels-photo-8112198.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+      "lawBook": "https://images.pexels.com/photos/8731037/pexels-photo-8731037.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400"
+    },
+    "expertises": [
+      {
+        "id": "affaires",
+        "num": "01",
+        "title": "قانون الأعمال والشركات والقانون التجاري",
+        "shortTitle": "قانون الأعمال",
+        "short": "التأسيس والهيكلة والعقود والمنازعات التجارية.",
+        "icon": "briefcase",
+        "image": "https://images.pexels.com/photos/261621/pexels-photo-261621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "ريادة الأعمال والاستثمار والتعاقد: كل قرار تجاري يُرتّب مسؤوليتك ويمسّ ذمتك المالية. يرافق المكتب رواد الأعمال والمؤسسات الصغرى والمتوسطة والتجار والمستثمرين في كل مراحل حياة شركاتهم — من اختيار الشكل القانوني إلى حلّ النزاعات التجارية.",
+        "services": [
+          {
+            "title": "تأسيس الشركات وهيكلتها",
+            "text": "مرافقة شاملة لرواد الأعمال والمستثمرين في تحرير الأنظمة الأساسية واختيار الشكل القانوني وإتمام إجراءات التأسيس."
+          },
+          {
+            "title": "القانون التجاري والعقود",
+            "text": "تحرير العقود التجارية واتفاقيات الشركاء والوثائق الاجتماعية، والتفاوض بشأنها والتحقق من سلامتها القانونية."
+          },
+          {
+            "title": "الإيجارات التجارية والنزاعات",
+            "text": "إدارة التفاوض حول عقود الكراء التجاري وتجديدها وفسخها وحلّ المنازعات التجارية."
+          }
+        ],
+        "situations": [
+          "تؤسس شركتك وتتردد بين الشركة ذات الشخص الواحد أو متعددة الشركاء أو خفية الاسم.",
+          "عليك التفاوض بشأن عقد تجاري مهم أو إمضاؤه.",
+          "شريك يعرقل القرارات أو يرغب في التفويت في حصصه.",
+          "المؤجّر يرفض تجديد عقد الكراء التجاري.",
+          "حريف أو مموّن لا يحترم التزاماته."
+        ],
+        "approach": [
+          {
+            "title": "التدقيق",
+            "text": "تحليل مشروعك أو أنظمتك الأساسية أو عقودك الحالية لتحديد المخاطر."
+          },
+          {
+            "title": "تحرير حسب الطلب",
+            "text": "أنظمة أساسية واتفاقيات شركاء وعقود وشروط عامة ملائمة لنشاطك الفعلي."
+          },
+          {
+            "title": "التفاوض",
+            "text": "تأمين البنود الحساسة: المسؤولية والدفع والفسخ وعدم المنافسة."
+          },
+          {
+            "title": "التقاضي",
+            "text": "التمثيل أمام المحاكم التجارية عند فشل الحل الودي."
+          }
+        ],
+        "documents": [
+          "مشروع النشاط والتوزيع المزمع لرأس المال",
+          "الأنظمة الأساسية ومحاضر الجلسات الموجودة",
+          "العقود وأوامر الشراء والفواتير والمراسلات الكتابية",
+          "عقد الكراء التجاري والمراسلات مع المؤجّر"
+        ],
+        "faqs": [
+          {
+            "q": "كم تستغرق إجراءات تأسيس شركة؟",
+            "a": "بعد تحرير الأنظمة الأساسية وإيداع رأس المال، يمكن إتمام إجراءات الترسيم بسرعة. تعتمد الآجال أساساً على إعداد الملف، لذلك يتحقق المكتب من كل وثيقة مسبقاً."
+          },
+          {
+            "q": "هل اتفاق الشركاء ضروري فعلاً؟",
+            "a": "ليس إجبارياً، لكنه مستحسن بقوة متى تعدد الشركاء: ينظم التفويت والانسحاب والحوكمة وحلّ الخلافات، ويمنع أغلب حالات التعطيل."
+          }
+        ],
+        "tags": [
+          "الأنظمة الأساسية",
+          "العقود",
+          "الكراء",
+          "المنازعات"
+        ]
+      },
+      {
+        "id": "famille",
+        "num": "02",
+        "title": "قانون العائلة والأحوال الشخصية",
+        "shortTitle": "العائلة والأحوال الشخصية",
+        "short": "مرافقة إنسانية ورصينة ودقيقة في القضايا العائلية.",
+        "icon": "family",
+        "image": "https://images.pexels.com/photos/13821255/pexels-photo-13821255.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "تمسّ القضايا العائلية أغلى ما لديك، وتتطلب صرامة قانونية بقدر ما تتطلب إصغاءً وسرية. يرافقك المكتب في إجراءات مجلة الأحوال الشخصية وتصفية التركات والمسائل المتعلقة بالجنسية، بهدف ثابت: حماية حقوقك وحقوق أطفالك.",
+        "services": [
+          {
+            "title": "المرافقة القانونية",
+            "text": "إدارة إجراءات الطلاق وحضانة الأطفال والنفقة والأنظمة الزوجية بإصغاء وسرية."
+          },
+          {
+            "title": "التركات والممتلكات",
+            "text": "الاستشارة والمساعدة في تصفية التركات وحماية الممتلكات العائلية."
+          },
+          {
+            "title": "الجنسية التونسية وقانون الأجانب",
+            "text": "المساعدة الإدارية والقانونية في مساعي اكتساب الجنسية التونسية أو استرجاعها أو التحقق منها، ومرافقة المقيمين الأجانب."
+          }
+        ],
+        "situations": [
+          "تفكر في الطلاق، بالتراضي أو بالنزاع.",
+          "ترغب في تحديد الحضانة أو حق الزيارة أو النفقة، أو مراجعتها.",
+          "عليك تصفية تركة أو قسمة بين الورثة.",
+          "تقيم بالخارج وتحتاج إلى التصرف في تونس عن بُعد.",
+          "تباشر مسعى للحصول على الجنسية أو الإقامة."
+        ],
+        "approach": [
+          {
+            "title": "الإصغاء",
+            "text": "لقاء سرّي لفهم قصتك وأولوياتك وأولويات أطفالك."
+          },
+          {
+            "title": "معلومة واضحة",
+            "text": "حقوقك والإجراءات الممكنة وآجالها وآثارها، دون تعقيد."
+          },
+          {
+            "title": "البحث عن اتفاق",
+            "text": "يُفضَّل الحل الودي كلما كان في صالحك."
+          },
+          {
+            "title": "دفاع حازم",
+            "text": "التمثيل أمام قاضي الأسرة عندما يتعذر الحوار."
+          }
+        ],
+        "documents": [
+          "عقد الزواج ومضامين الحالة المدنية",
+          "ما يثبت الدخل والأعباء",
+          "وثائق الأطفال (الدراسة والصحة)",
+          "حجة الوفاة وسندات الملكية وكشوف الحسابات (للتركة)"
+        ],
+        "faqs": [
+          {
+            "q": "هل يمكنني الطلاق وأنا أعيش بالخارج؟",
+            "a": "نعم، في عديد الحالات. يرافق المكتب بانتظام التونسيين المقيمين بالخارج: يمكن متابعة الإجراءات عن بُعد، بتوكيل مؤطَّر وتقارير مرحلية منتظمة."
+          },
+          {
+            "q": "هل يمكن مراجعة الحضانة؟",
+            "a": "نعم. تبقى التدابير المتعلقة بالأطفال قابلة للمراجعة إذا تغيرت الظروف (الانتقال أو الوضع المهني أو حاجيات الطفل). ومصلحة الطفل الفضلى توجه دائماً قرار القاضي."
+          }
+        ],
+        "tags": [
+          "الطلاق",
+          "الحضانة",
+          "التركات",
+          "الجنسية"
+        ]
+      },
+      {
+        "id": "travail",
+        "num": "03",
+        "title": "قانون الشغل والعلاقات الاجتماعية",
+        "shortTitle": "قانون الشغل",
+        "short": "استشارة ودفاع عن المؤجرين والأجراء على حدّ السواء وبنفس الصرامة.",
+        "icon": "work",
+        "image": "https://images.pexels.com/photos/5257756/pexels-photo-5257756.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "تقوم علاقة الشغل على توازن دقيق بين حقوق الأجير ومتطلبات المؤسسة. ينصح المكتب المؤجرين في التسيير الآمن لمواردهم البشرية، ويدافع عن الأجراء في مواجهة الطرد التعسفي — بنفس الصرامة أياً كان الطرف.",
+        "services": [
+          {
+            "title": "استشارة المؤسسات والأجراء",
+            "text": "تحرير عقود الشغل ومراجعتها، وإدارة إجراءات الطرد، والامتثال للتراتيب الجاري بها العمل."
+          },
+          {
+            "title": "المنازعات الشغلية",
+            "text": "التمثيل والدفاع بحزم أمام مجلس الشغل في صورة نزاع شغلي."
+          }
+        ],
+        "situations": [
+          "تلقيت إشعاراً بالطرد تعتبره غير مبرر.",
+          "مؤجرك لا يدفع أجورك أو مستحقاتك.",
+          "أنت مؤجر وتحتاج إلى مباشرة إجراء تأديبي.",
+          "ترغب في تحيين عقودك أو نظامك الداخلي.",
+          "نزاع يجمعك بأجير أو أجير سابق."
+        ],
+        "approach": [
+          {
+            "title": "التشخيص",
+            "text": "تحليل العقد والإجراء المتبع والوثائق المتوفرة."
+          },
+          {
+            "title": "حفظ الأدلة",
+            "text": "تكوين الملف بمنهجية: الأجور والمراسلات والشهادات والمكتوبات."
+          },
+          {
+            "title": "الصلح",
+            "text": "التفاوض ومحاولة الصلح أمام تفقدية الشغل عند الاقتضاء."
+          },
+          {
+            "title": "مجلس الشغل",
+            "text": "المرافعة أمام مجلس الشغل والمتابعة إلى حين التنفيذ."
+          }
+        ],
+        "documents": [
+          "عقد الشغل وملاحقه",
+          "كشوف الأجور للأشهر الأخيرة",
+          "رسالة الطرد والاستدعاءات والتنبيهات",
+          "النظام الداخلي والمراسلات مع المؤجر أو الأجير"
+        ],
+        "faqs": [
+          {
+            "q": "هل يجب أن أمضي وصل المخالصة؟",
+            "a": "لا تمضِ أبداً على عجل. قد تكون لهذه الوثيقة آثار على طعونك: اعرضها للتحليل قبل أي إمضاء، أو أمضِ مع تحفظات صريحة."
+          },
+          {
+            "q": "هل ينصح المكتب المؤجرين أيضاً؟",
+            "a": "نعم. يرافق المكتب المؤسسات وقائياً — العقود والإجراءات التأديبية والامتثال — لتفادي منازعات مكلفة ومناخ اجتماعي متدهور."
+          }
+        ],
+        "tags": [
+          "عقود الشغل",
+          "الطرد",
+          "مجلس الشغل"
+        ]
+      },
+      {
+        "id": "penal",
+        "num": "04",
+        "title": "القانون الجزائي والجرائم السيبرنية",
+        "shortTitle": "الجزائي والجرائم السيبرنية",
+        "short": "دفاع ملتزم، من التحقيق إلى المرافعة، بما في ذلك في الفضاء الرقمي.",
+        "icon": "gavel",
+        "image": "https://images.pexels.com/photos/30483129/pexels-photo-30483129.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "أن تكون محل تتبع أو ضحية جريمة محنة حقيقية. كل ساعة مهمة وكل تصريح له وزنه. يؤمّن المكتب دفاعاً جزائياً سريعاً ودقيقاً، من البحث إلى الجلسة، ويرافقك في مواجهة الأشكال الجديدة للإجرام الرقمي: الثلب على الخط، وانتحال الهوية، والاعتداء على المعطيات الشخصية.",
+        "services": [
+          {
+            "title": "الدفاع الجزائي",
+            "text": "المساعدة والتمثيل أمام المحاكم الجزائية، من طور التحقيق إلى المرافعة."
+          },
+          {
+            "title": "الجرائم السيبرنية وقانون الرقمي",
+            "text": "المرافقة والحماية القانونية في مواجهة الجرائم الرقمية: الثلب على الخط وانتحال الهوية والاعتداء على المعطيات الشخصية."
+          }
+        ],
+        "situations": [
+          "تم استدعاؤك من الشرطة أو الحرس الوطني أو قاضي التحقيق.",
+          "قريب لك محل إيقاف تحفظي أو تتبع جزائي.",
+          "أنت ضحية جريمة وترغب في تقديم شكاية.",
+          "تتعرض للثلب أو المضايقة على شبكات التواصل.",
+          "تم انتحال هويتك أو معطياتك الشخصية."
+        ],
+        "approach": [
+          {
+            "title": "سرعة التدخل",
+            "text": "تدخل سريع منذ الاستدعاء أو الاحتفاظ."
+          },
+          {
+            "title": "دراسة الملف",
+            "text": "تحليل دقيق للإجراءات ورصد البطلانات المحتملة."
+          },
+          {
+            "title": "الدليل الرقمي",
+            "text": "تكوين الأدلة الإلكترونية وحفظها: لقطات ومحاضر وتساخير."
+          },
+          {
+            "title": "المرافعة",
+            "text": "دفاع مدعّم بالحجج وحازم أمام المحكمة المختصة."
+          }
+        ],
+        "documents": [
+          "الاستدعاء أو المحاضر أو القرارات المتوصَّل بها",
+          "لقطات شاشة مؤرخة مع الرابط (للجرائم الإلكترونية)",
+          "كل وثيقة أو شهادة مفيدة للدفاع",
+          "بطاقة التعريف"
+        ],
+        "faqs": [
+          {
+            "q": "ماذا أفعل إذا تلقيت استدعاءً جزائياً؟",
+            "a": "اتصل بمحامٍ قبل الحضور. من الضروري معرفة حقوقك وإعداد تصريحاتك: فما يُصرَّح به أثناء السماع يُضمَّن بالملف."
+          },
+          {
+            "q": "هل يمكن التتبع ضد فاعل مجهول على الإنترنت؟",
+            "a": "نعم. تتيح الأبحاث الفنية التعرف على الفاعلين عبر تساخير لدى المشغلين والمنصات. فإخفاء الهوية على الخط ليس إفلاتاً مضموناً من العقاب."
+          }
+        ],
+        "tags": [
+          "الدفاع الجزائي",
+          "الثلب",
+          "المعطيات الشخصية"
+        ]
+      },
+      {
+        "id": "mediation",
+        "num": "05",
+        "title": "الوساطة والتسوية الودية",
+        "shortTitle": "الوساطة والتسوية الودية",
+        "short": "حلّ سريع وسرّي واقتصادي، قبل اللجوء إلى المحاكم.",
+        "icon": "handshake",
+        "image": "https://images.pexels.com/photos/33175650/pexels-photo-33175650.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=800&w=1400",
+        "intro": "لا تستحق كل النزاعات أن تُعرض على القضاء. فالتفاوض المحكم أو الوساطة المؤطرة يتيحان غالباً حلاً أسرع وأقل كلفة وأدوم — مع الحفاظ على العلاقات التجارية والمهنية أو العائلية.",
+        "services": [
+          {
+            "title": "الطرق البديلة لفض النزاعات",
+            "text": "التفاوض والوساطة لحلّ نزاعاتكم بسرعة وسرية واقتصاد، قبل اللجوء إلى المحاكم."
+          },
+          {
+            "title": "تحرير محاضر الاتفاق",
+            "text": "صياغة مؤمَّنة للاتفاقات المتوصَّل إليها: الصلح ومحاضر الاتفاق واتفاقيات التسوية."
+          }
+        ],
+        "situations": [
+          "نزاع تجاري يهدد علاقة أعمال ترغب في الحفاظ عليها.",
+          "نزاع عائلي أو تركي يستحسن تهدئته.",
+          "تريد تفادي طول الإجراءات القضائية وكلفتها.",
+          "تبحث عن حلّ سرّي بعيداً عن علنية الجلسات."
+        ],
+        "approach": [
+          {
+            "title": "التقييم",
+            "text": "تحليل موضوعي لموقفك ومخاطرك وهوامش التفاوض."
+          },
+          {
+            "title": "الاستراتيجية",
+            "text": "تحديد أهداف واقعية واستراتيجية تفاوض."
+          },
+          {
+            "title": "الوساطة",
+            "text": "تبادل منظَّم وسرّي مع الطرف المقابل أو محاميه."
+          },
+          {
+            "title": "اتفاق مؤمَّن",
+            "text": "تحرير محضر اتفاق سليم قانونياً وقابل للتنفيذ."
+          }
+        ],
+        "documents": [
+          "تاريخ النزاع والمراسلات مع الطرف الآخر",
+          "العقود والوثائق المثبتة",
+          "انتظاراتك وحدود التفاوض"
+        ],
+        "faqs": [
+          {
+            "q": "هل للاتفاق الودي قيمة قانونية؟",
+            "a": "نعم، إذا حُرّر بشكل سليم. فالصلح المحرَّر جيداً ملزم بين الطرفين، ويمكن حسب الحالات المصادقة عليه ليصبح قابلاً للتنفيذ."
+          },
+          {
+            "q": "وماذا إذا فشلت الوساطة؟",
+            "a": "تحتفظ بكامل حقوقك في اللجوء إلى القضاء. ويبقى العمل التحضيري المنجز مفيداً لمواصلة الإجراءات."
+          }
+        ],
+        "tags": [
+          "التفاوض",
+          "الوساطة",
+          "الاتفاقات"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "num": "01",
+        "title": "الإصغاء والاستشارة",
+        "text": "لقاء أول لفهم الوقائع والأطراف وأهدافك — في المكتب أو بالهاتف أو بالمحادثة المرئية، دون تعقيد."
+      },
+      {
+        "num": "02",
+        "title": "التحليل والاستراتيجية",
+        "text": "دراسة دقيقة لملفك: الوثائق والمخاطر وحظوظ النجاح والطرق الممكنة — الودي أولاً، والنزاعي عند الحاجة."
+      },
+      {
+        "num": "03",
+        "title": "التحرك والتفاوض",
+        "text": "تحرير العقود والتنبيهات والتفاوض والوساطة. كل خطوة تُعتمد معك، والأتعاب متفق عليها مسبقاً."
+      },
+      {
+        "num": "04",
+        "title": "الدفاع والمتابعة",
+        "text": "التمثيل أمام المحاكم المختصة والمرافعة وتقرير بعد كل جلسة، إلى حين تنفيذ القرار."
+      }
+    ],
+    "commitments": [
+      {
+        "icon": "lock",
+        "title": "سرية مطلقة",
+        "text": "السر المهني للمحامي يغطي كل تبادلاتك."
+      },
+      {
+        "icon": "file",
+        "title": "أتعاب شفافة",
+        "text": "اتفاق كتابي قبل أي تدخل. دون مفاجآت."
+      },
+      {
+        "icon": "clock",
+        "title": "سرعة التفاعل",
+        "text": "ردّ على طلبك خلال 24 ساعة عمل."
+      },
+      {
+        "icon": "scales",
+        "title": "صرامة ونزاهة",
+        "text": "تحليل استراتيجي وحجاج صارم."
+      }
+    ],
+    "values": [
+      {
+        "word": "الصرامة",
+        "text": "يُدرس كل ملف بالتفصيل. لا تُهمل أي وثيقة ولا يُترك أي دفع للصدفة: فالدقة أول أشكال الاحترام المستحق للحريف."
+      },
+      {
+        "word": "النزاهة",
+        "text": "مشورة صادقة، حتى عندما لا تكون ما كنت تأمل سماعه. يخبرك المكتب بوضوح بحظوظك ومخاطرك وكلفة كل خيار."
+      },
+      {
+        "word": "الفعالية",
+        "text": "استراتيجية موجهة للنتائج: الطريق الودي عندما يكون الأسرع، والنزاعي عندما يكون ضرورياً — دائماً في خدمة مصالحك."
+      }
+    ],
+    "audiences": [
+      {
+        "icon": "user",
+        "title": "الأفراد",
+        "text": "العائلة والتركات والشغل والدفاع الجزائي والاعتداءات الإلكترونية: مرافقة إنسانية ورصينة."
+      },
+      {
+        "icon": "briefcase",
+        "title": "المؤسسات ورواد الأعمال",
+        "text": "تأسيس الشركات والعقود والإيجارات والعلاقات الاجتماعية والمنازعات التجارية."
+      },
+      {
+        "icon": "globe",
+        "title": "التونسيون بالخارج والأجانب",
+        "text": "متابعة الملفات عن بُعد والجنسية وقانون الأجانب والمساعي الإدارية."
+      }
+    ],
+    "faq": [
+      {
+        "id": "consultation",
+        "label": "الاستشارة",
+        "items": [
+          {
+            "q": "كيف تسير الاستشارة الأولى؟",
+            "a": "بموعد، في المكتب بمساكن أو عن بُعد (هاتف أو محادثة مرئية). نستمع إلى وضعيتك ونكيّف الوقائع قانونياً ونعرض عليك الخيارات الممكنة والاستراتيجية المقترحة."
+          },
+          {
+            "q": "ما الوثائق التي أحضرها للموعد الأول؟",
+            "a": "كل وثيقة مفيدة لفهم الملف: العقود والمراسلات والأحكام والتنبيهات والمكتوبات وبطاقات الهوية أو وثائق الحالة المدنية. وعند الشك، أحضر كل شيء: فالفرز من عملنا."
+          },
+          {
+            "q": "كم يستغرق الحصول على موعد؟",
+            "a": "يردّ المكتب على كل طلب خلال 24 ساعة عمل. وفي حالة الاستعجال (استدعاء أو احتفاظ أو أجل ينقضي)، اذكر ذلك في رسالتك أو اتصل مباشرة."
+          }
+        ]
+      },
+      {
+        "id": "honoraires",
+        "label": "الأتعاب",
+        "items": [
+          {
+            "q": "كيف تُحدَّد الأتعاب؟",
+            "a": "تُتَّفق الأتعاب كتابة منذ البداية، حسب طبيعة الملف وتعقيده: مبلغ جزافي أو أجر بالساعة أو أجر تكميلي بالنتيجة، في الحدود التي تسمح بها تراتيب المهنة."
+          },
+          {
+            "q": "هل أتلقى تقديراً قبل الالتزام؟",
+            "a": "نعم. يسلَّم إليك تقدير واضح قبل أي تدخل، إضافة إلى اتفاقية أتعاب. ولا يُباشَر أي عمل دون موافقتك."
+          },
+          {
+            "q": "هل المصاريف الإجرائية مشمولة؟",
+            "a": "المصاريف التابعة (عدل التنفيذ والتسجيل والاختبار ومصاريف الكتابة) منفصلة عن الأتعاب، وتُحدَّد وتُعلَن مسبقاً."
+          }
+        ]
+      },
+      {
+        "id": "procedure",
+        "label": "متابعة الملف",
+        "items": [
+          {
+            "q": "هل يمكنني متابعة ملفي من الخارج؟",
+            "a": "نعم. يرافق المكتب بانتظام التونسيين المقيمين بالخارج والمقيمين الأجانب: تبادل مؤمَّن للوثائق ونقاط تقدم منتظمة وتقارير بعد كل جلسة وتوكيلات مؤطرة."
+          },
+          {
+            "q": "هل سأُعلَم بتقدم قضيتي؟",
+            "a": "بصفة منهجية. تتلقى تقريراً بعد كل جلسة وفي كل مرحلة مهمة، ويمكنك الاتصال بالمكتب في أي وقت للمتابعة."
+          },
+          {
+            "q": "هل يجب دائماً الذهاب إلى المحكمة؟",
+            "a": "لا. يفضّل المكتب التفاوض والوساطة كلما كانا في صالحك، ويباشر النزاع عندما يكون ضرورياً أو أنجع."
+          }
+        ]
+      },
+      {
+        "id": "confidentialite",
+        "label": "السرية",
+        "items": [
+          {
+            "q": "هل تبقى تبادلاتي مع المكتب سرية؟",
+            "a": "قطعاً. فالسر المهني للمحامي عام ومطلق بمقتضى القانون المنظم للمهنة في تونس، ويشمل كامل تبادلاتك ووثائقك ومواعيدك."
+          },
+          {
+            "q": "هل يحتفظ الموقع بمعطياتي؟",
+            "a": "نعم. تُحفظ بيانات الاتصال والرسالة المرسلة عبر النموذج في قاعدة بيانات المكتب لمعالجة طلبك، ولا تُنشر على الموقع. راجع سياسة الخصوصية لمعرفة أغراض المعالجة ومدة الاحتفاظ وحقوقك."
+          }
+        ]
+      }
+    ]
+  }
+}

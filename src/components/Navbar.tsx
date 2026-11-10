@@ -139,7 +139,7 @@ export function Navbar() {
 
                   {megaOpen && (
                     <div className="panel-in absolute top-full left-1/2 w-[760px] max-w-[90vw] -translate-x-1/2 pt-1">
-                      <div className="grid grid-cols-[1fr_230px] overflow-hidden rounded-2xl border border-sand-300 bg-cream-50 shadow-soft">
+                      <div className="grid grid-cols-[1fr_230px] overflow-hidden rounded-lg border border-sand-300 bg-cream-50 shadow-soft">
                         <div className="grid grid-cols-1 gap-1 p-3">
                           {expertises.map((exp) => {
                             const Icon = ICON_MAP[exp.icon];
@@ -199,7 +199,7 @@ export function Navbar() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label={t.nav.openMenu}
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-sand-300 text-wine-700 transition-colors hover:border-wine-600 hover:bg-wine-600 hover:text-cream-50 lg:hidden"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg border border-sand-300 text-wine-700 transition-colors hover:border-wine-600 hover:bg-wine-600 hover:text-cream-50 lg:hidden"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -226,7 +226,7 @@ export function Navbar() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={t.nav.closeMenu}
-                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-cream-50/25 text-cream-100 transition-colors hover:border-gold-400 hover:text-gold-400"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg border border-cream-50/25 text-cream-100 transition-colors hover:border-gold-400 hover:text-gold-400"
               >
                 <Close className="h-5 w-5" />
               </button>
@@ -257,7 +257,7 @@ export function Navbar() {
                       onClick={() => setMobileExpOpen((v) => !v)}
                       aria-label={t.nav.showExpertises}
                       aria-expanded={mobileExpOpen}
-                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-cream-50/20 text-gold-400"
+                      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-cream-50/20 text-gold-400"
                     >
                       <ChevronDown className={cn("h-4 w-4 transition-transform", mobileExpOpen && "rotate-180")} />
                     </button>

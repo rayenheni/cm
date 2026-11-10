@@ -1,5 +1,6 @@
+import { useArticles } from "@/lib/useArticles";
 import { Link, useDocumentTitle } from "@/router";
-import { useArticles, useCabinet, useExpertises, useT } from "@/i18n";
+import { useCabinet, useExpertises, useT } from "@/i18n";
 import { cn } from "@/utils/cn";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard, CtaBand, FaqAccordion, PageHeader } from "@/components/Blocks";
