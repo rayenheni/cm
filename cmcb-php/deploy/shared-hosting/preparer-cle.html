@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Préparer la clé d'installation CMCB</title><style>
+body{font:16px/1.5 system-ui,sans-serif;background:#f6f3ec;color:#352b2a;margin:0;padding:2rem}main{max-width:720px;margin:auto;background:white;padding:2rem;border-radius:12px}button{background:#641826;color:white;border:0;border-radius:6px;font:inherit;padding:.8rem 1.3rem;cursor:pointer}code{display:block;overflow-wrap:anywhere;background:#f6f3ec;padding:1rem}p{max-width:65ch}.alert{color:#a32638}
+</style></head><body><main><h1>Préparer la clé d'installation</h1>
+<p><strong>Ouvrez ce fichier sur votre ordinateur, pas sur le serveur.</strong> Il fonctionne sans connexion et ne demande aucun mot de passe. La clé est produite par votre navigateur.</p>
+<p>Appuyez sur le bouton une seule fois. Un fichier <strong>.install-key</strong> sera téléchargé : il contient uniquement l'empreinte de la clé. Conservez la clé affichée pour l'étape d'installation. Ne l'envoyez à personne.</p>
+<button id="generate" type="button">Créer la clé</button><p id="error" role="alert" class="alert" hidden></p><div id="result" hidden><h2>Votre clé secrète</h2><code id="key"></code><p>Gardez cette clé privée. Téléversez uniquement le fichier <strong>.install-key</strong> dans <strong>htdocs/_cmcb/</strong> après avoir vérifié la protection du dossier comme indiqué dans le guide.</p></div>
+<script>
+document.getElementById('generate').addEventListener('click', async function () {
+  const error = document.getElementById('error'); error.hidden = true;
+  try {
+    if (!globalThis.crypto?.subtle || !globalThis.crypto?.getRandomValues) throw new Error('Ce navigateur ne permet pas de générer une clé sécurisée. Ouvrez ce fichier local dans une version récente de Chrome ou Firefox.');
+    const raw = crypto.getRandomValues(new Uint8Array(32));
+    const key = Array.from(raw, b => b.toString(16).padStart(2, '0')).join('');
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(key));
+    const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
+    const url = URL.createObjectURL(new Blob([hash], {type:'text/plain'}));
+    const a = document.createElement('a'); a.href = url; a.download = '.install-key'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    document.getElementById('key').textContent = key; document.getElementById('result').hidden = false; this.disabled = true;
+  } catch (e) { error.textContent = e instanceof Error ? e.message : 'Impossible de créer la clé.'; error.hidden = false; }
+});
+</script></main></body></html>
