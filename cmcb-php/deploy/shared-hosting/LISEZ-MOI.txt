@@ -2,16 +2,16 @@ CMCB — installation sur hébergement mutualisé SANS SSH
 ======================================================
 
 IMPORTANT AVANT DE COMMENCER
-Cette adaptation conserve la sécurité du site : MySQL est obligatoire et,
-pour un serveur MySQL distant, la connexion TLS avec certificat CA vérifié
-est obligatoire. La compatibilité avec votre offre InfinityFree n'a PAS été
-testée. Avant de saisir vos identifiants, demandez à l'hébergeur si votre
-serveur MySQL accepte TLS vérifié et quel certificat CA utiliser. Une ancienne
-réponse de son support indiquait que ses bases ne prenaient pas en charge TLS :
+Ce paquet peut fonctionner avec un MySQL distant sans certificat TLS pour
+InfinityFree, uniquement si vous acceptez explicitement le risque dans le
+formulaire. Par défaut, une CA TLS vérifiée reste requise pour MySQL distant.
+Une connexion sans TLS vérifié peut permettre l'interception ou la modification
+des identifiants, demandes et autres données entre PHP et MySQL. HTTPS protège
+le navigateur, PAS cette connexion. N'utilisez pas ce mode pour des données
+clients ou confidentielles. Préférez un hébergement avec TLS vérifié.
+La compatibilité réelle avec InfinityFree n'a PAS été testée ; une ancienne
+réponse de son support mentionnait l'absence de TLS pour ses bases :
 https://forum.infinityfree.com/t/php-mysql-ssl-connection-does-not-work/41470
-Si TLS vérifié n'est pas disponible, CETTE VERSION NE POURRA PAS être installée
-sur cette base : choisissez un hébergement qui le permet. Ne contournez pas
-cette protection pour des données d'avocat.
 
 Il faut PHP 8.2+ avec pdo_mysql, mbstring et openssl, HTTPS valide, Apache et
 .htaccess actifs, et une base MySQL dédiée VIDE. Aucune donnée d'une ancienne
@@ -57,12 +57,13 @@ Le fichier HTML de génération ne doit PAS être envoyé au serveur.
 
 5. INSTALLER
 Ouvrez https://VOTRE-DOMAINE/install.php (sans /public/). Saisissez la clé,
-les paramètres MySQL indiqués par l'hébergeur, le chemin absolu du certificat
-CA MySQL pour un hôte distant, l'e-mail et un mot de passe administrateur fort.
-Le fichier CA doit être fourni par l'hébergeur et lisible par PHP. Si nécessaire,
-téléversez-le dans htdocs/_cmcb/ après le test 403 et demandez à l'hébergeur
-son chemin absolu sur le serveur. Le nom du serveur MySQL doit correspondre au
-certificat. L'installateur n'accepte pas une connexion distante non chiffrée.
+les paramètres MySQL indiqués par l'hébergeur, l'e-mail et un mot de passe
+administrateur fort. Indiquez le véritable nom du serveur MySQL fourni par
+InfinityFree, pas localhost par défaut. Si TLS vérifié est disponible, indiquez
+le chemin absolu du certificat CA fourni par l'hébergeur. Si ce n'est pas le
+cas, et uniquement pour des essais sans données confidentielles, laissez la CA
+vide et cochez la case qui accepte explicitement le risque d'une connexion
+potentiellement non chiffrée. Ne cochez pas la case si une CA est renseignée.
 L'origine est https://VOTRE-DOMAINE, sans chemin ni slash final. L'installateur
 crée les tables uniquement dans une base vide, puis crée _cmcb/.env et se ferme.
 Ne partagez jamais vos mots de passe ou le contenu de .env.

@@ -2,7 +2,7 @@
 
 Ce guide concerne la version `cmcb-php/`. L'installation crée les tables MySQL et le premier compte administrateur à l'aide de **`public/install.php`**. MySQL est obligatoire en production ; aucun Composer ou Node n'est nécessaire sur le serveur.
 
-Pour un hébergement mutualisé sans SSH dont le dossier public est imposé, voir le guide expérimental [`deploy/shared-hosting/LISEZ-MOI.txt`](deploy/shared-hosting/LISEZ-MOI.txt) et l'archive produite par `python3 tools/build-shared-package.py --output /chemin/nouveau-paquet.zip`. Les règles Apache et le TLS MySQL doivent impérativement être vérifiés sur l'hébergeur cible avant utilisation ; cette adaptation n'a pas été validée sur InfinityFree.
+Pour un hébergement mutualisé sans SSH dont le dossier public est imposé, voir le guide expérimental [`deploy/shared-hosting/LISEZ-MOI.txt`](deploy/shared-hosting/LISEZ-MOI.txt) et l'archive produite par `python3 tools/build-shared-package.py --output /chemin/nouveau-paquet.zip`. Les règles Apache doivent impérativement être vérifiées sur l'hébergeur cible. Le paquet permet explicitement un mode MySQL distant sans TLS vérifié, réservé aux essais sans données confidentielles ; cette adaptation n'a pas été validée sur InfinityFree.
 
 > **Données existantes :** l'installateur exige une base MySQL vide et ne convertit ni ne supprime une ancienne base SQLite. Si le site contient déjà des articles ou demandes à conserver, sauvegardez-les et prévoyez une migration séparée avant de changer de base. Ne supprimez pas `.env` ou la base existante pour essayer l'installateur.
 

@@ -39,6 +39,21 @@ try {
   const run = (script, uri) => php.run({scriptPath:'/web/'+script, relativeUri:uri, method:'GET', headers:{host:'cmcb.test'},
     $_SERVER:{REQUEST_METHOD:'GET',REQUEST_URI:uri,REMOTE_ADDR:'127.0.0.1',HTTP_HOST:'cmcb.test',SCRIPT_NAME:'/'+script},
     env:{APP_ENV:'development',DB_DRIVER:'sqlite',DATABASE_PATH:'/web/_cmcb/data/test.sqlite',PREVIEW_BEARER_AUTH:'false'} });
+  const installerSource = readFileSync(path.join(site,'install.php'),'utf8');
+  assert(installerSource.includes('name="allow_insecure"'));
+  assert(installerSource.includes("$env['DB_ALLOW_INSECURE_REMOTE'] = 'true'"));
+  assert(installerSource.includes("if ($dbCa !== '') throw"));
+  writeFileSync(path.join(site,'test-config.php'), `<?php
+require '/web/_cmcb/src/Config.php';
+$base = ['APP_ENV'=>'production','APP_ORIGIN'=>'https://example.com','DB_DRIVER'=>'mysql','DB_HOST'=>'mysql.example.com','DB_NAME'=>'test','DB_USER'=>'test'];
+foreach ([null, 'false', 'true'] as $flag) {
+  $env = $base; if ($flag !== null) $env['DB_ALLOW_INSECURE_REMOTE'] = $flag;
+  try { new CMCB\\Config('/web/_cmcb', $env); echo 'allowed '; } catch (Throwable $e) { echo 'denied '; }
+}
+`);
+  const policy = await run('test-config.php','/test-config.php');
+  assert.equal(policy.text.trim(), 'denied denied allowed');
+  console.log('PASS remote MySQL requires explicit opt-in when no CA is configured.');
   const home = await run('index.php','/');
   assert.equal(home.httpStatusCode,200,home.text); assert(home.text.includes('/assets/theme.css'));
   const installer = await run('install.php','/install.php'); assert.equal(installer.httpStatusCode,404); assert(installer.text.includes('Installation fermée'));
