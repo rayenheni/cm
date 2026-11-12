@@ -40,7 +40,19 @@ le navigateur public, un ZIP ou la conversation :
 - `SUPABASE_URL` : origine HTTPS du projet `<projet>.supabase.co`.
 - `SUPABASE_DB_URL` : URL PostgreSQL du pooler de transaction Supabase, avec
   identifiants encodés si nécessaire, sans paramètres de requête. La connexion
-  impose TLS vérifié avec les CA reconnues par Node ; vérifier la chaîne réelle.
+  impose TLS vérifié et vérifie le nom du serveur ; vérifier la chaîne réelle.
+- `SUPABASE_DB_CA_PEM` : facultatif. Si le certificat serveur exige une CA que
+  Node ne connaît pas, téléchargez le certificat racine depuis **Supabase →
+  Project Settings → Database → SSL Configuration → Download Certificate**.
+  Copiez le contenu complet du fichier PEM, de `BEGIN CERTIFICATE` à `END
+  CERTIFICATE`, dans cette variable Netlify (portée Functions / Production).
+  Une fois définie, cette CA remplace les CA par défaut pour la connexion à la
+  base ; la vérification du certificat et du nom d'hôte reste obligatoire.
+  Seul un certificat CA provenant de Supabase doit être utilisé, jamais une clé
+  privée. Une valeur invalide bloque le démarrage avec `INVALID_DB_CA` dans les
+  journaux privés. Si TLS échoue encore, vérifiez le nom du pooler et contactez
+  Supabase ; ne désactivez jamais la vérification.
+  https://supabase.com/docs/guides/platform/ssl-enforcement
 - `SUPABASE_SECRET_KEY` : clé serveur `sb_secret_...` de Supabase pour Storage.
   Elle contourne RLS et doit rester secrète. Elle n'est jamais publiée dans le
   code front ; elle est transmise à Supabase via l'en-tête `apikey`.
