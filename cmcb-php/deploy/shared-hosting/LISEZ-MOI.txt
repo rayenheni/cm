@@ -1,0 +1,83 @@
+CMCB — installation sur hébergement mutualisé SANS SSH
+======================================================
+
+IMPORTANT AVANT DE COMMENCER
+Ce paquet peut fonctionner avec un MySQL distant sans certificat TLS pour
+InfinityFree, uniquement si vous acceptez explicitement le risque dans le
+formulaire. Par défaut, une CA TLS vérifiée reste requise pour MySQL distant.
+Une connexion sans TLS vérifié peut permettre l'interception ou la modification
+des identifiants, demandes et autres données entre PHP et MySQL. HTTPS protège
+le navigateur, PAS cette connexion. N'utilisez pas ce mode pour des données
+clients ou confidentielles. Préférez un hébergement avec TLS vérifié.
+La compatibilité réelle avec InfinityFree n'a PAS été testée ; une ancienne
+réponse de son support mentionnait l'absence de TLS pour ses bases :
+https://forum.infinityfree.com/t/php-mysql-ssl-connection-does-not-work/41470
+
+Il faut PHP 8.2+ avec pdo_mysql, mbstring et openssl, HTTPS valide, Apache et
+.htaccess actifs, et une base MySQL dédiée VIDE. Aucune donnée d'une ancienne
+base SQLite n'est migrée. Ne publiez aucune donnée réelle avant de vérifier
+la sécurité et le bon fonctionnement sur l'hébergement cible.
+
+1. SAUVEGARDE
+Téléchargez une copie de tous les fichiers existants et sauvegardez la base
+existante avant toute modification. Ne supprimez jamais .env ni des données à
+conserver. L'installateur refuse une base qui contient déjà des tables.
+
+2. FICHIERS
+Le dossier « site » du ZIP contient ce qui doit se trouver DANS htdocs, à la
+racine du domaine (pas dans htdocs/public). Avant de mélanger ces fichiers
+avec une ancienne installation, conservez-en une sauvegarde hors serveur :
+d'anciens fichiers laissés accessibles peuvent exposer des informations.
+Transférez le contenu de « site » vers un htdocs dédié et vide, y compris les
+deux fichiers .htaccess. Pour tester sans toucher à un site existant, utilisez
+un domaine ou sous-domaine disposant de son propre htdocs. Activez l'affichage
+des fichiers cachés dans le gestionnaire de fichiers. Transférez les deux
+.htaccess sans les modifier : si leur contenu change, le site se bloque par
+précaution. Ne transférez pas le dossier « outils-local ».
+
+3. TEST DE PROTECTION OBLIGATOIRE — AVANT TOUT MOT DE PASSE
+Vérifiez par le gestionnaire que ces fichiers existent :
+  htdocs/.htaccess
+  htdocs/_cmcb/.htaccess
+  htdocs/_cmcb/PROTECTION_TEST.txt
+Ouvrez ensuite https://VOTRE-DOMAINE/_cmcb/PROTECTION_TEST.txt dans une fenêtre
+privée. La réponse doit être HTTP 403 (accès interdit). Si le texte du fichier
+s'affiche, si le résultat est incertain ou si les fichiers cachés manquent,
+ARRÊTEZ : votre hébergeur ne protège pas les fichiers privés. Ne saisissez ni
+mot de passe ni clé, ne téléversez pas de .env et demandez l'aide de l'hébergeur.
+Ce contrôle reste nécessaire après chaque modification de la configuration web.
+
+4. CRÉER UNE CLÉ, LOCALEMENT
+Sur VOTRE ORDINATEUR, ouvrez outils-local/preparer-cle.html. Cliquez sur
+« Créer la clé ». Gardez la clé secrète affichée et ne la partagez pas. Le
+navigateur télécharge un fichier nommé .install-key qui contient seulement
+son empreinte. Si le navigateur modifie le nom, renommez-le exactement
+.install-key. Transférez ce fichier, et uniquement lui, dans htdocs/_cmcb/.
+Le fichier HTML de génération ne doit PAS être envoyé au serveur.
+
+5. INSTALLER
+Ouvrez https://VOTRE-DOMAINE/install.php (sans /public/). Saisissez la clé,
+les paramètres MySQL indiqués par l'hébergeur, l'e-mail et un mot de passe
+administrateur fort. Indiquez le véritable nom du serveur MySQL fourni par
+InfinityFree, pas localhost par défaut. Si TLS vérifié est disponible, indiquez
+le chemin absolu du certificat CA fourni par l'hébergeur. Si ce n'est pas le
+cas, et uniquement pour des essais sans données confidentielles, laissez la CA
+vide et cochez la case qui accepte explicitement le risque d'une connexion
+potentiellement non chiffrée. Ne cochez pas la case si une CA est renseignée.
+L'origine est https://VOTRE-DOMAINE, sans chemin ni slash final. L'installateur
+crée les tables uniquement dans une base vide, puis crée _cmcb/.env et se ferme.
+Ne partagez jamais vos mots de passe ou le contenu de .env.
+
+6. APRÈS INSTALLATION
+Supprimez ou bloquez htdocs/install.php et htdocs/_cmcb/.install-key. Vérifiez
+à nouveau que /_cmcb/PROTECTION_TEST.txt répond 403 et que /_cmcb/.env n'est
+pas accessible. Testez /admin, les articles, les formulaires et l'upload avec
+des données fictives. Les fichiers téléversés sont accessibles par leur lien,
+même pour un brouillon. La base MySQL ET le dossier htdocs/_cmcb/data/media
+ont besoin de sauvegardes chiffrées séparées et de tests de restauration.
+Le SMTP et les tâches planifiées peuvent ne pas être disponibles sur une offre
+gratuite ; sans SMTP, les demandes sont visibles en administration mais aucune
+notification e-mail n'est envoyée.
+
+NE PAS SUPPRIMER de base ni de configuration existante pour recommencer. Un
+échec MySQL après création partielle peut imposer une nouvelle base vide.

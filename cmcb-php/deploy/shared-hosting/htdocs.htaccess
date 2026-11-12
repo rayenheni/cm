@@ -1,0 +1,13 @@
+Options -Indexes
+DirectoryIndex index.php
+RewriteEngine On
+# Prevent all direct access to application code, configuration and uploads.
+RewriteRule ^_cmcb(?:/|$) - [F,L,NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+<FilesMatch "(?i)^(?!index\.php$|install\.php$).*\.php$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
