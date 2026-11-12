@@ -33,9 +33,17 @@ test('database TLS uses the configured CA and rejects wrong CA and hostname', as
     assert.equal(options.ca, ca);
     assert.deepEqual(databaseTlsOptions({}), {rejectUnauthorized:true});
     assert.deepEqual(databaseTlsOptions({SUPABASE_DB_CA_PEM:ca.replace(/\n/g,'\\n')}), options);
-    for (const bad of ['', 'not-a-certificate', leaf, ca + '\n-----BEGIN PRIVATE KEY-----\nprivate\n-----END PRIVATE KEY-----', 'x'.repeat(17000)]) {
-      assert.throws(() => databaseTlsOptions({SUPABASE_DB_CA_PEM:bad}), (err: unknown) => err instanceof DatabaseCaError && err.message === 'Invalid database CA certificate.');
+    assert.deepEqual(databaseTlsOptions({SUPABASE_DB_CA_PEM:ca.replace(/\n/g,'\\r\\n')}), options);
+    // Netlify's single-line editors may remove line breaks or replace them by spaces.
+    assert.deepEqual(databaseTlsOptions({SUPABASE_DB_CA_PEM:ca.replace(/\n/g,'')}), options);
+    assert.deepEqual(databaseTlsOptions({SUPABASE_DB_CA_PEM:ca.replace(/\n/g,' ')}), options);
+    for (const bad of ['', 'not-a-certificate', ca + ca, ca + '\n-----BEGIN PRIVATE KEY-----\nprivate\n-----END PRIVATE KEY-----', 'x'.repeat(17000)]) {
+      assert.throws(() => databaseTlsOptions({SUPABASE_DB_CA_PEM:bad}), (err: unknown) => err instanceof DatabaseCaError && err.reason === 'FORMAT' && err.message === 'Invalid database CA certificate.');
     }
+    assert.throws(() => databaseTlsOptions({SUPABASE_DB_CA_PEM:leaf}), (err: unknown) => err instanceof DatabaseCaError && err.reason === 'NOT_AUTHORITY');
+    const originalBody = ca.replace(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----|\s/g,'');
+    const withTrailingBytes = Buffer.concat([Buffer.from(originalBody,'base64'),Buffer.from([0x00])]).toString('base64');
+    assert.throws(() => databaseTlsOptions({SUPABASE_DB_CA_PEM:`-----BEGIN CERTIFICATE-----${withTrailingBytes}-----END CERTIFICATE-----`}), (err: unknown) => err instanceof DatabaseCaError && err.reason === 'FORMAT');
     const client = new Client({ connectionString:'postgres://user:password@db.example.test/test', ssl:options });
     const parameters = (client as unknown as {connectionParameters:{ssl:unknown}}).connectionParameters;
     assert.deepEqual(parameters.ssl, options, 'pg receives both the CA and verification requirement');
@@ -67,7 +75,7 @@ test('invalid CA fails closed at function bootstrap without leaking its contents
   try {
     const result = await handler({path:'/api/health'}, {}) as {statusCode:number;body:string};
     assert.equal(result.statusCode,503);
-    assert.deepEqual(logs,['Netlify bootstrap: INVALID_DB_CA']);
+    assert.deepEqual(logs,['Netlify bootstrap: INVALID_DB_CA_FORMAT']);
     assert(!result.body.includes('private-canary'));
     assert(!logs.join().includes('private-canary'));
   } finally { console.error = original; process.env = previous; }
