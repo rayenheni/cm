@@ -49,9 +49,13 @@ le navigateur public, un ZIP ou la conversation :
   Une fois définie, cette CA remplace les CA par défaut pour la connexion à la
   base ; la vérification du certificat et du nom d'hôte reste obligatoire.
   Seul un certificat CA provenant de Supabase doit être utilisé, jamais une clé
-  privée. Une valeur invalide bloque le démarrage avec `INVALID_DB_CA` dans les
-  journaux privés. Si TLS échoue encore, vérifiez le nom du pooler et contactez
-  Supabase ; ne désactivez jamais la vérification.
+  privée. Les retours à la ligne présents, supprimés ou remplacés par des espaces
+  sont acceptés, mais il faut copier exactement un certificat PEM complet. Une
+  valeur invalide bloque le démarrage : `INVALID_DB_CA_FORMAT` indique un bloc
+  incomplet ou illisible ; `INVALID_DB_CA_NOT_AUTHORITY` indique un certificat
+  qui n'est pas une CA. Aucun contenu du certificat n'est écrit dans les logs.
+  Si TLS échoue encore, vérifiez le nom du pooler et contactez Supabase ; ne
+  désactivez jamais la vérification.
   https://supabase.com/docs/guides/platform/ssl-enforcement
 - `SUPABASE_SECRET_KEY` : clé serveur `sb_secret_...` de Supabase pour Storage.
   Elle contourne RLS et doit rester secrète. Elle n'est jamais publiée dans le

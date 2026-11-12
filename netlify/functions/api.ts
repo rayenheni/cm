@@ -24,7 +24,7 @@ export async function handler(event: Event, context: object) {
     if (!/^\/api(?:\/|$)/.test(path)) return { statusCode: 404, body: '{"error":{"code":"NOT_FOUND","message":"Not found."}}', headers: { 'content-type': 'application/json' } };
     return await invoke({ ...event, path, requestPath: path, ...(event.rawPath ? {rawPath:path} : {}) }, context);
   } catch (error) {
-    console.error('Netlify bootstrap:', error instanceof DatabaseCaError ? 'INVALID_DB_CA' : 'CONFIG_ERROR');
+    console.error('Netlify bootstrap:', error instanceof DatabaseCaError ? `INVALID_DB_CA_${error.reason}` : 'CONFIG_ERROR');
     return { statusCode: 503, body: '{"error":{"code":"CONFIG_ERROR","message":"Service unavailable. Check private server logs."}}', headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } };
   }
 }
