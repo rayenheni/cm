@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.server.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["netlify/functions/**/*.ts", "deploy/netlify/**/*.ts", "server/**/*.ts", "src/lib/api-types.ts"]
+}
