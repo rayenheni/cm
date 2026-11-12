@@ -22,6 +22,34 @@ const sessionTime = 8 * 60 * 60 * 1000;
 const bad = (status: number, code: string, message: string): never => { throw new HttpError(status, code, message); };
 const iso = (v: unknown) => v instanceof Date ? v.toISOString() : new Date(String(v)).toISOString();
 
+// Log only fixed categories, never driver messages, query text, connection
+// strings, hostnames or other error properties. Driver errors can contain secrets.
+export function healthErrorCategory(error: unknown): string {
+  const categories: Record<string, string> = {
+    '28P01': 'DB_AUTHENTICATION', '28000': 'DB_AUTHENTICATION',
+    '3D000': 'DB_NAME', 'XX000': 'DB_SERVER_ERROR', '53300': 'DB_CAPACITY', '57P03': 'DB_CAPACITY',
+    SELF_SIGNED_CERT_IN_CHAIN: 'DB_TLS_CERTIFICATE', DEPTH_ZERO_SELF_SIGNED_CERT: 'DB_TLS_CERTIFICATE',
+    UNABLE_TO_VERIFY_LEAF_SIGNATURE: 'DB_TLS_CERTIFICATE', UNABLE_TO_GET_ISSUER_CERT: 'DB_TLS_CERTIFICATE',
+    UNABLE_TO_GET_ISSUER_CERT_LOCALLY: 'DB_TLS_CERTIFICATE', ERR_TLS_CERT_ALTNAME_INVALID: 'DB_TLS_CERTIFICATE',
+    CERT_HAS_EXPIRED: 'DB_TLS_CERTIFICATE', CERT_NOT_YET_VALID: 'DB_TLS_CERTIFICATE', CERT_REVOKED: 'DB_TLS_CERTIFICATE',
+    ENOTFOUND: 'DB_DNS', EAI_AGAIN: 'DB_DNS', ECONNREFUSED: 'DB_NETWORK', ECONNRESET: 'DB_NETWORK',
+    ENETUNREACH: 'DB_NETWORK', EHOSTUNREACH: 'DB_NETWORK', ETIMEDOUT: 'DB_TIMEOUT',
+  };
+  const seen = new Set<unknown>();
+  const pending: unknown[] = [error];
+  while (pending.length && seen.size < 8) {
+    const current = pending.shift();
+    if (!current || typeof current !== 'object' || seen.has(current)) continue;
+    seen.add(current);
+    const e = current as { code?: unknown; message?: unknown; cause?: unknown; errors?: unknown };
+    if (typeof e.code === 'string' && Object.hasOwn(categories, e.code)) return categories[e.code];
+    if (e.message === 'timeout exceeded when trying to connect' || e.message === 'Connection terminated due to connection timeout') return 'DB_TIMEOUT';
+    if (e.cause) pending.push(e.cause);
+    if (Array.isArray(e.errors)) pending.push(...e.errors.slice(0, 8));
+  }
+  return 'DB_UNKNOWN';
+}
+
 export function settings(env: NodeJS.ProcessEnv): Settings {
   const origin = env.APP_ORIGIN ?? ''; const url = env.SUPABASE_URL ?? '';
   const key = env.SUPABASE_SECRET_KEY ?? ''; const bucket = env.SUPABASE_MEDIA_BUCKET ?? 'cmcb-media';
@@ -120,7 +148,11 @@ export function createNetlifyApp(db: DB, cfg: Settings, storageFetch: typeof fet
       }
     }); res.status(201).json({ok:true});
   });
-  app.get('/api/health', async (_req,res) => { await db.query('SELECT 1'); res.json({status:'ok'}); });
+  app.get('/api/health', async (_req,res) => {
+    try { await db.query('SELECT 1'); }
+    catch (error) { console.error('CMCB health diagnostic:', healthErrorCategory(error)); throw error; }
+    res.json({status:'ok'});
+  });
   app.get('/api/articles', async (req,res) => { const lang=z.enum(['fr','ar']).parse(req.query.lang ?? 'fr'); res.json({articles:(await articles(db,true)).filter(a=>a.translations[lang]).map(a=>localized(a,lang))}); });
   app.get('/api/articles/:id', async (req,res) => { const lang=z.enum(['fr','ar']).parse(req.query.lang ?? 'fr'); const a=(await articles(db,true)).find(v=>v.id===req.params.id && v.translations[lang]); if (!a) return bad(404,'NOT_FOUND','Article not found.'); res.json({article:localized(a,lang)}); });
   app.get('/api/auth/session', async (req,res) => { const s=await session(req,db); res.json({authenticated:!!s,user:s?{id:Number(s.admin_id),email:s.email}:null,csrfToken:s?.csrf_token ?? null}); });
@@ -194,7 +226,7 @@ export function createNetlifyApp(db: DB, cfg: Settings, storageFetch: typeof fet
     if(error instanceof z.ZodError){const fields:Record<string,string>={}; for(const issue of error.issues) fields[issue.path.join('.')]=issue.message; return res.status(400).json({error:{code:'VALIDATION_ERROR',message:'Please check the submitted fields.',fields}});}
     if(error instanceof Error && 'status' in error && error.status===413) return res.status(413).json({error:{code:'BODY_TOO_LARGE',message:'The submitted content is too large.'}});
     if(error instanceof SyntaxError && 'status' in error && error.status===400) return res.status(400).json({error:{code:'INVALID_JSON',message:'Invalid JSON body.'}});
-    console.error('Netlify API error:',error instanceof Error ? error.name : 'UnknownError'); return res.status(500).json({error:{code:'INTERNAL_ERROR',message:'The server could not complete this request.'}});
+    console.error('Netlify API error: INTERNAL_ERROR'); return res.status(500).json({error:{code:'INTERNAL_ERROR',message:'The server could not complete this request.'}});
   });
   return app;
 }
