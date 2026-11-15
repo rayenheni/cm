@@ -99,8 +99,8 @@ async function articles(db: DB, publishedOnly: boolean): Promise<StoredArticle[]
      ${publishedOnly ? "WHERE a.status='published'" : ''} GROUP BY a.id ORDER BY COALESCE(a.published_at,a.created_at) DESC,a.id`);
   return list.map(a => ({ id: a.id, expertiseId: a.expertise_id, image: a.image, status: a.status, createdAt: iso(a.created_at), updatedAt: iso(a.updated_at), publishedAt: a.published_at ? iso(a.published_at) : null, translations: a.translations }));
 }
-function localized(a: StoredArticle, lang: 'fr'|'ar') {
-  return { id: a.id, expertiseId: a.expertiseId, image: a.image || 'https://images.pexels.com/photos/261621/pexels-photo-261621.jpeg?auto=compress&cs=tinysrgb&w=1400', ...a.translations[lang]!, date: new Intl.DateTimeFormat(lang === 'ar' ? 'ar-TN' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Tunis' }).format(new Date(a.publishedAt!)) };
+function localized(a: StoredArticle, lang: 'fr'|'ar'|'en') {
+  return { id: a.id, expertiseId: a.expertiseId, image: a.image || 'https://images.pexels.com/photos/261621/pexels-photo-261621.jpeg?auto=compress&cs=tinysrgb&w=1400', ...a.translations[lang]!, date: new Intl.DateTimeFormat(lang === 'ar' ? 'ar-TN' : lang === 'en' ? 'en-GB' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Tunis' }).format(new Date(a.publishedAt!)) };
 }
 function mappedReservation(r: QueryResultRow) { return { id:r.id, createdAt:iso(r.created_at), updatedAt:iso(r.updated_at), consentAt:iso(r.consent_at), status:r.status, name:r.name, email:r.email, phone:r.phone, domain:r.domain, urgency:r.urgency, message:r.message, lang:r.lang, notification:{status:r.notification_status, attempts:r.attempts} }; }
 const reservationSelect = 'SELECT r.*,o.status AS notification_status,o.attempts FROM cmcb_private.reservations r JOIN cmcb_private.outbox o ON o.reservation_id=r.id';
@@ -153,8 +153,8 @@ export function createNetlifyApp(db: DB, cfg: Settings, storageFetch: typeof fet
     catch (error) { console.error('CMCB health diagnostic:', healthErrorCategory(error)); throw error; }
     res.json({status:'ok'});
   });
-  app.get('/api/articles', async (req,res) => { const lang=z.enum(['fr','ar']).parse(req.query.lang ?? 'fr'); res.json({articles:(await articles(db,true)).filter(a=>a.translations[lang]).map(a=>localized(a,lang))}); });
-  app.get('/api/articles/:id', async (req,res) => { const lang=z.enum(['fr','ar']).parse(req.query.lang ?? 'fr'); const a=(await articles(db,true)).find(v=>v.id===req.params.id && v.translations[lang]); if (!a) return bad(404,'NOT_FOUND','Article not found.'); res.json({article:localized(a,lang)}); });
+  app.get('/api/articles', async (req,res) => { const lang=z.enum(['fr','ar','en']).parse(req.query.lang ?? 'fr'); res.json({articles:(await articles(db,true)).filter(a=>a.translations[lang]).map(a=>localized(a,lang))}); });
+  app.get('/api/articles/:id', async (req,res) => { const lang=z.enum(['fr','ar','en']).parse(req.query.lang ?? 'fr'); const a=(await articles(db,true)).find(v=>v.id===req.params.id && v.translations[lang]); if (!a) return bad(404,'NOT_FOUND','Article not found.'); res.json({article:localized(a,lang)}); });
   app.get('/api/auth/session', async (req,res) => { const s=await session(req,db); res.json({authenticated:!!s,user:s?{id:Number(s.admin_id),email:s.email}:null,csrfToken:s?.csrf_token ?? null}); });
   app.post('/api/auth/login', rate('login-ip',10), async (req,res) => {
     const {email,password}=credentialsSchema.parse(req.body); await throttle(db,`login-account:${email}`,10);

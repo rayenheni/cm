@@ -1,4 +1,4 @@
-export type Lang = 'fr' | 'ar';
+export type Lang = 'fr' | 'ar' | 'en';
 export type ArticleStatus = 'draft' | 'published';
 export interface ArticleTranslation {
   category: string;
@@ -18,7 +18,7 @@ export interface StoredArticle {
   createdAt: string;
   updatedAt: string;
   publishedAt: string | null;
-  translations: { fr: ArticleTranslation; ar?: ArticleTranslation };
+  translations: { fr: ArticleTranslation; ar?: ArticleTranslation; en?: ArticleTranslation };
 }
 export type ArticleInput = Pick<StoredArticle, 'id' | 'expertiseId' | 'image' | 'status' | 'translations'>;
 export type ReservationStatus = 'new' | 'contacted' | 'closed';

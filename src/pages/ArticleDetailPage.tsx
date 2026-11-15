@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useCabinet, useExpertises, useT } from "@/i18n";
+import { useCabinet, useExpertises, useLang, useT } from "@/i18n";
 import { useArticleFeed } from "@/lib/useArticles";
 import { Link, useDocumentTitle } from "@/router";
 import { Monogram } from "@/components/Logo";
@@ -13,6 +13,7 @@ const slug = (i: number) => `section-${i + 1}`;
 
 export function ArticleDetailPage({ id }: { id: string }) {
   const t = useT();
+  const { lang } = useLang();
   const cabinet = useCabinet();
   const { articles, loading, error, refresh } = useArticleFeed();
   const expertises = useExpertises();
@@ -44,8 +45,8 @@ export function ArticleDetailPage({ id }: { id: string }) {
     return () => window.clearTimeout(timer);
   }, [copied]);
 
-  if (loading) return <p className="container-x py-24" role="status">{"Chargement de l'article…"}</p>;
-  if (error) return <div className="container-x py-24" role="alert"><p>{error}</p><button className="btn-outline mt-5" onClick={refresh}>Réessayer</button></div>;
+  if (loading) return <p className="container-x py-24" role="status">{lang === "en" ? "Loading article…" : lang === "ar" ? "جارٍ تحميل المقال…" : "Chargement de l’article…"}</p>;
+  if (error) return <div className="container-x py-24" role="alert"><p>{error}</p><button className="btn-outline mt-5" onClick={refresh}>{lang === "en" ? "Try again" : lang === "ar" ? "إعادة المحاولة" : "Réessayer"}</button></div>;
   if (!article) return <NotFoundPage />;
 
   const expertise = expertises.find((e) => e.id === article.expertiseId);

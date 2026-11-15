@@ -95,6 +95,49 @@ export const SEED_ARTICLES: StoredArticle[] = [
           "أنظمة أساسية مفصَّلة واتفاق شركاء يمنعان أغلب النزاعات.",
           "اعرض كل مرحلة من التأسيس للتحقق قبل الإيداع."
         ]
+      },
+      "en": {
+        "category": "Business law",
+        "readTime": "5 min",
+        "title": "Starting a company in Tunisia: SUARL or SARL, how do you choose?",
+        "excerpt": "Legal form, capital, management and liability: practical criteria for choosing the right structure before signing the articles of association.",
+        "imageAlt": "A commercial contract being signed on a wooden desk",
+        "intro": "This is the first question every entrepreneur asks: should you create a SUARL, with sole control, or a SARL with several shareholders? Behind these acronyms are choices affecting your assets, taxation and freedom to make decisions for years to come. The Tunisian Commercial Companies Code provides a flexible framework, but every detail in the articles of association matters.",
+        "sections": [
+          {
+            "heading": "SUARL or SARL: two different approaches",
+            "paragraphs": [
+              "A SUARL (single-member limited liability company) appeals to founders who want to work alone while separating their personal assets from those of the business. A SARL allows shareholders to join and establishes how capital, powers and profits are shared.",
+              "In both cases, liability is in principle limited to contributions. Management must nevertheless be beyond reproach, as a manager at fault may be held personally liable."
+            ]
+          },
+          {
+            "heading": "Share capital and articles: where decisions matter",
+            "paragraphs": [
+              "Share capital is freely set in the articles. In practice, credible capital reassures banks, landlords and business partners: it is more than a figure on a form.",
+              "The articles require special care: business purpose, management powers, approval clauses and enhanced majorities for important decisions can all prevent future deadlocks."
+            ]
+          },
+          {
+            "heading": "The incorporation process",
+            "paragraphs": [
+              "The process then includes signing and registering the articles, depositing capital, registering with the National Business Register, obtaining a tax identifier, social security registration and publication. Each stage has its own deadlines and pitfalls.",
+              "Although not mandatory, a shareholders’ agreement is strongly recommended when there are several shareholders. It governs exits, share transfers and dispute resolution before disagreements turn into litigation."
+            ]
+          },
+          {
+            "heading": "The firm’s advice",
+            "paragraphs": [
+              "Do not rely on generic articles downloaded online. A structure designed from the start for your actual business can save costly amendments and, sometimes, irreparable disputes between shareholders. An hour of advice beforehand can be worth years of proceedings."
+            ]
+          }
+        ],
+        "keyPoints": [
+          "A SUARL is for a sole founder and a SARL for shareholders; liability is in principle limited to contributions.",
+          "Capital is freely set, but should inspire confidence among banks and partners.",
+          "Tailored articles and a shareholders’ agreement prevent many disputes.",
+          "Have each incorporation step reviewed before filing."
+        ]
       }
     }
   },
@@ -192,6 +235,49 @@ export const SEED_ARTICLES: StoredArticle[] = [
           "اتفاق دقيق يجنّب منازعات ما بعد الطلاق.",
           "تبقى التدابير قابلة للمراجعة إذا تغير الوضع."
         ]
+      },
+      "en": {
+        "category": "Family & assets",
+        "readTime": "4 min",
+        "title": "Divorce by mutual consent in Tunisia: the key steps",
+        "excerpt": "Agreement on consequences, hearing and registration: how the most amicable procedure under the Personal Status Code works, and how to protect children.",
+        "imageAlt": "Parents walking hand in hand with their child at sunset",
+        "intro": "The Tunisian Personal Status Code provides three routes to divorce. Divorce by mutual consent is the quickest and least distressing: the spouses agree on the separation and, importantly, its consequences. It requires genuine agreement, not consent obtained under pressure.",
+        "sections": [
+          {
+            "heading": "An agreement covering every consequence",
+            "paragraphs": [
+              "The core of the procedure is an agreement addressing the effects of divorce: custody and visitation, maintenance and school fees, housing and the future of jointly held property.",
+              "Every clause must be precise and realistic because it will bind both parties after judgment. A vague agreement today can become a dispute tomorrow."
+            ]
+          },
+          {
+            "heading": "The judge’s role",
+            "paragraphs": [
+              "The application is filed with the competent court along with civil status documents. The family judge hears the spouses, examines the agreement and checks that it protects the children’s interests before granting the divorce.",
+              "Children are never a bargaining variable: their best interests guide the court’s review."
+            ]
+          },
+          {
+            "heading": "After the judgment",
+            "paragraphs": [
+              "Registration in the civil status records makes the divorce effective against third parties. Obligations such as maintenance and visitation may be revised if circumstances change, including income, relocation or a child’s needs.",
+              "There is no need to over-negotiate under pressure; a balanced, lasting agreement is preferable."
+            ]
+          },
+          {
+            "heading": "The lawyer’s role",
+            "paragraphs": [
+              "The lawyer’s role is twofold: ensuring each clause is legally sound and defusing tensions. A well-prepared divorce allows parents and children to turn the page properly."
+            ]
+          }
+        ],
+        "keyPoints": [
+          "The agreement must cover both the divorce itself and all its consequences.",
+          "The judge reviews the children’s interests, which take priority over parental arrangements.",
+          "A precise agreement prevents post-divorce disputes.",
+          "Measures can be reviewed if circumstances change."
+        ]
       }
     }
   },
@@ -287,6 +373,48 @@ export const SEED_ARTICLES: StoredArticle[] = [
           "الصلح ثم مجلس الشغل: راقب آجال الطعن.",
           "للمؤجرين: إجراء تأديبي موثق يجنّب أغلب الإدانات."
         ]
+      },
+      "en": {
+        "category": "Employment law",
+        "readTime": "5 min",
+        "title": "Unfair dismissal: steps to protect your rights",
+        "excerpt": "Procedure, evidence and deadlines: what the Tunisian Labour Code requires of employers, and what employees should do upon receiving notice.",
+        "imageAlt": "A person holding a pen and signing an employment document",
+        "intro": "Receiving a dismissal notice is a shock. The first days are nevertheless decisive: what is done — or not done — in the first few weeks often shapes the outcome. The Tunisian Labour Code strictly regulates termination: a genuine and serious reason, proper procedure and deadlines.",
+        "sections": [
+          {
+            "heading": "First: keep everything",
+            "paragraphs": [
+              "Employment contracts, payslips, letters, emails, work messages and colleagues’ statements: every document counts.",
+              "For disciplinary matters, the employer must follow a specific procedure, including notice of allegations, an opportunity to respond and involvement of the relevant bodies. Document every failure."
+            ]
+          },
+          {
+            "heading": "Second: do not sign in haste",
+            "paragraphs": [
+              "A “resignation” offered to avoid dismissal, an unreserved final settlement receipt or an unfair settlement may deprive you of remedies. Have every document reviewed before signing."
+            ]
+          },
+          {
+            "heading": "Third: act within the deadlines",
+            "paragraphs": [
+              "The labour inspectorate may attempt conciliation; failing that, the employment tribunal may assess the termination and award damages, notice pay and sums due.",
+              "Remedies are subject to time limits. Missing them is a major reason cases are lost before they begin."
+            ]
+          },
+          {
+            "heading": "For employers: anticipate",
+            "paragraphs": [
+              "The best defence is preparation: documented disciplinary procedures, up-to-date contracts and compliant workplace rules. A well-prepared dismissal protects the business against costly litigation and damaged workplace relations."
+            ]
+          }
+        ],
+        "keyPoints": [
+          "Keep your contract, payslips, letters and written exchanges immediately.",
+          "Do not sign a resignation or final settlement without legal review.",
+          "Watch the deadlines for conciliation and employment tribunal proceedings.",
+          "Employers: documented disciplinary procedures can prevent many adverse judgments."
+        ]
       }
     }
   },
@@ -381,6 +509,48 @@ export const SEED_ARTICLES: StoredArticle[] = [
           "التبليغ والتنبيه والشكاية الجزائية واللجوء إلى هيئة حماية المعطيات تتكامل.",
           "الأسماء المستعارة لا تمنع التعرف الفني على الفاعلين.",
           "الجبر المدني يكمّل العقوبة الجزائية: لا ترد أبداً بالثلب."
+        ]
+      },
+      "en": {
+        "category": "Digital & criminal law",
+        "readTime": "6 min",
+        "title": "Online defamation and identity theft: what does Tunisian law say?",
+        "excerpt": "Screenshots, formal reports, complaints and the INPDP: practical steps when your reputation or personal data is targeted online.",
+        "imageAlt": "A laptop displaying code in a cybersecurity setting",
+        "intro": "A defamatory post, a fake profile or misused photographs: online harm is real, as are its professional, family and psychological consequences. Tunisian law provides several grounds for action, including the Criminal Code, personal data legislation and Decree-Law No. 2022-54 on offences involving information and communication systems.",
+        "sections": [
+          {
+            "heading": "The priority: preserve evidence",
+            "paragraphs": [
+              "Online content can disappear in a click. Capture posts with their URL, date and context; obtain a formal report from a judicial officer when warranted; keep notifications and messages.",
+              "Evidence properly collected from day one is better than a file reconstructed months later."
+            ]
+          },
+          {
+            "heading": "Choose the right strategy",
+            "paragraphs": [
+              "Reporting to the platform, a formal notice and a criminal complaint for defamation, insult, identity theft or a personal data violation are complementary options.",
+              "Where personal data is processed unlawfully, the Tunisian National Authority for the Protection of Personal Data (INPDP) may also be contacted."
+            ]
+          },
+          {
+            "heading": "Anonymity is not impunity",
+            "paragraphs": [
+              "“The author is hiding behind a pseudonym; is action pointless?” No. Technical investigations may identify authors through requests to operators and platforms. It can take longer, but online anonymity does not guarantee impunity."
+            ]
+          },
+          {
+            "heading": "Obtaining redress",
+            "paragraphs": [
+              "Beyond criminal penalties, a victim may obtain damages and removal of content. Act quickly and methodically, and resist the temptation to respond personally: this helps the victim regain control of the case."
+            ]
+          }
+        ],
+        "keyPoints": [
+          "Preserve evidence immediately: dated screenshots, URLs and a judicial officer’s report if necessary.",
+          "Platform reports, formal notices, criminal complaints and referral to the INPDP can be combined.",
+          "Pseudonymity does not prevent technical identification of authors.",
+          "Civil redress complements criminal penalties: never respond with defamation."
         ]
       }
     }

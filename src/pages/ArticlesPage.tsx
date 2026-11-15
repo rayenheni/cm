@@ -1,7 +1,7 @@
 import { useArticleFeed } from '@/lib/useArticles';
 import { useMemo, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useCabinet, useT } from "@/i18n";
+import { useCabinet, useLang, useT } from "@/i18n";
 import { useDocumentTitle } from "@/router";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard, CtaBand, PageHeader } from "@/components/Blocks";
@@ -18,6 +18,7 @@ const normalize = (s: string) =>
 
 export function ArticlesPage() {
   const t = useT();
+  const { lang } = useLang();
   const cabinet = useCabinet();
   const { articles, loading, error, refresh } = useArticleFeed();
   useDocumentTitle(t.articles.docTitle);
@@ -91,8 +92,8 @@ export function ArticlesPage() {
             </div>
           </Reveal>
 
-          {loading && <p className="mt-8" role="status">Chargement des articles…</p>}
-          {error && <div className="mt-8 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>Réessayer</button></div>}
+          {loading && <p className="mt-8" role="status">{lang === "en" ? "Loading articles…" : lang === "ar" ? "جارٍ تحميل المقالات…" : "Chargement des articles…"}</p>}
+          {error && <div className="mt-8 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>{lang === "en" ? "Try again" : lang === "ar" ? "إعادة المحاولة" : "Réessayer"}</button></div>}
           {!loading && !error && filtered && (
             <p className="mt-6 text-sm text-ink-600">
               {t.articles.found(results.length)}

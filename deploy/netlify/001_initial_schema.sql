@@ -35,7 +35,7 @@ CREATE TABLE cmcb_private.articles (
 );
 CREATE TABLE cmcb_private.article_translations (
   article_id text NOT NULL REFERENCES cmcb_private.articles(id) ON DELETE CASCADE,
-  lang text NOT NULL CHECK (lang IN ('fr', 'ar')),
+  lang text NOT NULL CHECK (lang IN ('fr', 'ar', 'en')),
   body jsonb NOT NULL,
   PRIMARY KEY (article_id, lang)
 );
@@ -53,7 +53,7 @@ CREATE TABLE cmcb_private.reservations (
   domain text NOT NULL,
   urgency text NOT NULL CHECK (urgency IN ('normal', '48h', 'urgent')),
   message text NOT NULL,
-  lang text NOT NULL CHECK (lang IN ('fr', 'ar'))
+  lang text NOT NULL CHECK (lang IN ('fr', 'ar', 'en'))
 );
 CREATE INDEX reservations_created ON cmcb_private.reservations(created_at DESC, id);
 CREATE INDEX reservations_status ON cmcb_private.reservations(status);

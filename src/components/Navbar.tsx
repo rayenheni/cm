@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { useCabinet, useExpertises, useNavLinks, useT } from "@/i18n";
 import { Link, isActivePath, useRoute } from "@/router";
-import { LogoLockup } from "./Logo";
+import { LogoLockup, Monogram } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useBodyLock } from "./Reveal";
 import {
@@ -219,7 +219,8 @@ export function Navbar() {
             }}
           />
           <div className="container-x relative flex h-20 shrink-0 items-center justify-between">
-            <LogoLockup dark compact />
+            <span className="sm:hidden"><Monogram className="h-11 w-11 rounded-[5px]" /></span>
+            <span className="hidden sm:inline-flex"><LogoLockup dark compact /></span>
             <div className="flex items-center gap-2">
               <LanguageSwitcher dark />
               <button

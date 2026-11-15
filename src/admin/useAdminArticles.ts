@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { ArticleInput, StoredArticle } from '@/lib/api-types';
-import { api, errorMessage } from '@/lib/api';
+import { api } from '@/lib/api';
+import { adminError } from './useAdminText';
 
 export function useAdminArticles() {
   const [articles, setArticles] = useState<StoredArticle[]>([]);
@@ -13,7 +14,7 @@ export function useAdminArticles() {
     setLoading(true); setError('');
     api<{ articles: StoredArticle[] }>('/admin/articles', { signal: controller.signal })
       .then(data => { if (!controller.signal.aborted) setArticles(data.articles); })
-      .catch(err => { if (!controller.signal.aborted) setError(errorMessage(err)); })
+      .catch(err => { if (!controller.signal.aborted) setError(adminError(err)); })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, [revision]);

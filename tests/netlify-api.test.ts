@@ -56,16 +56,24 @@ test('Netlify API: setup, login, articles, media and reservations', async () => 
     const auth=(url:string)=>request(app).get(url).set('Cookie',cookie);
     const write=(method:'post'|'put'|'delete'|'patch',url:string)=>request(app)[method](url).set('Origin',origin).set('Cookie',cookie).set('X-CSRF-Token',csrf);
     const seed=await auth('/api/admin/articles'); assert.equal(seed.status,200); assert.equal(seed.body.articles.length,4);
-    const example=seed.body.articles[0]; const article={id:'test-article',expertiseId:example.expertiseId,image:'',status:'draft',translations:example.translations};
+    const example=seed.body.articles[0]; assert.equal((await request(app).get('/api/articles?lang=en')).body.articles.length,4);
+    const article={id:'test-article',expertiseId:example.expertiseId,image:'',status:'draft',translations:{fr:example.translations.fr,ar:example.translations.ar}};
     assert.equal((await request(app).post('/api/admin/articles').set('Origin',origin).set('Cookie',cookie).send(article)).status,403);
     const saved=await write('post','/api/admin/articles').send(article); assert.equal(saved.status,201,JSON.stringify(saved.body));
     assert.equal((await request(app).get('/api/articles/test-article?lang=fr')).status,404);
     const published=await write('put','/api/admin/articles/test-article').send({...article,status:'published'}); assert.equal(published.status,200,JSON.stringify(published.body));
     assert.equal((await request(app).get('/api/articles/test-article?lang=fr')).status,200);
+    assert.equal((await request(app).get('/api/articles/test-article?lang=en')).status,404);
+    const english = { ...example.translations.fr, title: 'English test article' };
+    const withEnglish = { ...article, status: 'published', translations: { ...article.translations, en: english } };
+    assert.equal((await write('put','/api/admin/articles/test-article').send(withEnglish)).status,200);
+    const englishArticle = await request(app).get('/api/articles/test-article?lang=en');
+    assert.equal(englishArticle.status,200); assert.equal(englishArticle.body.article.title, 'English test article');
+    assert.equal((await auth('/api/admin/articles')).body.articles.find((a: {id:string}) => a.id === 'test-article').translations.en.title, 'English test article');
     // One valid, tiny PNG (the same validation as the existing server).
     const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aNCUAAAAASUVORK5CYII=';
     const image=await write('post','/api/admin/media').send({data:png}); assert.equal(image.status,201,JSON.stringify(image.body)); assert.match(image.body.url,/^https:\/\/project\.supabase\.co\/storage\/v1\/object\/public\/cmcb-media\//); assert.match(uploaded,/\/object\/cmcb-media\//);
-    const idempotencyKey=randomUUID(); const input={name:'Test Client',email:'client@example.test',phone:'',domain:'Droit',urgency:'normal',message:'Ceci est un message de test suffisamment long.',lang:'fr',consent:true,website:''};
+    const idempotencyKey=randomUUID(); const input={name:'Test Client',email:'client@example.test',phone:'',domain:'Droit',urgency:'normal',message:'Ceci est un message de test suffisamment long.',lang:'en',consent:true,website:''};
     const submission=await post('/api/reservations').set('Idempotency-Key',idempotencyKey).send(input); assert.equal(submission.status,201,JSON.stringify(submission.body));
     const retry=await post('/api/reservations').set('Idempotency-Key',idempotencyKey).send(input); assert.equal(retry.status,200); assert.equal(retry.body.id,submission.body.id);
     const list=await auth('/api/admin/reservations'); assert.equal(list.status,200,JSON.stringify(list.body)); assert.equal(list.body.total,1); assert.equal(list.body.reservations[0].notification.status,'disabled');
