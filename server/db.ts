@@ -14,7 +14,7 @@ export function openDatabase(filename: string): DatabaseSync {
     CREATE TABLE IF NOT EXISTS sessions (token_hash TEXT PRIMARY KEY, admin_id INTEGER NOT NULL REFERENCES admins(id) ON DELETE CASCADE, csrf_token TEXT NOT NULL, expires_at INTEGER NOT NULL);
     CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
     CREATE TABLE IF NOT EXISTS articles (id TEXT PRIMARY KEY, expertise_id TEXT NOT NULL, image TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('draft','published')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT);
-    CREATE TABLE IF NOT EXISTS article_translations (article_id TEXT NOT NULL REFERENCES articles(id) ON DELETE CASCADE, lang TEXT NOT NULL CHECK(lang IN ('fr','ar')), body TEXT NOT NULL, PRIMARY KEY(article_id,lang));
+    CREATE TABLE IF NOT EXISTS article_translations (article_id TEXT NOT NULL REFERENCES articles(id) ON DELETE CASCADE, lang TEXT NOT NULL CHECK(lang IN ('fr','ar','en')), body TEXT NOT NULL, PRIMARY KEY(article_id,lang));
     CREATE TABLE IF NOT EXISTS reservations (id TEXT PRIMARY KEY, idempotency_key TEXT NOT NULL UNIQUE, payload_hash TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, consent_at TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('new','contacted','closed')), name TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, domain TEXT NOT NULL, urgency TEXT NOT NULL, message TEXT NOT NULL, lang TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS reservations_created ON reservations(created_at DESC);
     CREATE INDEX IF NOT EXISTS reservations_status ON reservations(status);
@@ -46,7 +46,7 @@ export function getArticles(db: DatabaseSync, publishedOnly = false): StoredArti
   const select = db.prepare('SELECT lang,body FROM article_translations WHERE article_id=?');
   return rows.map(row => {
     const translations: StoredArticle['translations'] = { fr: undefined as never };
-    for (const tr of select.all(row.id) as unknown as { lang: 'fr' | 'ar'; body: string }[]) translations[tr.lang] = JSON.parse(tr.body);
+    for (const tr of select.all(row.id) as unknown as { lang: 'fr' | 'ar' | 'en'; body: string }[]) translations[tr.lang] = JSON.parse(tr.body);
     return { id: row.id, expertiseId: row.expertise_id, image: row.image, status: row.status, createdAt: row.created_at, updatedAt: row.updated_at, publishedAt: row.published_at, translations };
   });
 }

@@ -83,3 +83,14 @@ L'utilisateur ne doit jamais transmettre ses secrets dans un message.
   sauvegardes automatiques. Ne pas utiliser de données réelles avant contrôle
   de sécurité et examen des obligations de confidentialité applicables.
 - Aucune migration des données existantes n'est automatique.
+- Pour une base Supabase CMCB déjà installée, `002_english.sql` est une
+  migration manuelle permettant l'anglais pour les articles et les demandes.
+  Effectuer et vérifier une sauvegarde avant toute intervention, puis tester
+  sur une copie. Ne jamais relancer `001_initial_schema.sql` sur une base existante.
+  Les articles sans traduction anglaise ne sont pas publiés en anglais. Les
+  quatre articles initiaux comprennent l'anglais lors d'une nouvelle installation.
+  Pour les installations existantes, aucun article n'est modifié automatiquement :
+  dans l'éditeur, l'onglet anglais propose une traduction pour chacun des quatre
+  articles initiaux. Vérifier cette proposition face au contenu actuel avant de
+  l'enregistrer. Les articles ajoutés ou modifiés par le cabinet nécessitent une
+  traduction adaptée, à saisir dans ce même onglet.

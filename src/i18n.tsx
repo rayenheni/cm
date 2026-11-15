@@ -1,3 +1,5 @@
+import { en } from "@/i18n.en";
+import { CABINET_EN, NAV_LINKS_EN, EXPERTISES_EN, STEPS_EN, COMMITMENTS_EN, VALUES_EN, AUDIENCES_EN, FAQ_CATEGORIES_EN, ALL_FAQS_EN } from "@/content.en";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import {
   CABINET,
@@ -22,7 +24,7 @@ import {
   ALL_FAQS_AR,
 } from "@/data/content.ar";
 
-export type Lang = "fr" | "ar";
+export type Lang = "fr" | "ar" | "en";
 
 interface LangContextValue {
   lang: Lang;
@@ -35,7 +37,7 @@ const LangContext = createContext<LangContextValue>({ lang: "fr", setLang: () =>
 function initialLang(): Lang {
   try {
     const saved = localStorage.getItem("cmcb-lang");
-    if (saved === "ar" || saved === "fr") return saved;
+    if (saved === "ar" || saved === "fr" || saved === "en") return saved;
     const nav = navigator.language.toLowerCase();
     if (nav.startsWith("ar")) return "ar";
   } catch {
@@ -65,6 +67,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         "content",
         lang === "ar"
           ? "مكتب CMCB — الأستاذة شيماء البحيري، محامية لدى الهيئة الوطنية للمحامين بتونس. قانون الأعمال والعائلة والشغل والجزائي والجرائم السيبرنية والوساطة. المشورة السليمة لإرشادك، والاستراتيجية الصحيحة لحمايتك، والمحامية المناسبة للدفاع عنك."
+          : lang === "en" ? "CMCB Law Firm — Chaima Bhiri, lawyer at the Tunisian Bar. Business, family, employment and criminal law, cybercrime and mediation."
           : "Cabinet CMCB — Maître Chaima Bhiri, avocat au Barreau de Tunisie. Droit des affaires, famille, travail, pénal & cybercriminalité, médiation. Le bon conseil pour vous guider, la bonne stratégie pour vous protéger, le bon avocat pour vous défendre."
       );
     }
@@ -973,12 +976,13 @@ export type Strings = typeof fr;
 
 export function useT(): Strings {
   const { lang } = useLang();
-  return lang === "ar" ? ar : fr;
+  return lang === "ar" ? ar : lang === "en" ? en : fr;
 }
 
 export function useCabinet() {
   const { lang } = useLang();
   if (lang === "fr") return CABINET;
+  if (lang === "en") return CABINET_EN;
   return {
     ...CABINET,
     fullName: CABINET_AR.fullName,
@@ -997,35 +1001,35 @@ export function useCabinet() {
 
 export function useNavLinks() {
   const { lang } = useLang();
-  return lang === "ar" ? NAV_LINKS_AR : NAV_LINKS;
+  return lang === "ar" ? NAV_LINKS_AR : lang === "en" ? NAV_LINKS_EN : NAV_LINKS;
 }
 export function useExpertises() {
   const { lang } = useLang();
-  return lang === "ar" ? EXPERTISES_AR : EXPERTISES;
+  return lang === "ar" ? EXPERTISES_AR : lang === "en" ? EXPERTISES_EN : EXPERTISES;
 }
 export function useSteps() {
   const { lang } = useLang();
-  return lang === "ar" ? STEPS_AR : STEPS;
+  return lang === "ar" ? STEPS_AR : lang === "en" ? STEPS_EN : STEPS;
 }
 export function useCommitments() {
   const { lang } = useLang();
-  return lang === "ar" ? COMMITMENTS_AR : COMMITMENTS;
+  return lang === "ar" ? COMMITMENTS_AR : lang === "en" ? COMMITMENTS_EN : COMMITMENTS;
 }
 export function useValues() {
   const { lang } = useLang();
-  return lang === "ar" ? VALUES_AR : VALUES;
+  return lang === "ar" ? VALUES_AR : lang === "en" ? VALUES_EN : VALUES;
 }
 export function useAudiences() {
   const { lang } = useLang();
-  return lang === "ar" ? AUDIENCES_AR : AUDIENCES;
+  return lang === "ar" ? AUDIENCES_AR : lang === "en" ? AUDIENCES_EN : AUDIENCES;
 }
 export function useFaqCategories() {
   const { lang } = useLang();
-  return lang === "ar" ? FAQ_CATEGORIES_AR : FAQ_CATEGORIES;
+  return lang === "ar" ? FAQ_CATEGORIES_AR : lang === "en" ? FAQ_CATEGORIES_EN : FAQ_CATEGORIES;
 }
 export function useAllFaqs() {
   const { lang } = useLang();
-  return lang === "ar" ? ALL_FAQS_AR : ALL_FAQS;
+  return lang === "ar" ? ALL_FAQS_AR : lang === "en" ? ALL_FAQS_EN : ALL_FAQS;
 }
 export function useCabinetAr() {
   return CABINET_AR;

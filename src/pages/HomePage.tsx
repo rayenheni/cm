@@ -125,8 +125,8 @@ export function HomePage() {
               </Link>
             }
           />
-          {loading && <p className="mt-10 text-ink-600" role="status">{lang === "ar" ? "جارٍ تحميل المقالات…" : "Chargement des articles…"}</p>}
-          {error && <div className="mt-10 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>{lang === "ar" ? "إعادة المحاولة" : "Réessayer"}</button></div>}
+          {loading && <p className="mt-10 text-ink-600" role="status">{lang === "ar" ? "جارٍ تحميل المقالات…" : lang === "en" ? "Loading articles…" : "Chargement des articles…"}</p>}
+          {error && <div className="mt-10 rounded-xl border border-danger/30 p-5" role="alert"><p>{error}</p><button className="btn-outline mt-3" onClick={refresh}>{lang === "ar" ? "إعادة المحاولة" : lang === "en" ? "Try again" : "Réessayer"}</button></div>}
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {featured && <div className="lg:col-span-3"><ArticleCard article={featured} featured /></div>}
             {others.map((a, i) => (

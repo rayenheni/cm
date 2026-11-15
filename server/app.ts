@@ -55,10 +55,10 @@ function requireCsrf(req: Request, _res: Response, next: NextFunction): void {
   next();
 }
 function resSession(req: Request): Session { return (req.res!.locals.session as Session); }
-function localized(article: Article, lang: 'fr' | 'ar') {
+function localized(article: Article, lang: 'fr' | 'ar' | 'en') {
   const tr = article.translations[lang]!;
   return { id: article.id, expertiseId: article.expertiseId, image: article.image || 'https://images.pexels.com/photos/261621/pexels-photo-261621.jpeg?auto=compress&cs=tinysrgb&w=1400', ...tr,
-    date: new Intl.DateTimeFormat(lang === 'ar' ? 'ar-TN' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Tunis' }).format(new Date(article.publishedAt!)) };
+    date: new Intl.DateTimeFormat(lang === 'ar' ? 'ar-TN' : lang === 'en' ? 'en-GB' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Tunis' }).format(new Date(article.publishedAt!)) };
 }
 export interface AppOptions { config: Config; db: DatabaseSync; mailer?: Mailer | null; disableRateLimits?: boolean; scriptHashes?: string[] }
 export function createApp({ config, db, mailer = null, disableRateLimits = false, scriptHashes = [] }: AppOptions) {
@@ -114,7 +114,7 @@ export function createApp({ config, db, mailer = null, disableRateLimits = false
     try { res.status(201).json({ url: await saveImage(mediaRoot, input.data) }); }
     catch (error) { if (error instanceof InvalidImage) throw new HttpError(400, 'INVALID_IMAGE', error.message); throw error; }
   });
-  const language = z.enum(['fr', 'ar']);
+  const language = z.enum(['fr', 'ar', 'en']);
   app.get('/api/health', (_req, res) => { db.prepare('SELECT 1').get(); res.json({ status: 'ok' }); });
   app.get('/api/articles', (req, res) => {
     const lang = language.parse(req.query.lang ?? 'fr');

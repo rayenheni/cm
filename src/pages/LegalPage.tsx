@@ -9,16 +9,17 @@ export function LegalPage({ variant }: { variant: "mentions" | "privacy" }) {
   const cabinet = useCabinet();
   const isMentions = variant === "mentions";
   const isFr = lang === "fr";
+  const isEn = lang === "en";
   const title = isMentions ? t.legal.mentionsTitle : t.legal.privacyTitle;
   useDocumentTitle(title);
 
   const fill = (text: string) =>
     text
-      .replace("__EDITOR1__", isFr ? `Le site ${cabinet.domain} est édité par le cabinet CMCB avocat et conseils — ${cabinet.lawyer}, ${cabinet.role}, ${cabinet.specialty.toLowerCase()}.` : `موقع ${cabinet.domain} يصدر عن مكتب CMCB للمحاماة والاستشارات — ${cabinet.lawyer}، ${cabinet.role}، ${cabinet.specialty}.`)
-      .replace("__EDITOR2__", isFr ? `Adresse : ${cabinet.address}, ${cabinet.city}. Téléphone : ${cabinet.phone}. E-mail : ${cabinet.email}.` : `العنوان : ${cabinet.address}، ${cabinet.city}. الهاتف : ${cabinet.phone}. البريد : ${cabinet.email}.`)
-      .replace("__EDITOR3__", isFr ? `Directrice de la publication : ${cabinet.lawyer}.` : `مديرة النشر : ${cabinet.lawyer}.`)
+      .replace("__EDITOR1__", isFr ? `Le site ${cabinet.domain} est édité par le cabinet CMCB avocat et conseils — ${cabinet.lawyer}, ${cabinet.role}, ${cabinet.specialty.toLowerCase()}.` : isEn ? `The website ${cabinet.domain} is published by CMCB law and legal advice — ${cabinet.lawyer}, ${cabinet.role}, ${cabinet.specialty.toLowerCase()}.` : `موقع ${cabinet.domain} يصدر عن مكتب CMCB للمحاماة والاستشارات — ${cabinet.lawyer}، ${cabinet.role}، ${cabinet.specialty}.`)
+      .replace("__EDITOR2__", isFr ? `Adresse : ${cabinet.address}, ${cabinet.city}. Téléphone : ${cabinet.phone}. E-mail : ${cabinet.email}.` : isEn ? `Address: ${cabinet.address}, ${cabinet.city}. Phone: ${cabinet.phone}. Email: ${cabinet.email}.` : `العنوان : ${cabinet.address}، ${cabinet.city}. الهاتف : ${cabinet.phone}. البريد : ${cabinet.email}.`)
+      .replace("__EDITOR3__", isFr ? `Directrice de la publication : ${cabinet.lawyer}.` : isEn ? `Publication director: ${cabinet.lawyer}.` : `مديرة النشر : ${cabinet.lawyer}.`)
       .replace(/__CONTACT__/g, cabinet.email)
-      .replace("__RIGHTS2__", isFr ? `Pour exercer ces droits, écrivez à ${cabinet.email}. Vous pouvez également saisir l'Instance nationale de protection des données personnelles (INPDP).` : `لممارسة هذه الحقوق، راسل ${cabinet.email}. ويمكنك أيضاً اللجوء إلى الهيئة الوطنية لحماية المعطيات الشخصية.`);
+      .replace("__RIGHTS2__", isFr ? `Pour exercer ces droits, écrivez à ${cabinet.email}. Vous pouvez également saisir l'Instance nationale de protection des données personnelles (INPDP).` : isEn ? `To exercise these rights, write to ${cabinet.email}. You may also contact the Tunisian National Authority for the Protection of Personal Data (INPDP).` : `لممارسة هذه الحقوق، راسل ${cabinet.email}. ويمكنك أيضاً اللجوء إلى الهيئة الوطنية لحماية المعطيات الشخصية.`);
 
   const sections = (isMentions ? t.legal.mentions : t.legal.privacy).map((s) => ({
     ...s,

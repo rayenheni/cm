@@ -70,7 +70,7 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
         body: { ...form, lang, urgency: (["normal", "48h", "urgent"] as Urgency[])[t.form.urgencies.indexOf(form.urgency)] ?? "normal", website: "" },
       });
       setStatus("ready");
-    } catch (error) { setSubmitError(errorMessage(error)); setStatus("idle"); }
+    } catch (error) { setSubmitError(lang === "en" ? "Your request could not be sent. Please check your connection and try again." : errorMessage(error)); setStatus("idle"); }
   };
 
   const text = `${t.form.waGreeting}\n\n${t.form.waName} : ${form.name}\n${t.form.waPhone} : ${form.phone || "—"}\n${t.form.waEmail} : ${form.email}\n${t.form.waDomain} : ${form.domain}\n${t.form.waUrgency} : ${form.urgency}\n\n${form.message}`;
@@ -93,8 +93,8 @@ export function ContactForm({ presetDomain = "" }: { presetDomain?: string }) {
           <div><dt className="inline font-medium text-ink-900">{t.form.readyUrgency}</dt><dd className="inline">{form.urgency}</dd></div>
           <div className="line-clamp-3"><dt className="inline font-medium text-ink-900">{t.form.readyMessage}</dt><dd className="inline">{form.message}</dd></div>
         </dl>
-        <p className="mt-4 text-xs leading-relaxed text-ink-600">{lang === "ar" ? "هذا طلب استشارة وليس موعداً مؤكداً. سيتواصل معك المكتب لتأكيد الموعد." : "Ceci est une demande de consultation, pas un rendez-vous confirmé. Le cabinet vous contactera pour confirmer le créneau."}</p>
-        <p className="mt-4 text-xs text-ink-600">{lang === "ar" ? "التواصل مباشرة أيضاً:" : "Ou contactez directement le cabinet :"}</p>
+        <p className="mt-4 text-xs leading-relaxed text-ink-600">{lang === "ar" ? "هذا طلب استشارة وليس موعداً مؤكداً. سيتواصل معك المكتب لتأكيد الموعد." : lang === "en" ? "This is a consultation request, not a confirmed appointment. The firm will contact you to confirm the time." : "Ceci est une demande de consultation, pas un rendez-vous confirmé. Le cabinet vous contactera pour confirmer le créneau."}</p>
+        <p className="mt-4 text-xs text-ink-600">{lang === "ar" ? "التواصل مباشرة أيضاً:" : lang === "en" ? "Or contact the firm directly:" : "Ou contactez directement le cabinet :"}</p>
         <div className="mt-3 flex flex-col gap-3">
           <a href={waHref} target="_blank" rel="noreferrer" className="btn w-full bg-whatsapp text-white hover:bg-success">
             <WhatsApp className="h-4.5 w-4.5" /> {t.form.viaWhatsapp}

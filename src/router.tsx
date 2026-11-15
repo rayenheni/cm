@@ -62,20 +62,23 @@ export function useRoute() {
 }
 
 const BASE_TITLE_FR = "CMCB · Maître Chaima Bhiri — Avocat et conseils";
+const BASE_TITLE_EN = "CMCB · Chaima Bhiri — Law and legal advice";
 const BASE_TITLE_AR = "CMCB · الأستاذة شيماء البحيري — محاماة واستشارات";
 
 export function useDocumentTitle(title?: string) {
   useEffect(() => {
     const isAr = document.documentElement.lang === "ar";
-    const base = isAr ? BASE_TITLE_AR : BASE_TITLE_FR;
-    document.title = title ? `${title} | ${base}` : isAr ? `${base} بمساكن، سوسة` : `${base} à Msaken, Sousse`;
+    const isEn = document.documentElement.lang === "en";
+    const base = isAr ? BASE_TITLE_AR : isEn ? BASE_TITLE_EN : BASE_TITLE_FR;
+    document.title = title ? `${title} | ${base}` : isAr ? `${base} بمساكن، سوسة` : isEn ? `${base} in Msaken, Sousse` : `${base} à Msaken, Sousse`;
   }, [title]);
   // Re-run when language changes (title prop changes on re-render, but also observe lang attr)
   useEffect(() => {
     const obs = new MutationObserver(() => {
       const isAr = document.documentElement.lang === "ar";
-      const base = isAr ? BASE_TITLE_AR : BASE_TITLE_FR;
-      document.title = title ? `${title} | ${base}` : isAr ? `${base} بمساكن، سوسة` : `${base} à Msaken, Sousse`;
+      const isEn = document.documentElement.lang === "en";
+      const base = isAr ? BASE_TITLE_AR : isEn ? BASE_TITLE_EN : BASE_TITLE_FR;
+      document.title = title ? `${title} | ${base}` : isAr ? `${base} بمساكن، سوسة` : isEn ? `${base} in Msaken, Sousse` : `${base} à Msaken, Sousse`;
     });
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
     return () => obs.disconnect();

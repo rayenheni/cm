@@ -12,7 +12,7 @@ export const articleSchema = z.strictObject({
   expertiseId: z.enum(expertiseIds),
   image: z.union([z.literal(''), z.string().regex(/^\/media\/[a-f0-9]{32}\.(?:jpg|png|webp)$/), z.url().max(2048).refine(v => new URL(v).protocol === 'https:', 'Images must use HTTPS.')]),
   status: z.enum(['draft', 'published']),
-  translations: z.strictObject({ fr: translation, ar: translation.optional() }),
+  translations: z.strictObject({ fr: translation, ar: translation.optional(), en: translation.optional() }),
 }).superRefine((value, ctx) => {
   if (value.status === 'published' && !value.translations.ar) ctx.addIssue({ code: 'custom', path: ['translations', 'ar'], message: 'Add the Arabic translation before publishing.' });
 });
@@ -21,7 +21,7 @@ export const reservationSchema = z.strictObject({
   email: z.string().trim().max(254).email().transform(v => v.toLowerCase()),
   phone: z.string().trim().max(40).refine(v => !v || /^[+\d][\d\s.\-()]{7,}$/.test(v)),
   domain: text(200), urgency: z.enum(['normal', '48h', 'urgent']),
-  message: z.string().trim().min(15).max(5000), lang: z.enum(['fr', 'ar']),
+  message: z.string().trim().min(15).max(5000), lang: z.enum(['fr', 'ar', 'en']),
   consent: z.literal(true), website: z.literal(''),
 });
 export const credentialsSchema = z.strictObject({ email: z.string().trim().toLowerCase().email().max(254), password: z.string().min(1).max(128), transport: z.enum(['cookie', 'bearer']).optional() });

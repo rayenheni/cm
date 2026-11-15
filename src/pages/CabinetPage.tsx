@@ -1,6 +1,6 @@
 import { IMAGES } from "@/data/content";
 import { Link, useDocumentTitle } from "@/router";
-import { useAudiences, useCabinet, useT, useValues } from "@/i18n";
+import { useAudiences, useCabinet, useLang, useT, useValues } from "@/i18n";
 import { Reveal } from "@/components/Reveal";
 import heroPortrait from "@/assets/chaima-bhiri.webp";
 import { CtaBand, MethodSection, PageHeader, SectionHeading } from "@/components/Blocks";
@@ -10,6 +10,7 @@ const MOTTO_ICONS = [Compass, Shield, Handshake];
 
 export function CabinetPage() {
   const t = useT();
+  const { lang } = useLang();
   const cabinet = useCabinet();
   const values = useValues();
   const audiences = useAudiences();
@@ -21,7 +22,7 @@ export function CabinetPage() {
         eyebrow={t.cabinet.headerEyebrow}
         crumbs={[{ label: t.cabinet.headerCrumb }]}
         image={IMAGES.officeDetail}
-        title={<>{t.cabinet.headerTitleA} <em className="text-gold-400 italic">{t.cabinet.headerTitleB}</em> {t.cabinet.headerTitleC} <em className="text-gold-400 italic">{t.cabinet.headerTitleD}</em></>}
+        title={<>{t.cabinet.headerTitleA} <em className="text-gold-400 italic">{t.cabinet.headerTitleB}</em>{" "}<span className={lang === "fr" ? "whitespace-nowrap" : undefined}>{t.cabinet.headerTitleC}{lang === "fr" ? "" : " "}<em className="text-gold-400 italic">{t.cabinet.headerTitleD}</em></span></>}
         subtitle={`${cabinet.lawyer} — ${cabinet.role}. ${cabinet.specialty}.`}
       />
 
@@ -57,7 +58,7 @@ export function CabinetPage() {
                 {t.cabinet.titleA} <em className="text-wine-600 italic">{t.cabinet.titleB}</em>
               </h2>
               <div className="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-ink-600">
-                <p className="dropcap">
+                <p className={lang === "ar" ? "dropcap" : undefined}>
                   {t.cabinet.p1a}{" "}
                   <strong className="font-medium text-ink-900">{t.cabinet.p1b}</strong> {t.cabinet.p1c}
                 </p>

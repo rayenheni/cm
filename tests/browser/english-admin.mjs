@@ -1,0 +1,41 @@
+// Browser checks use mocked API responses and never touch a real admin account.
+import { chromium as playwright } from '@playwright/test';
+import chromium from '@sparticuz/chromium';
+import assert from 'node:assert/strict';
+const base=process.env.TEST_REACT_BASE_URL || 'http://127.0.0.1:5173';
+const browser=await playwright.launch({executablePath:await chromium.executablePath(),args:chromium.args.filter(a=>!['--disable-web-security','--allow-running-insecure-content','--disable-site-isolation-trials'].includes(a)),headless:true});
+try {
+  const page=await browser.newPage({viewport:{width:390,height:900},locale:'fr-FR',reducedMotion:'reduce'});
+  const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+  let authenticated=false, saved;
+  const fr={category:'Droit des affaires',readTime:'5 min',title:'Titre français personnalisé',excerpt:'Résumé',imageAlt:'',intro:'Introduction',sections:[{heading:'Section',paragraphs:['Paragraphe']}],keyPoints:[]};
+  const article={id:'creer-sa-societe-suarl-sarl',expertiseId:'affaires',image:'',status:'published',createdAt:'2026-01-01T00:00:00Z',updatedAt:'2026-01-01T00:00:00Z',publishedAt:'2026-01-01T00:00:00Z',translations:{fr,ar:{...fr,title:'عنوان'}}};
+  await page.route('**/api/auth/session',r=>r.fulfill({json:{authenticated,user:authenticated?{id:1,email:'test@example.test'}:null,csrfToken:authenticated?'test':null}}));
+  await page.route('**/api/admin/articles',r=>r.fulfill({json:{articles:[article]}}));
+  await page.route('**/api/admin/articles/creer-sa-societe-suarl-sarl',async r=>{saved=r.request().postDataJSON();await r.fulfill({json:{article:saved}})});
+  await page.route('**/api/admin/reservations?**',r=>r.fulfill({json:{reservations:[],total:0,page:1,limit:25,counts:{new:0,contacted:0,closed:0}}}));
+  await page.route('**/api/admin/system',r=>r.fulfill({json:{smtpConfigured:false}}));
+  await page.goto(base+'/#/admin');
+  await page.getByRole('button',{name:'English'}).click();
+  await page.getByRole('heading',{name:'Admin area'}).waitFor();
+  assert.equal(await page.getByLabel('Email address').count(),1);
+  assert.equal(await page.getByLabel('Password',{exact:true}).count(),1);
+  authenticated=true; await page.reload();
+  await page.getByRole('button',{name:'New article'}).waitFor();
+  await page.locator('tr').filter({hasText:'Titre français personnalisé'}).getByRole('button',{name:'Edit'}).click();
+  await page.getByRole('tab',{name:'English'}).click();
+  await page.getByRole('button',{name:'Insert suggested translation'}).click();
+  assert((await page.locator('#article-title').inputValue()).includes('Starting a company in Tunisia'));
+  await page.getByRole('button',{name:'Save and publish'}).click();
+  await page.waitForFunction(()=>location.hash === '#/admin');
+  assert.deepEqual(saved.translations.fr,fr);
+  assert(saved.translations.en.title.includes('Starting a company in Tunisia'));
+  await page.getByRole('button',{name:'Open menu'}).click();
+  await page.getByRole('button',{name:'Requests Consultation requests'}).click();
+  assert.equal(await page.getByRole('heading',{name:'Consultation requests'}).count(),1);
+  await page.getByRole('button',{name:'Open menu'}).click();
+  await page.getByRole('button',{name:'Security Account and settings'}).click();
+  await page.getByRole('heading',{name:'Security and settings'}).waitFor();
+  assert.deepEqual(errors,[]);
+  console.log('PASS admin English selection, pages and non-destructive suggested article translation');
+} finally { await browser.close(); }

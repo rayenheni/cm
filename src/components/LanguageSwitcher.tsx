@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 import { useLang, useT } from "@/i18n";
 
-export function LanguageSwitcher({ dark = false, className }: { dark?: boolean; className?: string }) {
+export function LanguageSwitcher({ dark = false, className, includeArabic = true }: { dark?: boolean; className?: string; includeArabic?: boolean }) {
   const { lang, setLang } = useLang();
   const t = useT();
   return (
@@ -32,6 +32,17 @@ export function LanguageSwitcher({ dark = false, className }: { dark?: boolean; 
       </button>
       <button
         type="button"
+        onClick={() => setLang("en")}
+        aria-pressed={lang === "en"}
+        aria-label="English"
+        title="English"
+        className={cn(
+          "cursor-pointer rounded-md px-3 py-1.5 transition-all duration-200",
+          lang === "en" ? "bg-wine-600 text-cream-50 shadow-tile" : dark ? "text-cream-200/70 hover:text-cream-50" : "text-ink-600 hover:text-wine-700"
+        )}
+      >EN</button>
+      {includeArabic && <button
+        type="button"
         onClick={() => setLang("ar")}
         aria-pressed={lang === "ar"}
         title={t.lang.switchToAr}
@@ -45,7 +56,7 @@ export function LanguageSwitcher({ dark = false, className }: { dark?: boolean; 
         )}
       >
         عربي
-      </button>
+      </button>}
     </div>
   );
 }
