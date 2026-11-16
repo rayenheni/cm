@@ -155,6 +155,20 @@ export function createNetlifyApp(db: DB, cfg: Settings, storageFetch: typeof fet
   });
   app.get('/api/articles', async (req,res) => { const lang=z.enum(['fr','ar','en']).parse(req.query.lang ?? 'fr'); res.json({articles:(await articles(db,true)).filter(a=>a.translations[lang]).map(a=>localized(a,lang))}); });
   app.get('/api/articles/:id', async (req,res) => { const lang=z.enum(['fr','ar','en']).parse(req.query.lang ?? 'fr'); const a=(await articles(db,true)).find(v=>v.id===req.params.id && v.translations[lang]); if (!a) return bad(404,'NOT_FOUND','Article not found.'); res.json({article:localized(a,lang)}); });
+  app.post('/api/analytics/article',rate('analytics',120),async(req,res)=>{
+    const input=z.strictObject({articleId:z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).max(120),visitor:z.string().regex(/^[a-f0-9]{64}$/)}).parse(req.body);
+    await db.query("DELETE FROM cmcb_private.article_visitors WHERE last_seen < now() - interval '30 days'");
+    await db.query("INSERT INTO cmcb_private.article_visitors(article_id,visitor_hash,last_seen) SELECT id,$1,now() FROM cmcb_private.articles WHERE id=$2 AND status='published' ON CONFLICT(article_id,visitor_hash) DO UPDATE SET last_seen=excluded.last_seen",[digest(input.articleId + ":" + input.visitor),input.articleId]);
+    res.status(204).end();
+  });
+  app.get('/api/admin/dashboard',requireAuth,async(_req,res)=>{
+    await db.query("DELETE FROM cmcb_private.article_visitors WHERE last_seen < now() - interval '30 days'");
+    const reservations={new:0,contacted:0,closed:0};
+    for(const row of await rows<{status:keyof typeof reservations;n:number}>(db,'SELECT status,count(*)::integer AS n FROM cmcb_private.reservations GROUP BY status')) reservations[row.status]=row.n;
+    const all=await articles(db,false);
+    const counts=new Map((await rows<{article_id:string;n:number}>(db,"SELECT article_id,count(*)::integer AS n FROM cmcb_private.article_visitors WHERE last_seen >= now() - interval '30 days' GROUP BY article_id")).map(row=>[row.article_id,row.n]));
+    res.json({reservations,published:all.filter(a=>a.status==='published').length,drafts:all.filter(a=>a.status==='draft').length,articles:all.filter(a=>a.status==='published').map(a=>({id:a.id,title:a.translations.fr.title,englishTitle:a.translations.en?.title ?? a.translations.fr.title,visitors:counts.get(a.id) ?? 0})).sort((a,b)=>b.visitors-a.visitors || a.title.localeCompare(b.title))});
+  });
   app.get('/api/auth/session', async (req,res) => { const s=await session(req,db); res.json({authenticated:!!s,user:s?{id:Number(s.admin_id),email:s.email}:null,csrfToken:s?.csrf_token ?? null}); });
   app.post('/api/auth/login', rate('login-ip',10), async (req,res) => {
     const {email,password}=credentialsSchema.parse(req.body); await throttle(db,`login-account:${email}`,10);

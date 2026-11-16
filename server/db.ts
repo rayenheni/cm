@@ -20,6 +20,8 @@ export function openDatabase(filename: string): DatabaseSync {
     CREATE INDEX IF NOT EXISTS reservations_status ON reservations(status);
     CREATE TABLE IF NOT EXISTS outbox (reservation_id TEXT PRIMARY KEY REFERENCES reservations(id) ON DELETE CASCADE, status TEXT NOT NULL CHECK(status IN ('disabled','pending','sending','sent','failed')), attempts INTEGER NOT NULL DEFAULT 0, next_attempt_at INTEGER NOT NULL DEFAULT 0, last_error TEXT, sent_at TEXT);
     CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, hits INTEGER NOT NULL, reset_at INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS article_visitors (article_id TEXT NOT NULL REFERENCES articles(id) ON DELETE CASCADE, visitor_hash TEXT NOT NULL, last_seen INTEGER NOT NULL, PRIMARY KEY(article_id,visitor_hash));
+    CREATE INDEX IF NOT EXISTS article_visitors_last_seen ON article_visitors(last_seen);
   `);
   if (!db.prepare("SELECT value FROM meta WHERE key='articles_seeded'").get()) {
     db.exec('BEGIN IMMEDIATE');

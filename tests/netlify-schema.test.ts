@@ -15,7 +15,7 @@ test('Netlify schema is private, enforces relationships, and refuses reinstallat
     );
     assert.deepEqual(access.rows, [{ anon_access: false, authenticated_access: false }]);
     const tables = await db.query<{ n: number }>("SELECT count(*)::integer AS n FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='cmcb_private' AND c.relkind='r' AND c.relrowsecurity");
-    assert.equal(tables.rows[0].n, 8);
+    assert.equal(tables.rows[0].n, 9);
     await db.exec("INSERT INTO cmcb_private.admins(email,password_hash) VALUES ('admin@example.invalid','test-hash');");
     await assert.rejects(db.exec("SET ROLE anon; SELECT * FROM cmcb_private.admins;"));
     await db.exec('RESET ROLE');

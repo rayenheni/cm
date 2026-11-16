@@ -1,6 +1,7 @@
 import { useAdminText } from './useAdminText';
 import { useState } from "react";
 import { logout } from "./AdminAuth";
+import { Dashboard } from './Dashboard';
 import { ArticlesManager } from "./ArticlesManager";
 import { ReservationsManager } from "./ReservationsManager";
 import { SettingsManager } from "./SettingsManager";
@@ -10,16 +11,17 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn } from "@/utils/cn";
 import { confirmNavigation, navigate, useRoute } from "@/router";
 
-type Tab = "articles" | "reservations" | "settings";
+type Tab = "dashboard" | "articles" | "reservations" | "settings";
 export function AdminShell() {
   const a = useAdminText();
   const NAV_ITEMS = [
+    { id: "dashboard" as const, label: a("Tableau de bord", "Dashboard"), description: a("Statistiques du cabinet", "Firm statistics"), Icon: FileText },
     { id: "articles" as const, label: "Articles", description: "Publications FR / AR / EN", Icon: FileText },
     { id: "reservations" as const, label: a("Réservations", "Requests"), description: a("Demandes de consultation", "Consultation requests"), Icon: Calendar },
     { id: "settings" as const, label: a("Sécurité", "Security"), description: a("Compte et configuration", "Account and settings"), Icon: Lock },
   ];
   const route = useRoute();
-  const activeTab: Tab = route.path === '/admin/reservations' ? 'reservations' : route.path === '/admin/settings' ? 'settings' : 'articles';
+  const activeTab: Tab = route.path === '/admin/dashboard' ? 'dashboard' : route.path === '/admin/reservations' ? 'reservations' : route.path === '/admin/settings' ? 'settings' : 'articles';
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [logoutError, setLogoutError] = useState("");
   const current = NAV_ITEMS.find((item) => item.id === activeTab)!;
@@ -88,6 +90,7 @@ export function AdminShell() {
         {logoutError && <p role="alert" className="border-b border-danger/20 bg-red-50 px-6 py-3 text-sm text-danger">{logoutError}</p>}
         <main className="flex-1 overflow-auto p-5 sm:p-8">
           <div className="mx-auto max-w-7xl">
+            {activeTab === "dashboard" && <Dashboard />}
             {activeTab === "articles" && <ArticlesManager />}
             {activeTab === "reservations" && <ReservationsManager />}
             {activeTab === "settings" && <SettingsManager />}

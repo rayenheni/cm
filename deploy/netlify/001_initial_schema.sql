@@ -39,6 +39,13 @@ CREATE TABLE cmcb_private.article_translations (
   body jsonb NOT NULL,
   PRIMARY KEY (article_id, lang)
 );
+CREATE TABLE cmcb_private.article_visitors (
+  article_id text NOT NULL REFERENCES cmcb_private.articles(id) ON DELETE CASCADE,
+  visitor_hash text NOT NULL CHECK (visitor_hash ~ '^[a-f0-9]{64}$'),
+  last_seen timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (article_id, visitor_hash)
+);
+CREATE INDEX article_visitors_last_seen ON cmcb_private.article_visitors(last_seen);
 CREATE TABLE cmcb_private.reservations (
   id uuid PRIMARY KEY,
   idempotency_key uuid NOT NULL UNIQUE,
@@ -81,6 +88,7 @@ ALTER TABLE cmcb_private.admins ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.articles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.article_translations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE cmcb_private.article_visitors ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.reservations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.outbox ENABLE ROW LEVEL SECURITY;
 ALTER TABLE cmcb_private.rate_limits ENABLE ROW LEVEL SECURITY;

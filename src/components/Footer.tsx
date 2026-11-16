@@ -1,3 +1,4 @@
+import { AnalyticsConsent } from './AnalyticsConsent';
 import { Link } from "@/router";
 import { useCabinet, useExpertises, useNavLinks, useT } from "@/i18n";
 import { LogoLockup } from "./Logo";
@@ -95,6 +96,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-5">
             <Link to="/mentions-legales" className="transition-colors hover:text-gold-400">{t.footer.legal}</Link>
             <Link to="/confidentialite" className="transition-colors hover:text-gold-400">{t.footer.privacy}</Link>
+            <AnalyticsConsent />
             <span className="hidden text-cream-200/40 sm:inline">{t.footer.secret}</span>
           </div>
         </div>
