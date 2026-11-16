@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useCabinet, useT } from "@/i18n";
+import { useCabinet, useLang, useT } from "@/i18n";
 import { Link } from "@/router";
 import { ArrowRight } from "./Icons";
 import heroPortrait from "@/assets/chaima-bhiri.webp";
@@ -31,6 +31,7 @@ function Phrase({
 
 export function Hero() {
   const t = useT();
+  const { lang } = useLang();
   const cabinet = useCabinet();
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState<number | null>(null);
@@ -162,15 +163,15 @@ export function Hero() {
               </div>
 
               <dl
-                className="rise-in mt-12 flex max-w-lg items-center gap-4 border-t border-sand-300/80 pt-7 sm:gap-9"
+                className={cn("rise-in mt-12 flex max-w-lg items-center border-t border-sand-300/80 pt-7", lang === "ar" ? "gap-2 sm:gap-5" : "gap-4 sm:gap-9")}
                 style={{ ["--rise-delay" as string]: "540ms" }}
               >
                 {t.hero.stats.map((s, i) => (
-                  <div key={s.label} className="flex min-w-0 items-center gap-4 sm:gap-9">
+                  <div key={s.label} className={cn("flex min-w-0 items-center", lang === "ar" ? "gap-2 sm:gap-5" : "gap-4 sm:gap-9")}>
                     {i > 0 && <span className="h-9 w-px shrink-0 bg-sand-400/70" aria-hidden="true" />}
                     <div className="min-w-0">
                       <dt className="font-serif text-2xl leading-none font-semibold text-wine-700 sm:text-4xl">
-                        <span dir="ltr" className="inline-block">{s.value}</span>
+                        <span dir="ltr" className="inline-block whitespace-nowrap">{s.value}</span>
                       </dt>
                       <dd className="mt-2 text-[9.5px] font-medium tracking-[0.1em] text-ink-400 uppercase sm:text-[10.5px] sm:tracking-[0.16em]">{s.label}</dd>
                     </div>

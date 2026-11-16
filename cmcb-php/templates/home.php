@@ -19,8 +19,8 @@
 </div>
 <p class="rise-in mt-8 max-w-lg text-[16px] leading-relaxed text-ink-600" style="--rise-delay:300ms"><strong class="font-medium text-wine-700"><?= e($cabinet['specialty']) ?>.</strong> <?= e($c->t('hero.introSuffix')) ?></p>
 <div class="rise-in mt-9 flex flex-wrap items-center gap-4" style="--rise-delay:420ms"><a href="<?= e($c->url('/contact')) ?>" class="btn-wine"><?= e($c->t('hero.ctaPrimary')) ?> <?= icon('ArrowRight', 'h-4 w-4 rtl:rotate-180') ?></a><a href="<?= e($c->url('/cabinet')) ?>" class="btn-outline"><?= e($c->t('hero.ctaSecondary')) ?></a></div>
-<dl class="rise-in mt-12 flex max-w-lg items-center gap-4 border-t border-sand-300/80 pt-7 sm:gap-9" style="--rise-delay:540ms">
-<?php foreach ($c->t('hero.stats') as $i => $s): ?><div class="flex min-w-0 items-center gap-4 sm:gap-9"><?php if ($i > 0): ?><span class="h-9 w-px shrink-0 bg-sand-400/70" aria-hidden="true"></span><?php endif; ?><div class="min-w-0"><dt class="font-serif text-2xl leading-none font-semibold text-wine-700 sm:text-4xl"><span dir="ltr" class="inline-block"><?= e($s['value']) ?></span></dt><dd class="mt-2 text-[9.5px] font-medium tracking-[0.1em] text-ink-400 uppercase sm:text-[10.5px] sm:tracking-[0.16em]"><?= e($s['label']) ?></dd></div></div><?php endforeach; ?>
+<dl class="rise-in mt-12 flex max-w-lg items-center border-t border-sand-300/80 pt-7 <?= $c->lang === 'ar' ? 'gap-2 sm:gap-5' : 'gap-4 sm:gap-9' ?>" style="--rise-delay:540ms">
+<?php foreach ($c->t('hero.stats') as $i => $s): ?><div class="flex min-w-0 items-center <?= $c->lang === 'ar' ? 'gap-2 sm:gap-5' : 'gap-4 sm:gap-9' ?>"><?php if ($i > 0): ?><span class="h-9 w-px shrink-0 bg-sand-400/70" aria-hidden="true"></span><?php endif; ?><div class="min-w-0"><dt class="font-serif text-2xl leading-none font-semibold text-wine-700 sm:text-4xl"><span dir="ltr" class="inline-block whitespace-nowrap"><?= e($s['value']) ?></span></dt><dd class="mt-2 text-[9.5px] font-medium tracking-[0.1em] text-ink-400 uppercase sm:text-[10.5px] sm:tracking-[0.16em]"><?= e($s['label']) ?></dd></div></div><?php endforeach; ?>
 </dl>
 </div></div>
 </div></div>
