@@ -560,7 +560,7 @@ const ar: UIStrings = {
     ctaPrimary: "أخذ موعد",
     ctaSecondary: "اكتشف المكتب",
     stats: [
-      { value: "24 سا", label: "أجل الرد" },
+      { value: "24 ساعة", label: "أجل الرد" },
       { value: "05", label: "مجالات الممارسة" },
       { value: "100%", label: "السرية" },
     ],
