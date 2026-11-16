@@ -1,3 +1,4 @@
+import { useArticleAnalytics } from '@/components/AnalyticsConsent';
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
 import { useCabinet, useExpertises, useLang, useT } from "@/i18n";
@@ -20,6 +21,7 @@ export function ArticleDetailPage({ id }: { id: string }) {
   const index = articles.findIndex((a) => a.id === id);
   const article = articles[index];
   useDocumentTitle(article?.title ?? t.articleDetail.notFound);
+  useArticleAnalytics(article?.id);
 
   const [activeSection, setActiveSection] = useState(0);
   const [copied, setCopied] = useState(false);

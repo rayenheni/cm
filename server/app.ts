@@ -126,6 +126,24 @@ export function createApp({ config, db, mailer = null, disableRateLimits = false
     if (!article) throw new HttpError(404, 'NOT_FOUND', 'Article not found.');
     res.json({ article: localized(article, lang) });
   });
+  // Consent is collected in the browser before generating the random identifier.
+  // Only a hash is retained; no IP or personal details are stored in analytics.
+  app.post('/api/analytics/article', limit(15 * 60000, 120), (req, res) => {
+    const input = z.strictObject({articleId:z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).max(120), visitor:z.string().regex(/^[a-f0-9]{64}$/)}).parse(req.body);
+    const now = Date.now();
+    db.prepare('DELETE FROM article_visitors WHERE last_seen < ?').run(now - 30 * 86400000);
+    db.prepare("INSERT INTO article_visitors(article_id,visitor_hash,last_seen) SELECT id,?,? FROM articles WHERE id=? AND status='published' ON CONFLICT(article_id,visitor_hash) DO UPDATE SET last_seen=excluded.last_seen").run(digest(input.articleId + ":" + input.visitor), now, input.articleId);
+    res.status(204).end();
+  });
+  app.get('/api/admin/dashboard', requireAuth, (_req, res) => {
+    const since = Date.now() - 30 * 86400000;
+    db.prepare('DELETE FROM article_visitors WHERE last_seen < ?').run(since);
+    const reservations = {new:0, contacted:0, closed:0};
+    for (const row of db.prepare('SELECT status,COUNT(*) AS n FROM reservations GROUP BY status').all() as unknown as {status:keyof typeof reservations;n:number}[]) reservations[row.status] = row.n;
+    const articles = getArticles(db);
+    const counts = new Map((db.prepare('SELECT article_id,COUNT(*) AS n FROM article_visitors WHERE last_seen >= ? GROUP BY article_id').all(since) as unknown as {article_id:string;n:number}[]).map(row => [row.article_id,row.n]));
+    res.json({reservations, published:articles.filter(a=>a.status==='published').length, drafts:articles.filter(a=>a.status==='draft').length, articles:articles.filter(a=>a.status==='published').map(a=>({id:a.id,title:a.translations.fr.title,englishTitle:a.translations.en?.title ?? a.translations.fr.title,visitors:counts.get(a.id) ?? 0})).sort((a,b)=>b.visitors-a.visitors || a.title.localeCompare(b.title))});
+  });
   app.get('/api/auth/session', (req, res) => {
     const session = sessionOf(req, db, config.allowPreviewBearer);
     res.json({ authenticated: !!session, user: session ? { id: session.admin_id, email: session.email } : null, csrfToken: session?.csrf_token ?? null } satisfies AuthState);

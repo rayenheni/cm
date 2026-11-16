@@ -41,6 +41,25 @@ test('health and seeded bilingual articles are public; admin data is not', async
   assert.equal((await request(app).get('/api/admin/reservations')).status, 401);
   assert.equal((await request(app).get('/api/admin/articles')).status, 401);
 });
+test('dashboard is private and article visitors are deduplicated and expire', async () => {
+  const id = getArticles(db, true)[0].id;
+  const post = (visitor:string, articleId=id) => request(app).post('/api/analytics/article').set('Origin',origin).send({visitor,articleId});
+  assert.equal((await request(app).get('/api/admin/dashboard')).status,401);
+  assert.equal((await post('bad')).status,400);
+  assert.equal((await post('ab'.repeat(32))).status,204);
+  assert.equal((await post('ab'.repeat(32))).status,204);
+  assert.equal((await post('cd'.repeat(32))).status,204);
+  assert.equal((await post('ef'.repeat(32),'missing')).status,204);
+  assert.equal(db.prepare('SELECT count(*) n FROM article_visitors').get()?.n,2);
+  assert.notEqual(db.prepare('SELECT visitor_hash FROM article_visitors').get()?.visitor_hash,'ab'.repeat(32));
+  const response = await request(app).get('/api/admin/dashboard').set('Cookie',cookie);
+  assert.equal(response.status,200); assert.equal(response.body.published,4);
+  assert.equal(response.body.articles.find((a:{id:string})=>a.id===id).visitors,2);
+  db.prepare('UPDATE article_visitors SET last_seen=?').run(Date.now()-31*86400000);
+  const expired = await request(app).get('/api/admin/dashboard').set('Cookie',cookie);
+  assert.equal(expired.body.articles.find((a:{id:string})=>a.id===id).visitors,0);
+  assert.equal(db.prepare('SELECT count(*) n FROM article_visitors').get()?.n,0);
+});
 test('login uses an HTTP-only session and rejects bad credentials / origins / CSRF', async () => {
   const login = await request(app).post('/api/auth/login').set('Origin', origin).send({ email: 'admin@example.com', password });
   assert.match(login.headers['set-cookie'][0], /HttpOnly/); assert.match(login.headers['set-cookie'][0], /SameSite=Strict/);

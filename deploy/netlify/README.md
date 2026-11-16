@@ -94,3 +94,23 @@ L'utilisateur ne doit jamais transmettre ses secrets dans un message.
   articles initiaux. Vérifier cette proposition face au contenu actuel avant de
   l'enregistrer. Les articles ajoutés ou modifiés par le cabinet nécessitent une
   traduction adaptée, à saisir dans ce même onglet.
+
+### Tableau de bord et statistiques d'articles
+
+Pour une base existante, sauvegarder et tester sur une copie puis appliquer
+`003_article_analytics.sql` dans Supabase **avant** le déploiement. Ne pas
+relancer le schéma initial. Les nouvelles installations utilisent le schéma
+initial mis à jour. Aucune migration n'est exécutée automatiquement.
+
+Le tableau de bord est réservé aux administrateurs. Il compte les demandes
+encore enregistrées par statut et les articles par statut. Les visiteurs par
+article sont des estimations sur les 30 derniers jours à partir de l'activation,
+uniquement après consentement : un identifiant aléatoire local est renouvelé à la
+première visite après 30 jours (et reste localement sans nouvelle visite), et seule une empreinte distincte par article et sa
+heure de dernière visite sont conservées. Il n'y a pas d'historique antérieur.
+Le retrait de consentement arrête le suivi et supprime l'identifiant local ;
+les anciennes empreintes restent jusqu'au nettoyage, effectué sur activité
+(nouvelle visite comptabilisée ou consultation du tableau de bord). Les vues
+ne sont pas une mesure exacte des personnes et peuvent être manipulées. Faire
+valider le traitement, la durée de conservation et la politique de
+confidentialité par une personne compétente avant utilisation réelle.

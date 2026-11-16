@@ -483,7 +483,7 @@ const fr = {
     ] as { title: string; body: string[] }[],
     privacy: [
       { title: "Données enregistrées", body: [
-        "Le cabinet enregistre dans sa base de données les demandes de consultation : nom, e-mail, téléphone facultatif, domaine, urgence, message, langue et date de consentement. Aucun cookie publicitaire ni outil de suivi analytique n'est utilisé.",
+        "Le cabinet enregistre dans sa base de données les demandes de consultation : nom, e-mail, téléphone facultatif, domaine, urgence, message, langue et date de consentement. Aucun cookie publicitaire n'est utilisé.",
         "La langue choisie est mémorisée dans le stockage local du navigateur. L'espace admin utilise un cookie de session strictement nécessaire, sécurisé et expirant après huit heures.",
       ] },
       { title: "Formulaire et notifications", body: [
@@ -925,7 +925,7 @@ const ar: UIStrings = {
     ] as { title: string; body: string[] }[],
     privacy: [
       { title: "المعطيات المسجّلة", body: [
-        "يسجّل المكتب في قاعدة بياناته طلبات الاستشارة: الاسم والبريد الإلكتروني والهاتف الاختياري والمجال والاستعجال والرسالة واللغة وتاريخ الموافقة. لا تُستعمل ملفات تتبع إعلانية ولا أدوات تحليل الزيارات.",
+        "يسجّل المكتب في قاعدة بياناته طلبات الاستشارة: الاسم والبريد الإلكتروني والهاتف الاختياري والمجال والاستعجال والرسالة واللغة وتاريخ الموافقة. لا تُستعمل ملفات تتبع إعلانية.",
         "تُحفظ اللغة المختارة في التخزين المحلي للمتصفح. وتستعمل لوحة الإدارة ملف ارتباط ضرورياً للجلسة، آمناً تنتهي صلاحيته بعد ثماني ساعات.",
       ] },
       { title: "الاستمارة والإشعارات", body: [
