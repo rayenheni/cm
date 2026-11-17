@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 import { useCabinet, useLang, useT } from "@/i18n";
 import { Link } from "@/router";
 import { ArrowRight } from "./Icons";
-import heroPortrait from "@/assets/chaima-bhiri.webp";
+import heroPortrait from "@/assets/portrait-accueil.webp";
 
 const DURATION = 6000;
 
@@ -93,18 +93,13 @@ export function Hero() {
               <img
                 src={heroPortrait}
                 alt={t.hero.portraitAlt}
-                width={2240}
-                height={1120}
+                width={1199}
+                height={1312}
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-[84%_50%] sm:object-[100%_50%] lg:object-[78%_50%] 2xl:object-[84%_50%]"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_40%]"
               />
               <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-gold-400/60 to-transparent lg:block rtl:right-0 rtl:left-auto" aria-hidden="true" />
             </div>
-
-            {/* Étiquette verticale à la jointure (non recadrée) */}
-            <span className="absolute top-1/2 left-0 hidden -translate-x-1/2 -translate-y-1/2 rotate-180 text-[10px] font-medium tracking-[0.34em] text-ink-400 uppercase [writing-mode:vertical-rl] lg:block rtl:right-0 rtl:left-auto rtl:translate-x-1/2">
-              {t.hero.vertical}
-            </span>
 
           </div>
 

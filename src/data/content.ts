@@ -25,8 +25,8 @@ export const CABINET = {
     "https://www.openstreetmap.org/export/embed.html?bbox=10.5450%2C35.7050%2C10.6250%2C35.7550&layer=mapnik&marker=35.7292%2C10.5806",
   hours: "Lun – Ven : 9h00 – 17h30",
   hoursSat: "Samedi : 9h00 – 13h00 (sur rendez-vous)",
-  linkedin: "https://www.linkedin.com/in/chaima-bhiri",
-  facebook: "https://www.facebook.com/cmcbavocat",
+  linkedin: "https://www.linkedin.com/in/bhiri-chaima/",
+  facebook: "https://www.facebook.com/profile.php?id=61596343180357",
 };
 
 /* Photographies d'illustration (Pexels, licences libres).
