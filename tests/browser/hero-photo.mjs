@@ -16,11 +16,11 @@ try {
     const result=await portrait.evaluate(img=>{
       const photo=img.parentElement.parentElement;
       const rect=img.getBoundingClientRect();
-      return {lang:document.documentElement.lang,alt:img.alt,src:img.currentSrc,loaded:img.complete && img.naturalWidth === 1199 && img.naturalHeight === 1312,text:photo.textContent.trim(),width:rect.width,height:rect.height};
+      return {lang:document.documentElement.lang,alt:img.alt,src:img.currentSrc,loaded:img.complete && img.naturalWidth === 1536 && img.naturalHeight === 1664,text:photo.textContent.trim(),width:rect.width,height:rect.height};
     });
     assert.equal(result.lang,lang);
     assert.equal(result.text,'',`${lang} ${width}: unexpected text on photo`);
-    assert.ok(result.alt && result.src.includes('portrait-accueil') && result.loaded && result.width>0 && result.height>0,`${lang} ${width}: portrait is missing`);
+    assert.ok(result.alt && result.src.includes('portrait-accueil-v2') && result.loaded && result.width>0 && result.height>0,`${lang} ${width}: portrait is missing`);
   }
   console.log('PASS hero portrait visible without overlaid text in FR/AR/EN on mobile and desktop');
 } finally { await browser.close(); }

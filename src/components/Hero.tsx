@@ -3,7 +3,7 @@ import { cn } from "@/utils/cn";
 import { useCabinet, useLang, useT } from "@/i18n";
 import { Link } from "@/router";
 import { ArrowRight } from "./Icons";
-import heroPortrait from "@/assets/portrait-accueil.webp";
+import heroPortrait from "@/assets/portrait-accueil-v2.webp";
 
 const DURATION = 6000;
 
@@ -93,8 +93,8 @@ export function Hero() {
               <img
                 src={heroPortrait}
                 alt={t.hero.portraitAlt}
-                width={1199}
-                height={1312}
+                width={1536}
+                height={1664}
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover object-[50%_40%]"
               />
