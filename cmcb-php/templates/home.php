@@ -4,8 +4,7 @@
 <div class="pointer-events-none absolute inset-0" aria-hidden="true"><div class="absolute inset-0" style="background:linear-gradient(180deg, #faf6ec 0%, #f5eedf 100%)"></div><div class="absolute top-0 bottom-0 left-[8%] hidden w-px bg-wine-600/[0.06] lg:block rtl:right-[8%] rtl:left-auto"></div></div>
 <div class="relative grid lg:min-h-[664px] lg:grid-cols-[54%_46%]">
 <div class="relative h-[440px] w-full sm:h-[540px] lg:order-last lg:h-auto">
-<div class="absolute inset-0 overflow-hidden"><img src="/assets/chaima-bhiri.webp" alt="<?= e($c->t('hero.portraitAlt')) ?>" width="2240" height="1120" decoding="async" class="absolute inset-0 h-full w-full object-cover object-[84%_50%] sm:object-[100%_50%] lg:object-[78%_50%] 2xl:object-[84%_50%]"><div class="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-gold-400/60 to-transparent lg:block rtl:right-0 rtl:left-auto" aria-hidden="true"></div></div>
-<span class="absolute top-1/2 left-0 hidden -translate-x-1/2 -translate-y-1/2 rotate-180 text-[10px] font-medium tracking-[0.34em] text-ink-400 uppercase [writing-mode:vertical-rl] lg:block rtl:right-0 rtl:left-auto rtl:translate-x-1/2"><?= e($c->t('hero.vertical')) ?></span>
+<div class="absolute inset-0 overflow-hidden"><img src="/assets/portrait-accueil.webp" alt="<?= e($c->t('hero.portraitAlt')) ?>" width="1199" height="1312" decoding="async" class="absolute inset-0 h-full w-full object-cover object-[50%_40%]"><div class="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-gold-400/60 to-transparent lg:block rtl:right-0 rtl:left-auto" aria-hidden="true"></div></div>
 </div>
 <div class="relative z-10 min-w-0 px-5 py-14 sm:px-8 lg:py-24 lg:pr-14 lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] rtl:lg:pr-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] rtl:lg:pl-14">
 <div class="max-w-xl min-w-0">
