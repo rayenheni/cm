@@ -2,7 +2,7 @@ import { IMAGES } from "@/data/content";
 import { Link, useDocumentTitle } from "@/router";
 import { useAudiences, useCabinet, useLang, useT, useValues } from "@/i18n";
 import { Reveal } from "@/components/Reveal";
-import heroPortrait from "@/assets/chaima-bhiri.webp";
+import heroPortrait from "@/assets/portrait-cabinet.webp";
 import { CtaBand, MethodSection, PageHeader, SectionHeading } from "@/components/Blocks";
 import { ArrowRight, Check, Compass, Handshake, ICON_MAP, LinkedIn, MapPin, Quote, Shield } from "@/components/Icons";
 
@@ -37,9 +37,9 @@ export function CabinetPage() {
                 <img
                   src={heroPortrait}
                   alt={t.cabinet.portraitAlt}
-                  width={2240}
-                  height={1120}
-                  className="h-full w-full object-cover object-[82%_50%]"
+                  width={928}
+                  height={1152}
+                  className="h-full w-full object-cover object-center"
                   loading="lazy"
                   decoding="async"
                 />
