@@ -4,7 +4,7 @@
 <?php ob_start(); ?><div class="relative mx-auto max-w-[430px] lg:sticky lg:top-28">
 <div class="absolute -top-4 -left-4 h-28 w-28 border-t-2 border-l-2 border-gold-500/70 rtl:right-4 rtl:left-auto rtl:border-r-2 rtl:border-l-0" aria-hidden="true"></div>
 <div class="absolute -right-4 -bottom-4 h-28 w-28 border-r-2 border-b-2 border-gold-500/70 rtl:right-auto rtl:-left-4 rtl:border-l-2 rtl:border-r-0" aria-hidden="true"></div>
-<div class="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-sand-300 shadow-soft"><img src="/assets/chaima-bhiri.webp" alt="<?= e($c->t('cabinet.portraitAlt')) ?>" width="2240" height="1120" class="h-full w-full object-cover object-[82%_50%]" loading="lazy" decoding="async"><div class="pointer-events-none absolute inset-0 rounded-lg outline-1 outline-offset-[-12px] outline-cream-50/25" aria-hidden="true"></div></div>
+<div class="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-sand-300 shadow-soft"><img src="/assets/portrait-cabinet.webp" alt="<?= e($c->t('cabinet.portraitAlt')) ?>" width="928" height="1152" class="h-full w-full object-cover object-center" loading="lazy" decoding="async"><div class="pointer-events-none absolute inset-0 rounded-lg outline-1 outline-offset-[-12px] outline-cream-50/25" aria-hidden="true"></div></div>
 <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-cream-50/92 px-4 py-1.5 text-[11px] font-medium tracking-[0.16em] text-wine-700 uppercase backdrop-blur-sm rtl:right-5 rtl:left-auto"><?= icon('MapPin', 'h-3.5 w-3.5') ?> <?= e($c->t('cabinet.location')) ?></span>
 </div><?= reveal(ob_get_clean(), 0, 'lg:col-span-5') ?>
 <div class="lg:col-span-7">
